@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Inference Agents</title>
+  <meta name="description" content="Get in touch with Inference Agents. UK-based AI automation agency ready to transform your business.">
+  <meta property="og:title" content="Contact Us | Inference Agents">
+  <meta property="og:description" content="Ready to transform your business with AI? Get in touch today.">
+  <meta property="og:url" content="https://inference-agents.com/contact.html">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://inference-agents.com/contact.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-dark.css">
+  <style>
+    /* ── Contact Layout ─────────────────────────────────────── */
+    .contact-section { padding: 80px 0 100px; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+      animation: fadeInUp 0.5s ease both;
+    }
+
+    /* ── Contact Form ───────────────────────────────────────── */
+    .contact-form {
+      background: var(--bg-card);
+      padding: 44px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+    }
+    .contact-form h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 28px;
+      letter-spacing: -0.5px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 13px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--text-dim); }
+    .form-group select option { background: #12121f; color: var(--text); }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(99,102,241,0.07);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+    }
+    .form-group textarea { min-height: 140px; resize: vertical; }
+    .form-submit .btn {
+      width: 100%;
+      text-align: center;
+      padding: 15px;
+      font-size: 16px;
+      border-radius: 12px;
+    }
+
+    /* ── Contact Info ───────────────────────────────────────── */
+    .contact-info-card {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .info-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .info-block:hover {
+      border-color: var(--border-accent);
+      box-shadow: var(--glow-sm);
+    }
+    .info-block h2 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--primary-light);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 12px;
+    }
+    .contact-method {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .contact-method:last-child { border-bottom: none; padding-bottom: 0; }
+    .contact-method-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(99,102,241,0.1);
+      border: 1px solid rgba(99,102,241,0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .contact-method-text strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .contact-method-text span {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* Quick actions block */
+    .quick-actions { display: flex; flex-direction: column; gap: 10px; }
+    .quick-action-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .quick-action-btn:hover {
+      background: rgba(99,102,241,0.08);
+      border-color: var(--border-accent);
+      transform: translateX(4px);
+    }
+    .quick-action-btn .qa-icon {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .quick-action-btn .qa-arrow {
+      margin-left: auto;
+      color: var(--text-dim);
+      font-size: 16px;
+      transition: transform 0.2s;
+    }
+    .quick-action-btn:hover .qa-arrow { transform: translateX(4px); color: var(--primary-light); }
+
+    /* ── Success state ──────────────────────────────────────── */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .form-success .success-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    .form-success h3 { font-size: 22px; margin-bottom: 10px; }
+    .form-success p { color: var(--text-muted); }
+
+    /* ── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form { padding: 28px 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <a href="/" class="logo">
+          <img src="logo.svg" alt="Inference Agents">
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#agents">AI Agents</a></li>
+          <li><a href="index.html#pricing">Pricing</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="consultation.html" class="btn">Book Call</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-badge">
+        <div class="badge-dot"></div>
+        Get In Touch
+      </div>
+      <h1>Let's <span>Talk AI</span></h1>
+      <p>Ready to transform your business? Tell us what you need and we'll get back to you within one business day.</p>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- Form -->
+        <div class="contact-form">
+          <h2>Send a Message</h2>
+          <form id="contact-form" action="https://formspree.io/f/xpwzgvzl" method="POST">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" required placeholder="Your name">
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" required placeholder="you@company.com">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Company</label>
+              <input type="text" name="company" placeholder="Your company name">
+            </div>
+            <div class="form-group">
+              <label>What do you need help with?</label>
+              <select name="interest">
+                <option value="">Select an option</option>
+                <option value="sales">Sales AI</option>
+                <option value="marketing">Marketing &amp; Social Media AI</option>
+                <option value="support">Customer Support AI</option>
+                <option value="hr">HR &amp; Recruitment AI</option>
+                <option value="operations">Operations AI</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea name="message" placeholder="Tell us about your project..."></textarea>
+            </div>
+            <div class="form-submit">
+              <button type="submit" class="btn">Send Message →</button>
+            </div>
+          </form>
+          <div class="form-success" id="form-success">
+            <div class="success-icon">✅</div>
+            <h3>Message Sent!</h3>
+            <p>Thanks for reaching out. We'll be in touch within one business day.</p>
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="contact-info-card">
+          <div class="info-block">
+            <h2>Contact Details</h2>
+            <div class="contact-method">
+              <div class="contact-method-icon">📧</div>
+              <div class="contact-method-text">
+                <strong>Email</strong>
+                <span>hello@inference-agents.com</span>
+              </div>
+            </div>
+            <div class="contact-method">
+              <div class="contact-method-icon">💬</div>
+              <div class="contact-method-text">
+                <strong>Telegram</strong>
+                <span>@InferenceAgents</span>
+              </div>
+            </div>
+            <div class="contact-method">
+              <div class="contact-method-icon">📍</div>
+              <div class="contact-method-text">
+                <strong>Location</strong>
+                <span>London, United Kingdom</span>
+              </div>
+            </div>
+            <div class="contact-method">
+              <div class="contact-method-icon">🕐</div>
+              <div class="contact-method-text">
+                <strong>Hours</strong>
+                <span>Mon–Fri, 9am–6pm GMT</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-block">
+            <h2>Quick Actions</h2>
+            <div class="quick-actions">
+              <a href="consultation.html" class="quick-action-btn">
+                <div class="qa-icon">📞</div>
+                Book a Free Consultation
+                <span class="qa-arrow">→</span>
+              </a>
+              <a href="roi-calculator.html" class="quick-action-btn">
+                <div class="qa-icon">📊</div>
+                Calculate Your ROI
+                <span class="qa-arrow">→</span>
+              </a>
+              <a href="ai-quick-start-bundle.html" class="quick-action-btn">
+                <div class="qa-icon">🤖</div>
+                View All 38 AI Agents
+                <span class="qa-arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Prefer a <span>Quick Chat?</span></h2>
+      <p>Book a 15-minute consultation to discuss your needs</p>
+      <a href="consultation.html" class="btn btn-accent">Book Free Consultation</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo">
+            <img src="logo.svg" alt="Inference Agents">
+          </a>
+          <p>AI automation agency helping UK businesses deploy autonomous AI agents that work 24/7.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="sales-ai.html">Sales AI</a>
+          <a href="marketing-ai.html">Marketing AI</a>
+          <a href="hr-ai.html">HR AI</a>
+          <a href="operations-ai.html">Operations</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="compare.html">Compare</a>
+          <a href="roi-calculator.html">ROI Calculator</a>
+          <a href="affiliate.html">Partner Program</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="contact.html">Get in Touch</a>
+          <a href="consultation.html">Book Call</a>
+          <a href="mailto:hello@inference-agents.com">hello@inference-agents.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Inference Agents. All rights reserved. UK Business.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    const successMsg = document.getElementById('form-success');
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          successMsg.style.display = 'block';
+        } else {
+          btn.textContent = originalText;
+          btn.disabled = false;
+          alert('Something went wrong. Please try again.');
+        }
+      } catch {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        alert('Something went wrong. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Workforce Bundle | Inference Agents</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-dark.css">
+  <style>
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .feature-card { background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border); }
+    .feature-card:hover { border-color: var(--border-accent); box-shadow: var(--glow-sm); }
+    .feature-icon { font-size: 40px; margin-bottom: 15px; }
+    .feature-card h3 { margin-bottom: 10px; color: var(--accent); }
+    .feature-card p { color: var(--text-muted); }
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; text-align: center; }
+    .team-member { background: var(--bg-card); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
+    .team-emoji { font-size: 36px; }
+    .team-name { font-weight: bold; margin-top: 10px; }
+    .team-role { font-size: 12px; color: var(--text-muted); }
+    .stats { padding: 60px 0; background: linear-gradient(90deg, #06b6d4, #0891b2); text-align: center; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .stat h3 { font-size: 36px; color: #000; }
+    .stat p { color: rgba(0,0,0,0.7); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+    .price-card { background: var(--bg-card); padding: 40px; border-radius: 16px; text-align: center; border: 2px solid var(--border); }
+    .price-card:hover { border-color: var(--border-accent); box-shadow: var(--glow-sm); }
+    .price-card.featured { border-color: rgba(99,102,241,0.45); background: linear-gradient(160deg, rgba(99,102,241,0.09), rgba(16,185,129,0.04)); transform: scale(1.05); }
+    .price { font-size: 48px; font-weight: bold; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .price span { font-size: 16px; color: var(--text-muted); -webkit-text-fill-color: var(--text-muted); }
+    .price-features { list-style: none; margin: 30px 0; text-align: left; }
+    .price-features li { padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .price-features li::before { content: "✓"; color: var(--accent); margin-right: 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="/" class="logo">
+          <img src="logo.svg" alt="Inference Agents">
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#agents">AI Agents</a></li>
+          <li><a href="index.html#pricing">Pricing</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-badge"><div class="badge-dot"></div>Enterprise AI</div>
+      <h1>Complete <span>AI Workforce</span></h1>
+      <p>A team of AI agents that run your entire business. Sales, marketing, support, operations - all handled by autonomous AI.</p>
+      <div style="margin-top: 28px;">
+        <a href="#pricing" class="btn">View Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 style="text-align:center;margin-bottom:40px;">Your AI Team Includes</h2>
+      <div class="team-grid">
+        <div class="team-member"><div class="team-emoji">🎯</div><div class="team-name">Lead Gen AI</div><div class="team-role">Finds prospects</div></div>
+        <div class="team-member"><div class="team-emoji">💬</div><div class="team-name">Sales AI</div><div class="team-role">Closes deals</div></div>
+        <div class="team-member"><div class="team-emoji">📧</div><div class="team-name">Marketing AI</div><div class="team-role">Content & ads</div></div>
+        <div class="team-member"><div class="team-emoji">💁</div><div class="team-name">Support AI</div><div class="team-role">24/7 service</div></div>
+        <div class="team-member"><div class="team-emoji">📒</div><div class="team-name">Bookkeeping AI</div><div class="team-role">Invoices & taxes</div></div>
+        <div class="team-member"><div class="team-emoji">👔</div><div class="team-name">HR AI</div><div class="team-role">Recruitment & staff</div></div>
+        <div class="team-member"><div class="team-emoji">⚙️</div><div class="team-name">Operations AI</div><div class="team-role">Workflows</div></div>
+        <div class="team-member"><div class="team-emoji">📊</div><div class="team-name">Data Analyst AI</div><div class="team-role">Insights</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat"><h3>8</h3><p>AI Agents</p></div>
+        <div class="stat"><h3>24/7</h3><p>Operation</p></div>
+        <div class="stat"><h3>80%</h3><p>Cost Savings</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="container">
+      <h2 style="font-size: 36px; text-align: center; margin-bottom: 50px;">What Your AI Workforce Does</h2>
+      <div class="features-grid">
+        <div class="feature-card"><div class="feature-icon">🎯</div><h3>Automated Prospecting</h3><p>AI finds and researches ideal customers daily. No more cold calling or manual lead research.</p></div>
+        <div class="feature-card"><div class="feature-icon">🤖</div><h3>Smart Sales</h3><p>AI handles outreach, follow-ups, qualification, and scheduling. Closes meetings while you sleep.</p></div>
+        <div class="feature-card"><div class="feature-icon">📣</div><h3>Content Engine</h3><p>AI creates and publishes content across all platforms. Blogs, social, emails - automated.</p></div>
+        <div class="feature-card"><div class="feature-icon">💬</div><h3>Instant Support</h3><p>AI answers customer questions 24/7. Multilingual. Always helpful. Never burns out.</p></div>
+        <div class="feature-card"><div class="feature-icon">💰</div><h3>Financial Management</h3><p>AI sends invoices, chases payments, manages cash flow. Keeps your finances healthy.</p></div>
+        <div class="feature-card"><div class="feature-icon">📈</div><h3>Business Intelligence</h3><p>AI analyses data, spots trends, predicts issues. Dashboards that actually tell you what matters.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pricing">
+    <div class="container">
+      <h2 style="font-size: 36px; text-align: center; margin-bottom: 50px;">Choose Your Workforce</h2>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>Startup</h3>
+          <div class="price">£199<span>/mo</span></div>
+          <ul class="price-features">
+            <li>3 AI Agents</li>
+            <li>Lead Gen + Sales + Support</li>
+            <li>Basic workflows</li>
+            <li>Email support</li>
+          </ul>
+          <a href="mailto:davetheaiagent@gmail.com?subject=AI Workforce Startup" class="btn">Get Started</a>
+        </div>
+        <div class="price-card featured">
+          <div style="background:var(--primary);color:#fff;padding:5px;border-radius:4px;font-size:12px;margin-bottom:10px;">MOST POPULAR</div>
+          <h3>Growth</h3>
+          <div class="price">£399<span>/mo</span></div>
+          <ul class="price-features">
+            <li>5 AI Agents</li>
+            <li>+ Marketing + Bookkeeping</li>
+            <li>Advanced workflows</li>
+            <li>Priority support</li>
+            <li>Custom integrations</li>
+          </ul>
+          <a href="mailto:davetheaiagent@gmail.com?subject=AI Workforce Growth" class="btn">Get Started</a>
+        </div>
+        <div class="price-card">
+          <h3>Enterprise</h3>
+          <div class="price">£799<span>/mo</span></div>
+          <ul class="price-features">
+            <li>8 AI Agents</li>
+            <li>Full business coverage</li>
+            <li>Advanced AI reasoning</li>
+            <li>Dedicated manager</li>
+            <li>API access</li>
+            <li>Custom development</li>
+          </ul>
+          <a href="mailto:davetheaiagent@gmail.com?subject=AI Workforce Enterprise" class="btn">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Run Your Business on Autopilot</h2>
+      <p>Join 8 UK businesses with complete AI workforces</p>
+      <a href="mailto:davetheaiagent@gmail.com?subject=AI Workforce Demo" class="btn">Book a Demo</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
+          <p>AI automation agency helping UK businesses deploy autonomous AI agents that work 24/7.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="sales-ai.html">Sales AI</a>
+          <a href="marketing-ai.html">Marketing AI</a>
+          <a href="hr-ai.html">HR AI</a>
+          <a href="operations-ai.html">Operations</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="compare.html">Compare</a>
+          <a href="roi-calculator.html">ROI Calculator</a>
+          <a href="affiliate.html">Partner Program</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="contact.html">Get in Touch</a>
+          <a href="consultation.html">Book Call</a>
+          <a href="mailto:hello@inference-agents.com">hello@inference-agents.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 Inference Agents. All rights reserved. UK Business.</div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

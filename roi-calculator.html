@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROI Calculator | Inference Agents</title>
+  <meta name="description" content="Calculate your ROI from AI automation. See how much you can save.">
+  <link rel="canonical" href="https://inference-agents.com/roi-calculator.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-dark.css">
+  <style>
+    .calculator { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; max-width: 600px; margin: 0 auto; }
+    .calc-input { margin-bottom: 24px; }
+    .calc-input label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 13px; font-weight: 500; }
+    .calc-input input, .calc-input select {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      padding: 13px 16px;
+      font-family: 'Outfit', sans-serif;
+      width: 100%;
+      font-size: 16px;
+    }
+    .calc-input input:focus, .calc-input select:focus {
+      border-color: var(--primary);
+      background: rgba(99,102,241,0.07);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+      outline: none;
+    }
+    .result { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; text-align: center; margin-top: 30px; }
+    .result h3 { font-size: 18px; margin-bottom: 10px; color: var(--text-muted); }
+    .result .amount { font-size: 42px; font-weight: 800; color: var(--primary-light); }
+    .result .subtitle { font-size: 14px; color: var(--text-muted); margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
+        <ul class="nav-links">
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#agents">AI Agents</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-badge"><div class="badge-dot"></div>ROI Calculator</div>
+      <h1>ROI <span>Calculator</span></h1>
+      <p>Calculate how much you can save with AI automation</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="calculator reveal">
+        <div class="calc-input">
+          <label>How many employees do you have?</label>
+          <input type="number" id="employees" value="5" min="1">
+        </div>
+        <div class="calc-input">
+          <label>Average salary (£)</label>
+          <input type="number" id="salary" value="35000" min="10000">
+        </div>
+        <div class="calc-input">
+          <label>What functions do you need?</label>
+          <select id="function">
+            <option value="1">Sales</option>
+            <option value="1">Customer Support</option>
+            <option value="1">Marketing</option>
+            <option value="2">Sales + Support</option>
+            <option value="3">Sales + Support + Marketing</option>
+          </select>
+        </div>
+        <button class="btn" style="width: 100%;" onclick="calculateROI()">Calculate Savings</button>
+
+        <div class="result" id="result" style="display: none;">
+          <h3>Your Potential Annual Savings</h3>
+          <div class="amount" id="savings">£0</div>
+          <div class="subtitle">by using AI agents instead of hiring more staff</div>
+        </div>
+      </div>
+
+      <div class="card-grid" style="margin-top: 50px;">
+        <div class="card reveal">
+          <div class="card-icon">💰</div>
+          <h3>Typical Savings</h3>
+          <p>Businesses save £20,000-180,000 per year by automating with AI agents.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon">⚡</div>
+          <h3>Quick Setup</h3>
+          <p>Most agents are up and running within 24 hours of signup.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon">📈</div>
+          <h3>Proven Results</h3>
+          <p>Our clients see ROI within the first 30 days on average.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Start Saving Today</h2>
+      <p>Book a consultation to discuss your needs</p>
+      <a href="consultation.html" class="btn" style="padding: 16px 40px; font-size: 18px;">Book Free Call</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
+          <p>AI automation agency helping UK businesses deploy autonomous AI agents that work 24/7.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="sales-ai.html">Sales AI</a>
+          <a href="marketing-ai.html">Marketing AI</a>
+          <a href="hr-ai.html">HR AI</a>
+          <a href="operations-ai.html">Operations</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="compare.html">Compare</a>
+          <a href="roi-calculator.html">ROI Calculator</a>
+          <a href="affiliate.html">Partner Program</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="contact.html">Get in Touch</a>
+          <a href="consultation.html">Book Call</a>
+          <a href="mailto:hello@inference-agents.com">hello@inference-agents.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 Inference Agents. All rights reserved. UK Business.</div>
+    </div>
+  </footer>
+
+  <script>
+    function calculateROI() {
+      const employees = parseInt(document.getElementById('employees').value) || 0;
+      const salary = parseInt(document.getElementById('salary').value) || 0;
+      const functions = parseInt(document.getElementById('function').value) || 1;
+
+      const aiCost = 197 * 12 * functions;
+      const employeeCost = employees * salary;
+      const savings = employeeCost - aiCost;
+
+      document.getElementById('savings').textContent = '£' + savings.toLocaleString();
+      document.getElementById('result').style.display = 'block';
+    }
+  </script>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Quick Start | Inference Agents</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-dark.css">
+  <style>
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .feature-card { background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border); }
+    .feature-card:hover { border-color: var(--border-accent); box-shadow: var(--glow-sm); }
+    .feature-icon { font-size: 40px; margin-bottom: 15px; }
+    .feature-card h3 { margin-bottom: 10px; color: var(--accent); }
+    .feature-card p { color: var(--text-muted); }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+    .step-card { background: var(--bg-card); padding: 30px; border-radius: 16px; text-align: center; border: 2px solid var(--border-accent); }
+    .step-number { background: var(--primary); color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; margin: 0 auto 20px; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
+    .price-card { background: var(--bg-card); padding: 40px; border-radius: 16px; text-align: center; border: 2px solid var(--border); }
+    .price-card:hover { border-color: var(--border-accent); box-shadow: var(--glow-sm); }
+    .price-card.featured { border-color: rgba(99,102,241,0.45); background: linear-gradient(160deg, rgba(99,102,241,0.09), rgba(16,185,129,0.04)); transform: scale(1.05); }
+    .price { font-size: 48px; font-weight: bold; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .price span { font-size: 16px; color: var(--text-muted); -webkit-text-fill-color: var(--text-muted); }
+    .price-features { list-style: none; margin: 30px 0; text-align: left; }
+    .price-features li { padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .price-features li::before { content: "✓"; color: var(--accent); margin-right: 10px; }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
+    .tool-badge { background: var(--bg-card); padding: 20px; border-radius: 12px; text-align: center; border: 1px solid var(--border); }
+    .tool-name { font-weight: bold; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="/" class="logo">
+          <img src="logo.svg" alt="Inference Agents">
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#agents">AI Agents</a></li>
+          <li><a href="index.html#pricing">Pricing</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-badge"><div class="badge-dot"></div>Quick Start</div>
+      <h1>AI <span>Quick Start</span></h1>
+      <p>We'll build your custom AI agent in 48 hours. No coding needed. Just tell us what you need and we'll deploy it.</p>
+      <div style="margin-top: 28px;">
+        <a href="#pricing" class="btn">View Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 style="text-align:center;margin-bottom:40px;">Built With Industry-Leading Tools</h2>
+      <div class="tools-grid">
+        <div class="tool-badge"><div class="tool-icon">🤖</div><div class="tool-name">OpenClaw</div></div>
+        <div class="tool-badge"><div class="tool-icon">🎨</div><div class="tool-name">Lovable</div></div>
+        <div class="tool-badge"><div class="tool-icon">⚡</div><div class="tool-name">Make.com</div></div>
+        <div class="tool-badge"><div class="tool-icon">🔗</div><div class="tool-name">Zapier</div></div>
+        <div class="tool-badge"><div class="tool-icon">💬</div><div class="tool-name">Claude</div></div>
+        <div class="tool-badge"><div class="tool-icon">📦</div><div class="tool-name">n8n</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt" id="how-it-works">
+    <div class="container">
+      <h2 style="text-align:center;margin-bottom:40px;">How It Works</h2>
+      <div class="steps-grid">
+        <div class="step-card"><div class="step-number">1</div><h3>Tell Us</h3><p>Share what you need. What process do you want to automate? What should the AI do?</p></div>
+        <div class="step-card"><div class="step-number">2</div><h3>We Build</h3><p>Our team builds your custom AI agent using the best tools. Deployed in 48 hours.</p></div>
+        <div class="step-card"><div class="step-number">3</div><h3>You Launch</h3><p>Your AI goes live. We train you and your team. You start saving time immediately.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 style="font-size: 36px; text-align: center; margin-bottom: 50px;">What's Included</h2>
+      <div class="features-grid">
+        <div class="feature-card"><div class="feature-icon">🎯</div><h3>Custom AI Agent</h3><p>Built specifically for your business needs. Not a generic template.</p></div>
+        <div class="feature-card"><div class="feature-icon">🔌</div><h3>Tool Integrations</h3><p>Connects to your existing software. CRM, email, calendar, chat.</p></div>
+        <div class="feature-card"><div class="feature-icon">📚</div><h3>Training & Docs</h3><p>Complete documentation. Video tutorials. Your team learns fast.</p></div>
+        <div class="feature-card"><div class="feature-icon">🔄</div><h3>30 Days Support</h3><p>We don't just deliver and leave. Bug fixes. Tweaks. Improvements.</p></div>
+        <div class="feature-card"><div class="feature-icon">📊</div><h3>Analytics Dashboard</h3><p>See how your AI is performing. Track time saved, tasks completed.</p></div>
+        <div class="feature-card"><div class="feature-icon">🚀</div><h3>48-Hour Delivery</h3><p>Fast. Not fast for quality - fast, period. See results this week.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pricing">
+    <div class="container">
+      <h2 style="font-size: 36px; text-align: center; margin-bottom: 50px;">Simple Pricing</h2>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>Starter</h3>
+          <div class="price">£199<span>/one-time</span></div>
+          <ul class="price-features">
+            <li>1 custom AI agent</li>
+            <li>Basic integrations</li>
+            <li>48-hour delivery</li>
+            <li>30-day support</li>
+          </ul>
+          <a href="mailto:davetheaiagent@gmail.com?subject=AI Quick Start Starter" class="btn">Get Started</a>
+        </div>
+        <div class="price-card featured">
+          <div style="background:var(--primary);color:#fff;padding:5px;border-radius:4px;font-size:12px;margin-bottom:10px;">MOST POPULAR</div>
+          <h3>Growth</h3>
+          <div class="price">£399<span>/one-time</span></div>
+          <ul class="price-features">
+            <li>3 custom AI agents</li>
+            <li>Advanced integrations</li>
+            <li>48-hour delivery</li>
+            <li>60-day support</li>
+            <li>Training session</li>
+          </ul>
+          <a href="mailto:davetheaiagent@gmail.com?subject=AI Quick Start Growth" class="btn">Get Started</a>
+        </div>
+        <div class="price-card">
+          <h3>Enterprise</h3>
+          <div class="price">£799<span>/one-time</span></div>
+          <ul class="price-features">
+            <li>5 custom AI agents</li>
+            <li>Full automation suite</li>
+            <li>Priority delivery</li>
+            <li>90-day support</li>
+            <li>Dedicated manager</li>
+          </ul>
+          <a href="mailto:davetheaiagent@gmail.com?subject=AI Quick Start Enterprise" class="btn">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Launch This Week. See Results Fast.</h2>
+      <p>Join 15 UK businesses launched with AI Quick Start</p>
+      <a href="mailto:davetheaiagent@gmail.com?subject=AI Quick Start Demo" class="btn">Book a Call</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
+          <p>AI automation agency helping UK businesses deploy autonomous AI agents that work 24/7.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="sales-ai.html">Sales AI</a>
+          <a href="marketing-ai.html">Marketing AI</a>
+          <a href="hr-ai.html">HR AI</a>
+          <a href="operations-ai.html">Operations</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="compare.html">Compare</a>
+          <a href="roi-calculator.html">ROI Calculator</a>
+          <a href="affiliate.html">Partner Program</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="contact.html">Get in Touch</a>
+          <a href="consultation.html">Book Call</a>
+          <a href="mailto:hello@inference-agents.com">hello@inference-agents.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 Inference Agents. All rights reserved. UK Business.</div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

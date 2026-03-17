@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TikTok AI Agent | Inference Agents</title>
+  <meta name="description" content="AI agent that automates TikTok - generates viral videos, analyzes performance, and grows your following on autopilot.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-dark.css">
+  <style>
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+    .feature-card { background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border); transition: all 0.3s; }
+    .feature-card:hover { transform: translateY(-5px); border-color: var(--border-accent); box-shadow: var(--glow-sm); }
+    .feature-icon { font-size: 40px; margin-bottom: 15px; }
+    .feature-card h3 { font-size: 20px; margin-bottom: 10px; }
+    .feature-card p { color: var(--text-muted); font-size: 14px; }
+    .loop-diagram { display: flex; justify-content: center; align-items: center; gap: 20px; margin: 40px 0; flex-wrap: wrap; }
+    .loop-step { background: var(--bg-card); padding: 25px; border-radius: 16px; text-align: center; min-width: 150px; border: 1px solid var(--border); }
+    .loop-step .num { width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-weight: bold; }
+    .loop-arrow { font-size: 30px; color: var(--primary-light); }
+    .pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; max-width: 900px; margin: 0 auto; }
+    .pricing-card { background: var(--bg-card); padding: 35px; border-radius: 16px; text-align: center; border: 1px solid var(--border); transition: all 0.3s; }
+    .pricing-card:hover { border-color: var(--border-accent); box-shadow: var(--glow-sm); }
+    .pricing-card.featured { border-color: rgba(99,102,241,0.45); background: linear-gradient(160deg, rgba(99,102,241,0.09), rgba(16,185,129,0.04)); transform: scale(1.05); }
+    .pricing-card .name { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+    .pricing-card .price { font-size: 42px; font-weight: 800; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .pricing-card .price span { font-size: 16px; color: var(--text-muted); -webkit-text-fill-color: var(--text-muted); }
+    .pricing-card ul { list-style: none; margin: 25px 0; text-align: left; }
+    .pricing-card li { padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
+    .pricing-card li::before { content: "✓"; color: var(--accent); margin-right: 10px; }
+    .stats-row { display: flex; justify-content: center; gap: 50px; margin: 40px 0; flex-wrap: wrap; }
+    .stat-box { text-align: center; }
+    .stat-box .val { font-size: 36px; font-weight: bold; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-box .lbl { font-size: 14px; color: var(--text-muted); }
+    @media (max-width: 768px) { .pricing { grid-template-columns: 1fr; } .loop-diagram { flex-direction: column; } .loop-arrow { transform: rotate(90deg); } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="/" class="logo">
+          <img src="logo.svg" alt="Inference Agents">
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#agents">AI Agents</a></li>
+          <li><a href="index.html#pricing">Pricing</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-badge"><div class="badge-dot"></div>TikTok AI</div>
+      <h1>TikTok <span>AI Agent</span></h1>
+      <p>Build your own "Larry" - an AI agent that researches, creates, and posts TikToks on autopilot. The same viral system that generated 500K+ views in one week.</p>
+      <div style="margin-top: 28px;">
+        <a href="#pricing" class="btn">View Pricing</a>
+      </div>
+      <div class="stats-row">
+        <div class="stat-box"><div class="val">500K+</div><div class="lbl">Views/Week</div></div>
+        <div class="stat-box"><div class="val">24/7</div><div class="lbl">Autopilot</div></div>
+        <div class="stat-box"><div class="val">100x</div><div class="lbl">Content Scale</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>The Larry Loop Strategy</h2>
+        <p>The same iterative system that drove viral growth</p>
+      </div>
+      <div class="loop-diagram">
+        <div class="loop-step reveal"><div class="num">1</div><h4>Research</h4><p style="font-size:13px;color:var(--text-muted)">Analyze niches, trends, competitors</p></div>
+        <div class="loop-arrow">→</div>
+        <div class="loop-step reveal"><div class="num">2</div><h4>Create</h4><p style="font-size:13px;color:var(--text-muted)">Generate videos, slideshows</p></div>
+        <div class="loop-arrow">→</div>
+        <div class="loop-step reveal"><div class="num">3</div><h4>Draft</h4><p style="font-size:13px;color:var(--text-muted)">Save as draft for review</p></div>
+        <div class="loop-arrow">→</div>
+        <div class="loop-step reveal"><div class="num">4</div><h4>Analyze</h4><p style="font-size:13px;color:var(--text-muted)">Track views, engagement</p></div>
+        <div class="loop-arrow">↺</div>
+      </div>
+      <p style="text-align:center;color:var(--text-muted)">Continuous iteration → Viral content → Real subscribers</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>What It Does</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon">🔍</div>
+          <h3>Niche Research</h3>
+          <p>AI researches trending topics, hashtags, and competitor content to find viral opportunities.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🎬</div>
+          <h3>Video Generation</h3>
+          <p>Creates slideshows, voiceover videos, and trending format content automatically.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">📊</div>
+          <h3>Performance Analytics</h3>
+          <p>Tracks views, likes, shares. Identifies what works and what doesn't.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">🧠</div>
+          <h3>Self-Learning Loop</h3>
+          <p>Iterates based on data. Tests new formats, hooks, and styles until it goes viral.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">📱</div>
+          <h3>Draft Posting</h3>
+          <p>Saves videos as drafts for your review before publishing. No rogue content.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">💬</div>
+          <h3>WhatsApp Control</h3>
+          <p>Control everything via WhatsApp. Just message the agent like a colleague.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <h2>Pricing</h2>
+      </div>
+      <div class="pricing">
+        <div class="pricing-card reveal">
+          <div class="name">Starter</div>
+          <div class="price">£79<span>/mo</span></div>
+          <ul>
+            <li>1 TikTok account</li>
+            <li>50 videos/month</li>
+            <li>Basic analytics</li>
+            <li>Email support</li>
+          </ul>
+          <a href="consultation.html" class="btn">Get Started</a>
+        </div>
+        <div class="pricing-card featured reveal">
+          <div class="name">Growth</div>
+          <div class="price">£179<span>/mo</span></div>
+          <ul>
+            <li>3 accounts</li>
+            <li>Unlimited videos</li>
+            <li>Full Larry Loop</li>
+            <li>Self-learning optimization</li>
+            <li>Priority support</li>
+          </ul>
+          <a href="consultation.html" class="btn">Get Started</a>
+        </div>
+        <div class="pricing-card reveal">
+          <div class="name">Agency</div>
+          <div class="price">£399<span>/mo</span></div>
+          <ul>
+            <li>10 accounts</li>
+            <li>Custom video styles</li>
+            <li>A/B testing</li>
+            <li>Multi-platform (TikTok+IG)</li>
+            <li>Dedicated manager</li>
+          </ul>
+          <a href="consultation.html" class="btn">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
+          <p>AI automation agency helping UK businesses deploy autonomous AI agents that work 24/7.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="sales-ai.html">Sales AI</a>
+          <a href="marketing-ai.html">Marketing AI</a>
+          <a href="hr-ai.html">HR AI</a>
+          <a href="operations-ai.html">Operations</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="compare.html">Compare</a>
+          <a href="roi-calculator.html">ROI Calculator</a>
+          <a href="affiliate.html">Partner Program</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="contact.html">Get in Touch</a>
+          <a href="consultation.html">Book Call</a>
+          <a href="mailto:hello@inference-agents.com">hello@inference-agents.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 Inference Agents. All rights reserved. UK Business.</div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

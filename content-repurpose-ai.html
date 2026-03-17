@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Repurpose AI | Inference Agents</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-dark.css">
+  <style>
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .feature-card { background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border); }
+    .feature-card:hover { border-color: var(--border-accent); box-shadow: var(--glow-sm); }
+    .feature-icon { font-size: 40px; margin-bottom: 15px; }
+    .feature-card h3 { margin-bottom: 10px; color: var(--accent); }
+    .feature-card p { color: var(--text-muted); }
+    .stats { padding: 60px 0; background: linear-gradient(90deg, #f59e0b, #d97706); text-align: center; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .stat h3 { font-size: 36px; color: #000; }
+    .stat p { color: rgba(0,0,0,0.7); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 900px; margin: 0 auto; }
+    .price-card { background: var(--bg-card); padding: 40px; border-radius: 16px; text-align: center; border: 2px solid var(--border); }
+    .price-card:hover { border-color: var(--border-accent); box-shadow: var(--glow-sm); }
+    .price-card.featured { border-color: rgba(99,102,241,0.45); background: linear-gradient(160deg, rgba(99,102,241,0.09), rgba(16,185,129,0.04)); transform: scale(1.05); }
+    .price { font-size: 48px; font-weight: bold; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .price span { font-size: 16px; color: var(--text-muted); -webkit-text-fill-color: var(--text-muted); }
+    .price-features { list-style: none; margin: 30px 0; text-align: left; }
+    .price-features li { padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .price-features li::before { content: "✓"; color: var(--accent); margin-right: 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="/" class="logo">
+          <img src="logo.svg" alt="Inference Agents">
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#agents">AI Agents</a></li>
+          <li><a href="index.html#pricing">Pricing</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-badge"><div class="badge-dot"></div>Content AI</div>
+      <h1>Content Repurpose <span>AI</span></h1>
+      <p>Turn one piece of content into 20. Blogs to social posts, podcasts to clips, webinars to quotes.</p>
+      <div style="margin-top: 28px;">
+        <a href="#pricing" class="btn">View Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat"><h3>20x</h3><p>Content Output</p></div>
+        <div class="stat"><h3>10+</h3><p>Platforms</p></div>
+        <div class="stat"><h3>80%</h3><p>Time Saved</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="container">
+      <h2 style="font-size: 36px; text-align: center; margin-bottom: 50px;">What Content Repurpose AI Does</h2>
+      <div class="features-grid">
+        <div class="feature-card"><div class="feature-icon">📝</div><h3>Blog to Social</h3><p>Transforms long-form blogs into Twitter threads, LinkedIn posts, and Facebook updates instantly.</p></div>
+        <div class="feature-card"><div class="feature-icon">🎙️</div><h3>Podcast to Clips</h3><p>Turns hours of podcast audio into viral short clips with auto-captions and highlights.</p></div>
+        <div class="feature-card"><div class="feature-icon">🎥</div><h3>Video to Carousels</h3><p>Extracts key moments from videos to create Instagram carousel posts and LinkedIn slides.</p></div>
+        <div class="feature-card"><div class="feature-icon">✂️</div><h3>Auto Editing</h3><p>AI edits content to match your brand voice, adds emojis, hashtags, and CTAs automatically.</p></div>
+        <div class="feature-card"><div class="feature-icon">📧</div><h3>Email Newsletters</h3><p>Generates weekly newsletters from your blog posts and social content automatically.</p></div>
+        <div class="feature-card"><div class="feature-icon">📅</div><h3>Scheduled Publishing</h3><p>Posts directly to all your social accounts on autopilot. Queue content for the week.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pricing">
+    <div class="container">
+      <h2 style="font-size: 36px; text-align: center; margin-bottom: 50px;">Simple Pricing</h2>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>Starter</h3>
+          <div class="price">£49<span>/mo</span></div>
+          <ul class="price-features">
+            <li>10 pieces/mo</li>
+            <li>3 platforms</li>
+            <li>Basic templates</li>
+            <li>Manual posting</li>
+          </ul>
+          <a href="mailto:davetheaiagent@gmail.com?subject=Content Repurpose AI Starter" class="btn">Get Started</a>
+        </div>
+        <div class="price-card featured">
+          <div style="background:var(--primary);color:#fff;padding:5px;border-radius:4px;font-size:12px;margin-bottom:10px;">MOST POPULAR</div>
+          <h3>Professional</h3>
+          <div class="price">£99<span>/mo</span></div>
+          <ul class="price-features">
+            <li>50 pieces/mo</li>
+            <li>All platforms</li>
+            <li>Auto brand voice</li>
+            <li>Auto scheduling</li>
+            <li>Analytics</li>
+          </ul>
+          <a href="mailto:davetheaiagent@gmail.com?subject=Content Repurpose AI Professional" class="btn">Get Started</a>
+        </div>
+        <div class="price-card">
+          <h3>Agency</h3>
+          <div class="price">£199<span>/mo</span></div>
+          <ul class="price-features">
+            <li>Unlimited pieces</li>
+            <li>Multi-account</li>
+            <li>Custom workflows</li>
+            <li>API access</li>
+            <li>Dedicated support</li>
+          </ul>
+          <a href="mailto:davetheaiagent@gmail.com?subject=Content Repurpose AI Agency" class="btn">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>One Content, Infinite Posts</h2>
+      <p>Join 31 UK creators using AI content repurposing</p>
+      <a href="mailto:davetheaiagent@gmail.com?subject=Content Demo" class="btn">Book a Demo</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
+          <p>AI automation agency helping UK businesses deploy autonomous AI agents that work 24/7.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="sales-ai.html">Sales AI</a>
+          <a href="marketing-ai.html">Marketing AI</a>
+          <a href="hr-ai.html">HR AI</a>
+          <a href="operations-ai.html">Operations</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="compare.html">Compare</a>
+          <a href="roi-calculator.html">ROI Calculator</a>
+          <a href="affiliate.html">Partner Program</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="contact.html">Get in Touch</a>
+          <a href="consultation.html">Book Call</a>
+          <a href="mailto:hello@inference-agents.com">hello@inference-agents.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 Inference Agents. All rights reserved. UK Business.</div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

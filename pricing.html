@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing | Inference Agents</title>
+  <meta name="description" content="Simple, transparent pricing for AI agents. Choose the plan that fits your business needs.">
+  <meta property="og:title" content="Pricing | Inference Agents">
+  <meta property="og:description" content="Simple pricing for AI agents. Start from £97/month.">
+  <meta property="og:url" content="https://inference-agents.com/pricing.html">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://inference-agents.com/pricing.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-dark.css">
+  <style>
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .pricing-card.featured {
+      border-color: rgba(99,102,241,0.45);
+      background: linear-gradient(160deg, rgba(99,102,241,0.09), rgba(16,185,129,0.04));
+      transform: scale(1.03);
+    }
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-accent);
+    }
+    .pricing-card.featured:hover {
+      transform: scale(1.05) translateY(-6px);
+    }
+    .price { font-size: 48px; font-weight: 800; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .price span { font-size: 16px; color: var(--text-muted); -webkit-text-fill-color: var(--text-muted); }
+    .price-per { color: var(--text-muted); margin-top: 8px; font-size: 14px; }
+    .pricing-card ul { list-style: none; text-align: left; margin: 24px 0; }
+    .pricing-card li { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text-muted); }
+    .pricing-card li::before { content: "✓"; color: var(--accent); margin-right: 10px; font-weight: 600; }
+    .pricing-card .btn { width: 100%; margin-top: 10px; }
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .badge.silver { background: linear-gradient(135deg, #9ca3af, #6b7280); }
+    .faq { max-width: 800px; margin: 60px auto 0; }
+    .faq h2 { text-align: center; margin-bottom: 30px; }
+    .faq-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 16px; }
+    .faq-item h3 { font-size: 17px; margin-bottom: 10px; }
+    .faq-item p { color: var(--text-muted); font-size: 14px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
+        <ul class="nav-links">
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#agents">AI Agents</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-badge"><div class="badge-dot"></div>Simple Pricing</div>
+      <h1>Simple, Transparent <span>Pricing</span></h1>
+      <p>No hidden fees. No surprises. Just powerful AI agents that deliver results.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="pricing-grid">
+        <div class="pricing-card reveal">
+          <div class="badge">STARTER</div>
+          <div class="tier-name">Single Agent</div>
+          <div class="price">£99<span>/mo</span></div>
+          <div class="price-per">per agent</div>
+          <ul>
+            <li>1 AI Agent</li>
+            <li>Basic Support</li>
+            <li>Standard Speed</li>
+            <li>Email Reports</li>
+            <li>30-Day Trial</li>
+          </ul>
+          <a href="contact.html" class="btn btn-outline">Get Started</a>
+        </div>
+
+        <div class="pricing-card featured reveal">
+          <div class="badge">POPULAR</div>
+          <div class="tier-name">Quick Start Bundle</div>
+          <div class="price">£299<span>/mo</span></div>
+          <div class="price-per">5 agents</div>
+          <ul>
+            <li>5 AI Agents</li>
+            <li>Priority Support</li>
+            <li>Priority Speed</li>
+            <li>Analytics Dashboard</li>
+            <li>Setup Included</li>
+            <li>API Access</li>
+          </ul>
+          <a href="ai-quick-start-bundle.html" class="btn">Get Started</a>
+        </div>
+
+        <div class="pricing-card reveal">
+          <div class="badge silver">TEAM</div>
+          <div class="tier-name">Growth Bundle</div>
+          <div class="price">£499<span>/mo</span></div>
+          <div class="price-per">10 agents</div>
+          <ul>
+            <li>10 AI Agents</li>
+            <li>Priority Support</li>
+            <li>Analytics Dashboard</li>
+            <li>Custom Integrations</li>
+            <li>Dedicated Manager</li>
+            <li>Custom Training</li>
+          </ul>
+          <a href="contact.html" class="btn btn-outline">Contact Sales</a>
+        </div>
+
+        <div class="pricing-card reveal">
+          <div class="badge silver">ENTERPRISE</div>
+          <div class="tier-name">AI Workforce</div>
+          <div class="price">£799<span>/mo</span></div>
+          <div class="price-per">20+ agents</div>
+          <ul>
+            <li>20+ AI Agents</li>
+            <li>24/7 Phone Support</li>
+            <li>Custom Development</li>
+            <li>Advanced Analytics</li>
+            <li>Dedicated Account Manager</li>
+            <li>SLA Guarantee</li>
+          </ul>
+          <a href="ai-workforce.html" class="btn btn-outline">Contact Sales</a>
+        </div>
+      </div>
+
+      <div class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item reveal">
+          <h3>Can I cancel anytime?</h3>
+          <p>Yes, you can cancel your subscription at any time with no penalties. We'll pro-rate any unused time.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>Do you offer a free trial?</h3>
+          <p>Yes! All plans come with a 14-day free trial. No credit card required to start.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>What happens after the trial?</h3>
+          <p>If you don't continue, your agent will be paused. You can resume anytime or export your data.</p>
+        </div>
+        <div class="faq-item reveal">
+          <h3>Can I change plans later?</h3>
+          <p>Absolutely! Upgrade or downgrade your plan at any time. We'll pro-rate the difference.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Not Sure Which Plan?</h2>
+      <p>Book a free consultation and we'll help you choose.</p>
+      <a href="consultation.html" class="btn" style="padding: 16px 40px; font-size: 18px;">Book Free Call</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
+          <p>AI automation agency helping UK businesses deploy autonomous AI agents that work 24/7.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="sales-ai.html">Sales AI</a>
+          <a href="marketing-ai.html">Marketing AI</a>
+          <a href="hr-ai.html">HR AI</a>
+          <a href="operations-ai.html">Operations</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="compare.html">Compare</a>
+          <a href="roi-calculator.html">ROI Calculator</a>
+          <a href="affiliate.html">Partner Program</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="contact.html">Get in Touch</a>
+          <a href="consultation.html">Book Call</a>
+          <a href="mailto:hello@inference-agents.com">hello@inference-agents.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 Inference Agents. All rights reserved. UK Business.</div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

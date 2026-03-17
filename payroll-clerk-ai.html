@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payroll Clerk AI | Inference Agents</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-dark.css">
+  <style>
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .feature-card { background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border); transition: all 0.3s; }
+    .feature-card:hover { border-color: var(--border-accent); box-shadow: var(--glow-sm); }
+    .feature-icon { font-size: 40px; margin-bottom: 15px; }
+    .feature-card h3 { margin-bottom: 10px; }
+    .feature-card p { color: var(--text-muted); }
+    .stats { padding: 60px 0; background: linear-gradient(90deg, rgba(20,184,166,0.15), rgba(13,148,136,0.1)); text-align: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .stat h3 { font-size: 36px; font-weight: 800; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat p { color: var(--text-muted); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 900px; margin: 0 auto; }
+    .price-card { background: var(--bg-card); padding: 40px; border-radius: 16px; text-align: center; border: 1px solid var(--border); transition: all 0.3s; }
+    .price-card:hover { border-color: var(--border-accent); box-shadow: var(--glow-sm); }
+    .price-card.featured { border-color: rgba(99,102,241,0.45); background: linear-gradient(160deg, rgba(99,102,241,0.09), rgba(16,185,129,0.04)); transform: scale(1.05); }
+    .price { font-size: 48px; font-weight: bold; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .price span { font-size: 16px; color: var(--text-muted); -webkit-text-fill-color: var(--text-muted); }
+    .price-features { list-style: none; margin: 30px 0; text-align: left; }
+    .price-features li { padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .price-features li::before { content: "✓"; color: var(--accent); margin-right: 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="/" class="logo">
+          <img src="logo.svg" alt="Inference Agents">
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#agents">AI Agents</a></li>
+          <li><a href="index.html#pricing">Pricing</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-badge"><div class="badge-dot"></div>Payroll AI</div>
+      <h1>Payroll <span>Clerk AI</span></h1>
+      <p>Your AI payroll manager. Calculates salaries, tax deductions, and generates payslips. 100% accurate, always on time.</p>
+      <div style="margin-top: 28px;">
+        <a href="#pricing" class="btn">View Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat reveal"><h3>5min</h3><p>Payroll Time</p></div>
+        <div class="stat reveal"><h3>100%</h3><p>Accuracy</p></div>
+        <div class="stat reveal"><h3>£500</h3><p>Savings/Month</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header"><h2>What Payroll Clerk AI Does</h2></div>
+      <div class="features-grid">
+        <div class="feature-card reveal"><div class="feature-icon">🧮</div><h3>Salary Calculation</h3><p>AI calculates gross pay, deductions, taxes. Handles overtime, bonuses, commissions.</p></div>
+        <div class="feature-card reveal"><div class="feature-icon">📄</div><h3>Payslip Generation</h3><p>AI creates professional payslips. Auto-emails to employees. Records everything.</p></div>
+        <div class="feature-card reveal"><div class="feature-icon">🏦</div><h3>Bank Payments</h3><p>AI processes BACS payments. Schedules salary runs. Never miss pay day.</p></div>
+        <div class="feature-card reveal"><div class="feature-icon">📊</div><h3>Tax Compliance</h3><p>AI handles HMRC reporting. Auto-calculates PAYE, NI. Stays compliant.</p></div>
+        <div class="feature-card reveal"><div class="feature-icon">📈</div><h3>Pension Management</h3><p>AI auto-enrols staff, calculates contributions, submits to pension providers.</p></div>
+        <div class="feature-card reveal"><div class="feature-icon">📅</div><h3>Scheduled Runs</h3><p>AI schedules monthly/weekly payroll. Runs automatically. You just approve.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="pricing">
+    <div class="container">
+      <div class="section-header"><h2>Simple Pricing</h2></div>
+      <div class="pricing-grid">
+        <div class="price-card reveal">
+          <h3>Starter</h3>
+          <div class="price">£19<span>/mo</span></div>
+          <ul class="price-features">
+            <li>5 employees</li>
+            <li>Monthly payroll</li>
+            <li>Payslips</li>
+            <li>Email support</li>
+          </ul>
+          <a href="mailto:davetheaiagent@gmail.com?subject=Payroll Clerk AI Starter" class="btn">Get Started</a>
+        </div>
+        <div class="price-card featured reveal">
+          <div style="background: linear-gradient(135deg, var(--primary), var(--accent)); color:#fff; padding:5px; border-radius:4px; font-size:12px; margin-bottom:10px;">MOST POPULAR</div>
+          <h3>Professional</h3>
+          <div class="price">£29<span>/mo</span></div>
+          <ul class="price-features">
+            <li>20 employees</li>
+            <li>Weekly/monthly</li>
+            <li>Bank payments</li>
+            <li>Tax compliance</li>
+            <li>Priority support</li>
+          </ul>
+          <a href="mailto:davetheaiagent@gmail.com?subject=Payroll Clerk AI Professional" class="btn">Get Started</a>
+        </div>
+        <div class="price-card reveal">
+          <h3>Enterprise</h3>
+          <div class="price">£59<span>/mo</span></div>
+          <ul class="price-features">
+            <li>Unlimited employees</li>
+            <li>Multi-location</li>
+            <li>Pension management</li>
+            <li>API access</li>
+            <li>Dedicated support</li>
+          </ul>
+          <a href="mailto:davetheaiagent@gmail.com?subject=Payroll Clerk AI Enterprise" class="btn">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Pay Staff On Time, Every Time</h2>
+      <p>Join 45 UK businesses with AI payroll</p>
+      <a href="mailto:davetheaiagent@gmail.com?subject=Payroll Clerk AI Demo" class="btn">Book a Demo</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
+          <p>AI automation agency helping UK businesses deploy autonomous AI agents that work 24/7.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="sales-ai.html">Sales AI</a>
+          <a href="marketing-ai.html">Marketing AI</a>
+          <a href="hr-ai.html">HR AI</a>
+          <a href="operations-ai.html">Operations</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="compare.html">Compare</a>
+          <a href="roi-calculator.html">ROI Calculator</a>
+          <a href="affiliate.html">Partner Program</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="contact.html">Get in Touch</a>
+          <a href="consultation.html">Book Call</a>
+          <a href="mailto:hello@inference-agents.com">hello@inference-agents.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 Inference Agents. All rights reserved. UK Business.</div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

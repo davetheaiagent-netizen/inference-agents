@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Quick Start Bundle | Inference Agents</title>
+  <meta name="description" content="Everything you need to run your entire business with AI. The complete starter pack for one-person businesses.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-dark.css">
+  <style>
+    .tag { background: linear-gradient(135deg, #ffd700, #ff9500); color: #000; padding: 8px 20px; border-radius: 20px; font-weight: 700; font-size: 14px; display: inline-block; margin-bottom: 20px; }
+    .agents-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .agent-item { background: var(--bg-card); padding: 20px; border-radius: 12px; text-align: center; border: 1px solid var(--border); }
+    .agent-item:hover { border-color: var(--border-accent); box-shadow: var(--glow-sm); }
+    .agent-item .icon { font-size: 32px; margin-bottom: 10px; }
+    .agent-item h4 { font-size: 14px; margin-bottom: 5px; }
+    .agent-item .price { color: var(--accent); font-weight: 700; }
+    .pricing-box { background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(99,102,241,0.05)); border: 2px solid rgba(99,102,241,0.45); border-radius: 20px; padding: 40px; text-align: center; max-width: 500px; margin: 0 auto; }
+    .pricing-box .price { font-size: 64px; font-weight: 800; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .pricing-box .price span { font-size: 20px; color: var(--text-muted); -webkit-text-fill-color: var(--text-muted); }
+    .pricing-box .old-price { font-size: 24px; color: var(--text-muted); text-decoration: line-through; margin-right: 10px; }
+    .savings { background: var(--primary); color: #fff; padding: 10px 20px; border-radius: 20px; font-weight: 700; display: inline-block; margin: 20px 0; }
+    .features-list { text-align: left; margin: 30px 0; }
+    .features-list li { padding: 12px 0; border-bottom: 1px solid var(--border); list-style: none; }
+    .features-list li::before { content: "✓"; color: var(--accent); margin-right: 10px; }
+    .reason-card { margin-bottom: 20px; padding: 20px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border); }
+    .reason-card:hover { border-color: var(--border-accent); box-shadow: var(--glow-sm); }
+    .reason-card h4 { color: var(--primary); margin-bottom: 10px; }
+    .reason-card p { color: var(--text-muted); font-size: 14px; }
+    @media (max-width: 768px) { .agents-grid { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="/" class="logo">
+          <img src="logo.svg" alt="Inference Agents">
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#agents">AI Agents</a></li>
+          <li><a href="index.html#pricing">Pricing</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-badge"><div class="badge-dot"></div>Bundle Deal</div>
+      <h1>The Complete <span>AI Workforce</span><br>in One Package</h1>
+      <p>Everything you need to run your entire business with AI. 10 premium agents that work 24/7. No employees needed.</p>
+      <div style="margin-top: 28px;">
+        <a href="#pricing" class="btn">View Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: 40px;">What's Included (£600+ Value)</h2>
+      <div class="agents-grid">
+        <div class="agent-item"><div class="icon">💰</div><h4>Sales AI</h4><div class="price">£99/mo</div></div>
+        <div class="agent-item"><div class="icon">📣</div><h4>Marketing AI</h4><div class="price">£99/mo</div></div>
+        <div class="agent-item"><div class="icon">🎧</div><h4>Support AI</h4><div class="price">£99/mo</div></div>
+        <div class="agent-item"><div class="icon">📱</div><h4>Social Media AI</h4><div class="price">£79/mo</div></div>
+        <div class="agent-item"><div class="icon">✍️</div><h4>Copywriting AI</h4><div class="price">£39/mo</div></div>
+        <div class="agent-item"><div class="icon">📊</div><h4>Analytics AI</h4><div class="price">£59/mo</div></div>
+        <div class="agent-item"><div class="icon">🎯</div><h4>Lead Gen AI</h4><div class="price">£99/mo</div></div>
+        <div class="agent-item"><div class="icon">📧</div><h4>Email AI</h4><div class="price">£39/mo</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-alt" id="pricing">
+    <div class="container">
+      <div class="pricing-box">
+        <span class="tag">LIMITED TIME</span>
+        <div style="margin: 20px 0;"><span class="old-price">£612/mo</span></div>
+        <div class="price">£199<span>/mo</span></div>
+        <div class="savings">Save £413 every month!</div>
+        <ul class="features-list">
+          <li>10 Premium AI Agents</li>
+          <li>£600+ of monthly value</li>
+          <li>24/7 AI workforce</li>
+          <li>Setup included</li>
+          <li>Priority support</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <a href="consultation.html" class="btn" style="width: 100%; padding: 16px;">Get Started Now</a>
+        <p style="margin-top: 20px; font-size: 14px; color: var(--text-muted);">Perfect for solo founders, freelancers, and small teams</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="text-align: center; max-width: 700px;">
+      <h2>Why Solo Founders Choose This</h2>
+      <div style="margin-top: 30px; text-align: left;">
+        <div class="reason-card">
+          <h4>⏰ Save 80+ Hours Per Week</h4>
+          <p>AI handles tasks that would take a full team. You focus on strategy.</p>
+        </div>
+        <div class="reason-card">
+          <h4>💰 Pay £199 vs £10,000</h4>
+          <p>Hire an AI workforce for £199/month instead of employees.</p>
+        </div>
+        <div class="reason-card" style="margin-bottom: 0;">
+          <h4>🚀 Scale to £1M Revenue</h4>
+          <p>Use the same tools as 7-figure businesses. Be a one-person empire.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
+          <p>AI automation agency helping UK businesses deploy autonomous AI agents that work 24/7.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="sales-ai.html">Sales AI</a>
+          <a href="marketing-ai.html">Marketing AI</a>
+          <a href="hr-ai.html">HR AI</a>
+          <a href="operations-ai.html">Operations</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="compare.html">Compare</a>
+          <a href="roi-calculator.html">ROI Calculator</a>
+          <a href="affiliate.html">Partner Program</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="contact.html">Get in Touch</a>
+          <a href="consultation.html">Book Call</a>
+          <a href="mailto:hello@inference-agents.com">hello@inference-agents.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 Inference Agents. All rights reserved. UK Business.</div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
