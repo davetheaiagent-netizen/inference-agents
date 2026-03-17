@@ -757,7 +757,7 @@
       <div class="stat-card"><div class="stat-value" id="stat-leads">0</div><div class="stat-label">Leads</div></div>
       <div class="stat-card"><div class="stat-value" id="stat-clients">0</div><div class="stat-label">Clients</div></div>
       <div class="stat-card"><div class="stat-value" id="stat-mrr">£0</div><div class="stat-label">MRR</div></div>
-      <div class="stat-card"><div class="stat-value">7</div><div class="stat-label">Integrations</div></div>
+      <div class="stat-card"><div class="stat-value">9</div><div class="stat-label">Integrations</div></div>
     </div>
 
     <!-- Quick Actions -->
@@ -803,10 +803,8 @@
         </div>
         <div class="standup-col">
           <h3>🚧 Blockers</h3>
-          <div class="standup-item blocked">Apify: API connected but needs credits + workspace ID</div>
-          <div class="standup-item blocked">Gmail: email address set but App Password not configured</div>
+          <div class="standup-item blocked">Apify: needs credits + workspace ID to generate leads</div>
           <div class="standup-item blocked">Postiz: workspace ID not set — social scheduler not live</div>
-          <div class="standup-item blocked">GitHub: not connected</div>
           <div class="standup-item blocked">HubSpot: not connected — no CRM yet</div>
         </div>
       </div>
@@ -1031,17 +1029,18 @@
           </div>
         </div>
 
-        <div class="integration-card" style="border-color:rgba(245,158,11,0.2);">
+        <div class="integration-card">
           <div class="integration-header">
             <div class="integration-icon">📧</div>
             <div>
               <div class="integration-name">Gmail</div>
-              <span class="integration-status" style="background:rgba(245,158,11,0.2);color:var(--warning);">Needs Action</span>
+              <span class="integration-status connected">Connected</span>
             </div>
           </div>
-          <div class="integration-desc">davetheaiagent@gmail.com configured — Gmail App Password not set yet. Go to myaccount.google.com/apppasswords to complete setup.</div>
+          <div class="integration-desc">davetheaiagent@gmail.com · App Password set · Test send confirmed ✅ · Ready for cold outreach campaigns</div>
           <div class="integration-actions">
-            <a href="https://myaccount.google.com/apppasswords" target="_blank" class="btn btn-sm">Fix Now</a>
+            <a href="https://mail.google.com" target="_blank" class="btn btn-sm">Web Mail</a>
+            <button class="btn btn-sm btn-outline" onclick="sendTestEmail()">Test Send</button>
           </div>
         </div>
 
@@ -1078,12 +1077,12 @@
             <div class="integration-icon">🐙</div>
             <div>
               <div class="integration-name">GitHub</div>
-              <span class="integration-status disconnected">Not Connected</span>
+              <span class="integration-status connected">Connected</span>
             </div>
           </div>
-          <div class="integration-desc">Not yet set up — needed for code storage, version control and CI/CD automation</div>
+          <div class="integration-desc">Logged in as davetheaiagent-netizen · inference-agents repo live with all 50 pages tracked</div>
           <div class="integration-actions">
-            <button class="btn btn-sm" onclick="connectIntegration('GitHub')">Connect</button>
+            <a href="https://github.com/davetheaiagent-netizen/inference-agents" target="_blank" class="btn btn-sm">View Repo</a>
           </div>
         </div>
 
