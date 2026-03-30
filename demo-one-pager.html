@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Receptionist for Your Business — Inference Agents</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #f8f9fa;
+      color: #1a1a2e;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a1040 100%);
+      padding: 36px 48px 32px;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .header-left h1 {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .header-left h1 span {
+      color: #10b981;
+    }
+
+    .header-left p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      max-width: 340px;
+      line-height: 1.5;
+    }
+
+    .header-right {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: #10b981;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      margin-top: 2px;
+    }
+
+    /* ── BODY ── */
+    .body {
+      flex: 1;
+      padding: 36px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    /* ── SECTION TITLES ── */
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #10b981;
+      margin-bottom: 14px;
+    }
+
+    /* ── WHATSAPP MOCKUP ── */
+    .whatsapp-wrap {
+      grid-column: 1 / 2;
+    }
+
+    .phone-frame {
+      background: #e5ddd5;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #d0cbc4;
+    }
+
+    .phone-header {
+      background: #075e54;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .phone-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #25d366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .phone-name {
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .phone-status {
+      color: rgba(255,255,255,0.65);
+      font-size: 11px;
+    }
+
+    .phone-msgs {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .msg {
+      max-width: 85%;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      position: relative;
+    }
+
+    .msg-time {
+      font-size: 10px;
+      color: rgba(0,0,0,0.4);
+      text-align: right;
+      margin-top: 3px;
+    }
+
+    .msg.inbound {
+      background: #fff;
+      align-self: flex-start;
+      border-top-left-radius: 2px;
+      color: #1a1a1a;
+    }
+
+    .msg.outbound {
+      background: #dcf8c6;
+      align-self: flex-end;
+      border-top-right-radius: 2px;
+      color: #1a1a1a;
+    }
+
+    .msg-label {
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 3px;
+      opacity: 0.5;
+    }
+
+    /* ── RIGHT COLUMN ── */
+    .right-col {
+      grid-column: 2 / 3;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* ── STATS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .stat-card {
+      background: #f8fffe;
+      border: 1px solid #d1fae5;
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .stat-num {
+      font-size: 22px;
+      font-weight: 800;
+      color: #059669;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #6b7280;
+      line-height: 1.3;
+    }
+
+    /* ── BENEFITS ── */
+    .benefits {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .benefit {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.4;
+    }
+
+    .benefit-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #d1fae5;
+      color: #059669;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── PRICING ── */
+    .pricing-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .price-card {
+      flex: 1;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .price-card.featured {
+      border-color: #10b981;
+      background: #f0fdf9;
+    }
+
+    .price-name {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .price-card.featured .price-name {
+      color: #059669;
+    }
+
+    .price-amount {
+      font-size: 20px;
+      font-weight: 800;
+      color: #111827;
+      line-height: 1;
+    }
+
+    .price-period {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .price-desc {
+      font-size: 10px;
+      color: #6b7280;
+      margin-top: 6px;
+      line-height: 1.3;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .step-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #0a0a1a;
+      color: #10b981;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-text {
+      font-size: 12.5px;
+      color: #374151;
+      line-height: 1.4;
+      padding-top: 2px;
+    }
+
+    .step-text strong {
+      color: #111827;
+    }
+
+    /* ── FULL-WIDTH BOTTOM SECTIONS ── */
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    /* ── QUOTE BOX ── */
+    .quote-box {
+      background: #f8fffe;
+      border-left: 3px solid #10b981;
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .quote-text {
+      font-size: 13px;
+      color: #374151;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    .quote-attr {
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: 6px;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #0a0a1a;
+      padding: 18px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-left {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .footer-left strong {
+      color: #10b981;
+    }
+
+    .footer-cta {
+      background: #10b981;
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .footer-right {
+      text-align: right;
+    }
+
+    .footer-url {
+      font-size: 13px;
+      color: #10b981;
+      font-weight: 600;
+    }
+
+    .footer-contact {
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 2px;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body { background: #fff; }
+      .page { width: 100%; margin: 0; }
+    }
+
+    @media screen {
+      body { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Your AI Receptionist,<br>Live on <span>WhatsApp 24/7</span></h1>
+      <p>Never miss an enquiry again. Our AI handles your WhatsApp messages instantly — answering questions, taking booking requests, and escalating urgent matters to you.</p>
+    </div>
+    <div class="header-right">
+      <div class="logo-text">Inference Agents</div>
+      <div class="logo-sub">inference-agents.com</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- LEFT: WhatsApp mockup -->
+    <div class="whatsapp-wrap">
+      <div class="section-title">What your customers experience</div>
+      <div class="phone-frame">
+        <div class="phone-header">
+          <div class="phone-avatar">🏨</div>
+          <div>
+            <div class="phone-name">The Harbour Inn</div>
+            <div class="phone-status">online</div>
+          </div>
+        </div>
+        <div class="phone-msgs">
+
+          <div class="msg inbound">
+            <div class="msg-label">Customer</div>
+            Hi, do you have a table for 4 this Saturday at 7pm?
+            <div class="msg-time">22:14</div>
+          </div>
+
+          <div class="msg outbound">
+            <div class="msg-label">AI Receptionist</div>
+            Hi! Thanks for getting in touch with The Harbour Inn. Saturday evenings are popular — let me check availability for you. Could I take your name and a contact number to provisionally hold a table? A member of our team will confirm by 10am tomorrow.
+            <div class="msg-time">22:14 ✓✓</div>
+          </div>
+
+          <div class="msg inbound">
+            Sarah Thompson, 07700 900 123. Also — do you allow dogs?
+            <div class="msg-time">22:15</div>
+          </div>
+
+          <div class="msg outbound">
+            Lovely, Sarah! I've noted that down. And yes — we're dog-friendly in the bar area and on the terrace. Dogs aren't permitted in the main dining room. We'll confirm your Saturday table first thing tomorrow. Looking forward to welcoming you! 🐾
+            <div class="msg-time">22:15 ✓✓</div>
+          </div>
+
+          <div class="msg inbound">
+            Perfect, thank you so much!
+            <div class="msg-time">22:16</div>
+          </div>
+
+          <div class="msg outbound">
+            Our pleasure, Sarah. See you Saturday! 🌊
+            <div class="msg-time">22:16 ✓✓</div>
+          </div>
+
+        </div>
+      </div>
+      <p style="font-size: 10.5px; color: #9ca3af; margin-top: 10px; line-height: 1.5;">
+        The AI responds in seconds, in your tone, using your FAQs — even at midnight. You see every conversation and step in only when needed.
+      </p>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="right-col">
+
+      <!-- Stats -->
+      <div>
+        <div class="section-title">The problem it solves</div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-num">3–5</div>
+            <div class="stat-label">bookings lost per week to slow replies</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">67%</div>
+            <div class="stat-label">of customers message outside business hours</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">£800+</div>
+            <div class="stat-label">monthly cost of a part-time receptionist</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">&lt;5s</div>
+            <div class="stat-label">average AI response time, 24/7/365</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Benefits -->
+      <div>
+        <div class="section-title">What's included</div>
+        <div class="benefits">
+          <div class="benefit">
+            <div class="benefit-icon">✓</div>
+            <div><strong>WhatsApp AI receptionist</strong> — trained on your FAQs, tone, and business details</div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-icon">✓</div>
+            <div><strong>24/7 instant responses</strong> — no delays, no days off, no sick leave</div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-icon">✓</div>
+            <div><strong>Smart escalation</strong> — complex queries forwarded to your phone automatically</div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-icon">✓</div>
+            <div><strong>Full conversation log</strong> — see every message in your dashboard</div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-icon">✓</div>
+            <div><strong>Weekly report</strong> — enquiries handled, hours saved, escalations</div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-icon">✓</div>
+            <div><strong>No contract</strong> — cancel anytime, setup in under an hour</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pricing -->
+      <div>
+        <div class="section-title">Simple monthly pricing</div>
+        <div class="pricing-row">
+          <div class="price-card">
+            <div class="price-name">Starter</div>
+            <div class="price-amount">£99</div>
+            <div class="price-period">/month</div>
+            <div class="price-desc">WhatsApp AI + dashboard + weekly report</div>
+          </div>
+          <div class="price-card featured">
+            <div class="price-name">Growth ★</div>
+            <div class="price-amount">£199</div>
+            <div class="price-period">/month</div>
+            <div class="price-desc">WhatsApp + email AI + priority support</div>
+          </div>
+          <div class="price-card">
+            <div class="price-name">Full Stack</div>
+            <div class="price-amount">£399</div>
+            <div class="price-period">/month</div>
+            <div class="price-desc">All channels + custom integrations</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- HOW IT WORKS — full width -->
+    <div class="full-width">
+      <div class="section-title">How it works — up and running in 3 steps</div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>15-min onboarding call.</strong> We learn your business, your tone, your FAQs, and who to escalate to.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>We build and test your AI.</strong> Usually live within 24 hours. You review and approve before it goes live.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Your WhatsApp handles itself.</strong> You get a weekly digest. We handle any updates whenever you need them.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUOTE — full width -->
+    <div class="full-width">
+      <div class="quote-box">
+        <div class="quote-text">"We were missing enquiries every evening — people messaging at 9pm about weekend availability and hearing nothing until Monday. Since going live with the AI receptionist, we've not missed a single one. It paid for itself in the first week."</div>
+        <div class="quote-attr">— Sarah M., boutique hotel owner, Cornwall &nbsp;·&nbsp; Inference Agents customer</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <strong>Free 30-day trial</strong> — fully set up, no card required, no obligation.
+    </div>
+    <div class="footer-right">
+      <div class="footer-url">inference-agents.com</div>
+      <div class="footer-contact">hello@inference-agents.com</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Print button (screen only) -->
+<div style="text-align: center; margin: 24px auto; max-width: 210mm;">
+  <button onclick="window.print()" style="background: #10b981; color: #fff; border: none; padding: 12px 28px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;">
+    Save as PDF (Print → Save as PDF)
+  </button>
+  <p style="font-size: 12px; color: #9ca3af; margin-top: 8px;">Use Chrome or Safari · Set margins to None · Enable background graphics</p>
+</div>
+
+</body>
+</html>
