@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Demo — AI WhatsApp Booking | Inference Agents</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a14;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-logo { font-size: 16px; font-weight: 700; color: #10b981; }
+
+    .nav-cta {
+      background: #10b981;
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 56px 24px 40px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.25);
+      color: #10b981;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 span { color: #10b981; }
+
+    .hero p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.55);
+      max-width: 520px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    /* ── DEMO WRAPPER ── */
+    .demo-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 32px;
+      padding: 0 24px 64px;
+      flex-wrap: wrap;
+    }
+
+    /* ── PHONE ── */
+    .phone-outer {
+      width: 340px;
+      flex-shrink: 0;
+    }
+
+    .phone {
+      background: #1a1a2e;
+      border-radius: 40px;
+      padding: 12px;
+      border: 2px solid rgba(255,255,255,0.08);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    .phone-screen {
+      background: #e5ddd5;
+      border-radius: 30px;
+      overflow: hidden;
+      height: 600px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* WhatsApp header */
+    .wa-header {
+      background: #075e54;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .wa-back { color: rgba(255,255,255,0.7); font-size: 18px; }
+
+    .wa-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #25d366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .wa-info { flex: 1; }
+    .wa-name { color: #fff; font-size: 14px; font-weight: 600; }
+    .wa-status { color: rgba(255,255,255,0.6); font-size: 11px; }
+
+    .wa-icons { color: rgba(255,255,255,0.6); font-size: 16px; display: flex; gap: 14px; }
+
+    /* Messages area */
+    .wa-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      scroll-behavior: smooth;
+    }
+
+    .wa-messages::-webkit-scrollbar { width: 0; }
+
+    /* Date chip */
+    .date-chip {
+      text-align: center;
+      margin: 6px 0 10px;
+    }
+
+    .date-chip span {
+      background: rgba(0,0,0,0.15);
+      color: #555;
+      font-size: 10px;
+      padding: 3px 10px;
+      border-radius: 8px;
+    }
+
+    /* Message bubbles */
+    .msg {
+      max-width: 82%;
+      padding: 7px 10px 4px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.45;
+      position: relative;
+      word-break: break-word;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .msg.in {
+      background: #fff;
+      align-self: flex-start;
+      border-top-left-radius: 2px;
+      color: #111;
+      margin-left: 2px;
+    }
+
+    .msg.out {
+      background: #dcf8c6;
+      align-self: flex-end;
+      border-top-right-radius: 2px;
+      color: #111;
+      margin-right: 2px;
+    }
+
+    .msg-time {
+      font-size: 10px;
+      color: rgba(0,0,0,0.35);
+      text-align: right;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 3px;
+    }
+
+    .tick { color: #53bdeb; font-size: 11px; }
+
+    /* Typing indicator */
+    .typing-bubble {
+      background: #fff;
+      align-self: flex-start;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border-top-left-radius: 2px;
+      margin-left: 2px;
+      display: none;
+    }
+
+    .typing-bubble.show { display: flex; align-items: center; gap: 4px; }
+
+    .typing-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #aaa;
+      animation: bounce 1.2s infinite;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes bounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-5px); }
+    }
+
+    /* Input bar */
+    .wa-input-bar {
+      background: #f0f0f0;
+      padding: 7px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .wa-input {
+      flex: 1;
+      background: #fff;
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-size: 13px;
+      color: #aaa;
+      border: none;
+      outline: none;
+    }
+
+    .wa-send {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #075e54;
+      border: none;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── SIDE PANEL ── */
+    .side-panel {
+      max-width: 360px;
+      flex: 1;
+      min-width: 280px;
+      padding-top: 12px;
+    }
+
+    .panel-section {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .panel-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #10b981;
+      margin-bottom: 14px;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 13px;
+    }
+
+    .stat-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .stat-label { color: rgba(255,255,255,0.5); }
+    .stat-val { font-weight: 600; color: #fff; }
+    .stat-val.green { color: #10b981; }
+
+    .booking-card {
+      background: rgba(16,185,129,0.08);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 10px;
+      padding: 14px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .booking-card.show { opacity: 1; }
+
+    .booking-card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #10b981;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .booking-detail {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+    }
+
+    .booking-detail span:last-child { color: #fff; font-weight: 500; }
+
+    .cta-btn {
+      display: block;
+      width: 100%;
+      background: #10b981;
+      color: #fff;
+      text-align: center;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 4px;
+      transition: background 0.2s;
+    }
+
+    .cta-btn:hover { background: #059669; }
+
+    .restart-btn {
+      display: block;
+      width: 100%;
+      background: transparent;
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-top: 8px;
+      transition: all 0.2s;
+    }
+
+    .restart-btn:hover { color: #fff; border-color: rgba(255,255,255,0.2); }
+
+    /* ── BOTTOM STRIP ── */
+    .bottom-strip {
+      text-align: center;
+      padding: 32px 24px 48px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .bottom-strip h2 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .bottom-strip p {
+      color: rgba(255,255,255,0.5);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .bottom-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: #10b981;
+      color: #fff;
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      height: 2px;
+      background: rgba(255,255,255,0.05);
+      margin: 0 12px 8px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #10b981;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">Inference Agents</div>
+  <a href="https://inference-agents.com/pricing.html" class="nav-cta">Get Started →</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">
+    <span style="width:7px;height:7px;border-radius:50%;background:#10b981;display:inline-block;"></span>
+    Live Demo — No signup required
+  </div>
+  <h1>Watch the AI book a table<br><span>in real time</span></h1>
+  <p>This is exactly what your customers experience. The AI handles the whole conversation — no staff needed.</p>
+</div>
+
+<!-- DEMO -->
+<div class="demo-wrapper">
+
+  <!-- PHONE -->
+  <div class="phone-outer">
+    <div class="phone">
+      <div class="phone-screen">
+
+        <div class="wa-header">
+          <div class="wa-back">‹</div>
+          <div class="wa-avatar">🍽️</div>
+          <div class="wa-info">
+            <div class="wa-name">The Harbour Inn</div>
+            <div class="wa-status" id="wa-status">online</div>
+          </div>
+          <div class="wa-icons">
+            <span>📞</span>
+            <span>⋮</span>
+          </div>
+        </div>
+
+        <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+        <div class="wa-messages" id="messages">
+          <div class="date-chip"><span>Today</span></div>
+          <div class="typing-bubble" id="typing">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+          </div>
+        </div>
+
+        <div class="wa-input-bar">
+          <div class="wa-input" id="input-placeholder">Type a message</div>
+          <button class="wa-send">➤</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDE PANEL -->
+  <div class="side-panel">
+
+    <div class="panel-section">
+      <div class="panel-title">What's happening behind the scenes</div>
+      <div class="stat-row">
+        <span class="stat-label">Staff involved</span>
+        <span class="stat-val green">0</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Response time</span>
+        <span class="stat-val green">&lt; 3 seconds</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Powered by</span>
+        <span class="stat-val">Claude AI + OpenTable</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Available</span>
+        <span class="stat-val green">24/7 · 365 days</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Languages</span>
+        <span class="stat-val">Any</span>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-title">Booking confirmation</div>
+      <div class="booking-card" id="booking-card">
+        <div class="booking-card-title">✅ Booking Confirmed</div>
+        <div class="booking-detail"><span>Guest</span><span>Sarah Thompson</span></div>
+        <div class="booking-detail"><span>Date</span><span>Sat 5 Apr 2026</span></div>
+        <div class="booking-detail"><span>Time</span><span>7:00pm</span></div>
+        <div class="booking-detail"><span>Party</span><span>4 guests</span></div>
+        <div class="booking-detail"><span>Dietary</span><span>1x veg, nut allergy</span></div>
+        <div class="booking-detail"><span>Seating</span><span>Indoor</span></div>
+        <div class="booking-detail"><span>Via</span><span>OpenTable</span></div>
+      </div>
+    </div>
+
+    <a href="https://inference-agents.com/pricing.html" class="cta-btn">Get this for your restaurant →</a>
+    <button class="restart-btn" onclick="restartDemo()">↺ Watch again</button>
+
+  </div>
+</div>
+
+<!-- BOTTOM -->
+<div class="bottom-strip">
+  <h2>Ready to never miss a booking again?</h2>
+  <p>Set up in under an hour. Free 30-day trial. No contract.</p>
+  <div class="bottom-btns">
+    <a href="https://inference-agents.com/pricing.html" class="btn-primary">Start free trial →</a>
+    <a href="https://inference-agents.com/demo-one-pager.html" class="btn-secondary">Download one-pager</a>
+  </div>
+</div>
+
+<script>
+  // ── CONVERSATION SCRIPT ──
+  const conversation = [
+    { delay: 800,  type: 'in',  text: "Hi, do you have a table for 4 this Saturday evening around 7pm?" },
+    { delay: 2200, type: 'out', text: "Hi there! 👋 Thanks for getting in touch with The Harbour Inn. Saturday 5th April at 7pm — let me check availability for a party of 4 right now." },
+    { delay: 1800, type: 'out', text: "Great news — we have availability at 7:00pm and 7:30pm. Which would you prefer?" },
+    { delay: 2000, type: 'in',  text: "7pm please!" },
+    { delay: 2000, type: 'out', text: "Perfect! Could I take your name for the reservation?" },
+    { delay: 1800, type: 'in',  text: "Sarah Thompson" },
+    { delay: 2000, type: 'out', text: "Thanks Sarah! Do any of your guests have any dietary requirements or allergies we should know about?" },
+    { delay: 2200, type: 'in',  text: "Yes — one vegetarian and one guest has a nut allergy" },
+    { delay: 2000, type: 'out', text: "Noted — we'll make sure the kitchen is aware. 🌿 Do you have a seating preference? We have indoor dining or our terrace (weather permitting)." },
+    { delay: 1800, type: 'in',  text: "Indoor please" },
+    { delay: 2800, type: 'out', text: "Wonderful! Let me confirm that booking for you now... ⏳", special: 'confirming' },
+    { delay: 2500, type: 'out', text: "✅ Confirmed! Table for 4 at The Harbour Inn, Saturday 5th April at 7:00pm — indoor seating. We've noted 1 vegetarian and 1 nut allergy for the kitchen.\n\nWe look forward to seeing you, Sarah! 🍽️", special: 'done' },
+  ];
+
+  let step = 0;
+  let running = false;
+  const messagesEl = document.getElementById('messages');
+  const typingEl = document.getElementById('typing');
+  const progressEl = document.getElementById('progress');
+  const bookingCard = document.getElementById('booking-card');
+  const waStatus = document.getElementById('wa-status');
+
+  function getTime() {
+    const now = new Date();
+    return now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  }
+
+  function addMessage(type, text, special) {
+    const msg = document.createElement('div');
+    msg.className = 'msg ' + type;
+
+    // Handle newlines
+    const escaped = text.replace(/\n/g, '<br>');
+    const ticks = type === 'out' ? '<span class="tick">✓✓</span>' : '';
+    msg.innerHTML = escaped + '<div class="msg-time">' + getTime() + ' ' + ticks + '</div>';
+
+    // Insert before typing indicator
+    messagesEl.insertBefore(msg, typingEl);
+
+    // Animate in
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => { msg.classList.add('show'); });
+    });
+
+    // Scroll to bottom
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+
+    if (special === 'done') {
+      setTimeout(() => { bookingCard.classList.add('show'); }, 600);
+    }
+  }
+
+  function showTyping(show) {
+    typingEl.className = show ? 'typing-bubble show' : 'typing-bubble';
+    if (show) {
+      waStatus.textContent = 'typing...';
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    } else {
+      waStatus.textContent = 'online';
+    }
+  }
+
+  function updateProgress() {
+    const pct = Math.round((step / conversation.length) * 100);
+    progressEl.style.width = pct + '%';
+  }
+
+  function runStep() {
+    if (step >= conversation.length) { running = false; return; }
+
+    const item = conversation[step];
+    const isAI = item.type === 'out';
+
+    if (isAI) {
+      // Show typing indicator for AI messages
+      showTyping(true);
+      setTimeout(() => {
+        showTyping(false);
+        addMessage(item.type, item.text, item.special);
+        step++;
+        updateProgress();
+        if (step < conversation.length) {
+          setTimeout(runStep, conversation[step].delay);
+        }
+      }, item.delay * 0.8);
+    } else {
+      // Customer messages appear without typing indicator
+      setTimeout(() => {
+        addMessage(item.type, item.text);
+        step++;
+        updateProgress();
+        if (step < conversation.length) {
+          setTimeout(runStep, conversation[step].delay);
+        }
+      }, item.delay * 0.3);
+    }
+  }
+
+  function startDemo() {
+    if (running) return;
+    running = true;
+    step = 0;
+    updateProgress();
+    setTimeout(runStep, 1200);
+  }
+
+  function restartDemo() {
+    // Clear messages except date chip and typing indicator
+    const msgs = messagesEl.querySelectorAll('.msg');
+    msgs.forEach(m => m.remove());
+    bookingCard.classList.remove('show');
+    progressEl.style.width = '0%';
+    waStatus.textContent = 'online';
+    showTyping(false);
+    running = false;
+    step = 0;
+    setTimeout(startDemo, 400);
+  }
+
+  // Auto-start on load
+  window.addEventListener('load', () => {
+    setTimeout(startDemo, 800);
+  });
+</script>
+</body>
+</html>

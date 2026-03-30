@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GTM Strategy — Inference Agents WhatsApp Booking</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    @page { size: A4 portrait; margin: 18mm 16mm; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: #f5f5f5;
+      color: #111;
+      font-size: 13px;
+      line-height: 1.6;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+      background: #fff;
+    }
+
+    @media screen { .page { padding: 40px 48px; margin: 24px auto; box-shadow: 0 4px 40px rgba(0,0,0,0.1); } }
+    @media print { body { background: #fff; } .page { padding: 0; box-shadow: none; } .no-print { display: none; } }
+
+    /* ── HEADER ── */
+    .doc-header {
+      border-bottom: 3px solid #10b981;
+      padding-bottom: 20px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .doc-header-left h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #0b0b18;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .doc-header-left p {
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    .doc-header-right {
+      text-align: right;
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .doc-header-right strong { color: #10b981; font-size: 13px; display: block; margin-bottom: 2px; }
+
+    /* ── SECTION ── */
+    .section { margin-bottom: 32px; break-inside: avoid; }
+
+    .section-heading {
+      font-size: 15px;
+      font-weight: 800;
+      color: #0b0b18;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-heading .num {
+      background: #0b0b18;
+      color: #10b981;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* ── CALLOUT ── */
+    .callout {
+      background: #f0fdf9;
+      border-left: 4px solid #10b981;
+      padding: 14px 16px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 16px;
+      break-inside: avoid;
+    }
+
+    .callout-title { font-weight: 700; color: #059669; font-size: 12px; margin-bottom: 4px; }
+    .callout p { color: #374151; font-size: 12.5px; }
+
+    /* ── WARNING CALLOUT ── */
+    .callout.warn {
+      background: #fffbeb;
+      border-left-color: #f59e0b;
+    }
+    .callout.warn .callout-title { color: #d97706; }
+
+    /* ── TABLE ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+      font-size: 12px;
+      break-inside: avoid;
+    }
+
+    th {
+      background: #f9fafb;
+      font-weight: 700;
+      text-align: left;
+      padding: 8px 10px;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    td {
+      padding: 8px 10px;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td { background: #fafafa; }
+
+    .green { color: #059669; font-weight: 600; }
+    .amber { color: #d97706; font-weight: 600; }
+    .red { color: #dc2626; font-weight: 600; }
+
+    /* ── TWO COL ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .info-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 14px;
+      break-inside: avoid;
+    }
+
+    .info-box-title {
+      font-weight: 700;
+      font-size: 12px;
+      color: #111;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .info-box ul {
+      list-style: none;
+      font-size: 12px;
+      color: #4b5563;
+    }
+
+    .info-box ul li {
+      padding: 3px 0;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .info-box ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #10b981;
+      font-size: 11px;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline { margin-bottom: 16px; }
+
+    .tl-item {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 12px;
+      break-inside: avoid;
+    }
+
+    .tl-marker {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .tl-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #0b0b18;
+      color: #10b981;
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tl-line {
+      width: 2px;
+      flex: 1;
+      background: #e5e7eb;
+      margin: 4px 0;
+      min-height: 16px;
+    }
+
+    .tl-content { flex: 1; padding-top: 4px; }
+    .tl-title { font-weight: 700; font-size: 13px; color: #111; }
+    .tl-subtitle { font-size: 11px; color: #6b7280; margin-bottom: 4px; }
+    .tl-body { font-size: 12px; color: #4b5563; line-height: 1.5; }
+
+    /* ── FORECAST TABLE ── */
+    .forecast-row-highlight td { background: #f0fdf9 !important; font-weight: 600; }
+
+    /* ── FOOTER ── */
+    .doc-footer {
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .print-btn {
+      background: #0b0b18;
+      color: #10b981;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 24px;
+      font-family: inherit;
+    }
+  </style>
+</head>
+<body>
+
+<div class="no-print" style="background:#0b0b18;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;">
+  <span style="color:#10b981;font-weight:700;font-size:14px;">Inference Agents — GTM Strategy Document</span>
+  <button class="print-btn" onclick="window.print()">Save as PDF</button>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="doc-header-left">
+      <h1>WhatsApp AI Booking — Go-To-Market Strategy</h1>
+      <p>Conversational Commerce for UK Hospitality · Inference Agents</p>
+    </div>
+    <div class="doc-header-right">
+      <strong>inference-agents.com</strong>
+      Version 1.0 · March 2026<br>
+      Confidential
+    </div>
+  </div>
+
+  <!-- 1. EXECUTIVE SUMMARY -->
+  <div class="section">
+    <div class="section-heading"><div class="num">1</div> Executive Summary</div>
+
+    <div class="callout">
+      <div class="callout-title">The Opportunity in One Sentence</div>
+      <p>Inference Agents is building the UK's first WhatsApp AI agent with native OpenTable integration — enabling restaurants to accept, confirm and manage table bookings via WhatsApp 24/7 with zero staff involvement.</p>
+    </div>
+
+    <p style="margin-bottom:10px;">The UK restaurant sector processes millions of booking enquiries each year. The majority arrive outside business hours, during service, or when staff are too busy to respond. Independent restaurants lose an estimated 3–5 bookings per week to slow or missed responses — each worth £80–£200 in revenue.</p>
+
+    <p>Inference Agents solves this by deploying an AI WhatsApp agent trained on the restaurant's tone, FAQs and menu — integrated directly with their booking system. The AI handles the full conversation, checks live availability, and confirms the reservation instantly. No staff. No delays. No missed bookings.</p>
+  </div>
+
+  <!-- 2. MARKET OPPORTUNITY -->
+  <div class="section">
+    <div class="section-heading"><div class="num">2</div> Market Opportunity</div>
+
+    <div class="two-col">
+      <div class="info-box">
+        <div class="info-box-title">📊 Market Size</div>
+        <ul>
+          <li>90,000+ independent restaurants in UK</li>
+          <li>£19bn UK hospitality market</li>
+          <li>67% of diners prefer messaging over calling</li>
+          <li>Conversational commerce market £600M+ UK by 2027</li>
+          <li>OpenTable: 55,000 restaurant partners globally</li>
+        </ul>
+      </div>
+      <div class="info-box">
+        <div class="info-box-title">🎯 Target Segment (Phase 1)</div>
+        <ul>
+          <li>Independent restaurants 20–120 covers</li>
+          <li>Hotels and B&Bs with dining</li>
+          <li>Currently use OpenTable or ResDiary</li>
+          <li>High WhatsApp enquiry volume</li>
+          <li>Limited or no dedicated reservations staff</li>
+          <li>UK-based, primarily England</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="margin-bottom:10px;"><strong>Conversational commerce</strong> is the category this product sits within — the use of messaging apps, AI chatbots and voice assistants to complete transactions conversationally. It is one of the fastest growing segments in the broader AI automation market, driven by consumer preference for WhatsApp over phone calls and the availability of capable AI models.</p>
+
+    <p>The restaurant booking niche within conversational commerce is underserved in the UK. Voice AI (phone-based) has seen early adoption (PolyAI, MillieAI), but WhatsApp-native booking with real-time booking system integration does not yet exist as a standalone product at the SME price point.</p>
+  </div>
+
+  <!-- 3. PRODUCT -->
+  <div class="section">
+    <div class="section-heading"><div class="num">3</div> Product Description</div>
+
+    <table>
+      <tr>
+        <th>Tier</th>
+        <th>What it does</th>
+        <th>Price</th>
+        <th>Integration</th>
+      </tr>
+      <tr>
+        <td><strong>Starter</strong></td>
+        <td>AI handles WhatsApp enquiries, FAQs, provisional bookings. Team confirms manually.</td>
+        <td>£99/mo</td>
+        <td>WhatsApp only</td>
+      </tr>
+      <tr>
+        <td><strong>Growth</strong></td>
+        <td>Full Starter + email channel + weekly digest report + priority support.</td>
+        <td>£199/mo</td>
+        <td>WhatsApp + Email</td>
+      </tr>
+      <tr>
+        <td><strong>Full Stack</strong></td>
+        <td>Live booking integration (OpenTable / ResDiary / Mews). AI confirms instantly with no human step.</td>
+        <td>£399/mo</td>
+        <td>All channels + booking system</td>
+      </tr>
+    </table>
+
+    <div class="callout">
+      <div class="callout-title">The Full Stack Differentiator</div>
+      <p>The Full Stack tier is the product no UK competitor currently offers at this price point: a WhatsApp AI that checks live table availability and makes the booking in the restaurant's existing system (OpenTable, ResDiary or Mews) in real time. This eliminates the human confirmation step entirely and is the product that justifies premium pricing.</p>
+    </div>
+
+    <p><strong>Technical stack:</strong> Meta Cloud API (WhatsApp) → Cloudflare Pages Functions (serverless) → Claude Sonnet 4.6 (AI) → OpenTable Partner API (booking) → Supabase (logging) → Resend (confirmations). Zero third-party middleware. Near-zero infrastructure cost per customer.</p>
+  </div>
+
+  <!-- 4. COMPETITIVE LANDSCAPE -->
+  <div class="section">
+    <div class="section-heading"><div class="num">4</div> Competitive Landscape</div>
+
+    <table>
+      <tr>
+        <th>Company</th>
+        <th>Channel</th>
+        <th>OpenTable integration</th>
+        <th>Price</th>
+        <th>Gap vs Inference Agents</th>
+      </tr>
+      <tr>
+        <td><strong>PolyAI</strong></td>
+        <td>Phone / Voice AI</td>
+        <td class="green">Yes</td>
+        <td>Enterprise (undisclosed)</td>
+        <td>Phone only. Enterprise pricing. No WhatsApp.</td>
+      </tr>
+      <tr>
+        <td><strong>MillieAI (One Touch)</strong></td>
+        <td>Phone / Voice AI</td>
+        <td class="green">Yes (2025)</td>
+        <td>Undisclosed (funded £250k)</td>
+        <td>Phone only. No WhatsApp. UK-based, growing fast.</td>
+      </tr>
+      <tr>
+        <td><strong>Tableo</strong></td>
+        <td>WhatsApp / Messenger</td>
+        <td class="amber">Basic</td>
+        <td>Free–£59/mo</td>
+        <td>Lower AI quality. Not UK-specialist. No OpenTable live booking.</td>
+      </tr>
+      <tr>
+        <td><strong>Rybo</strong></td>
+        <td>WhatsApp + omnichannel</td>
+        <td class="red">No</td>
+        <td>$99–$999/mo</td>
+        <td>US-focused. No booking system integration. Complex setup.</td>
+      </tr>
+      <tr>
+        <td><strong>Inference Agents</strong></td>
+        <td>WhatsApp + Email</td>
+        <td class="green">Pending approval</td>
+        <td>£99–£399/mo</td>
+        <td><strong>Only UK provider combining WhatsApp AI + native OpenTable booking.</strong></td>
+      </tr>
+    </table>
+
+    <div class="callout warn">
+      <div class="callout-title">⚠️ Window of Opportunity</div>
+      <p>MillieAI has OpenTable for phone. They will likely add WhatsApp. PolyAI is enterprise-focused but could expand down-market. The window to own the WhatsApp + OpenTable position is estimated at 6–12 months before well-funded competitors move in.</p>
+    </div>
+  </div>
+
+  <!-- 5. GTM STRATEGY -->
+  <div class="section">
+    <div class="section-heading"><div class="num">5</div> Go-To-Market Strategy</div>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-marker"><div class="tl-dot">1</div><div class="tl-line"></div></div>
+        <div class="tl-content">
+          <div class="tl-title">Phase 1 — Direct Outreach (April–May 2026)</div>
+          <div class="tl-subtitle">Target: 0 → 5 paying customers · Starter/Growth tier</div>
+          <div class="tl-body">Personal outreach to 50 independent UK restaurants with active WhatsApp presence. Free 30-day trial offer to first 10. Use demo at inference-agents.com/demo-booking to convert. Collect testimonials from every customer. Target: 3 paying customers by end of May generating £597–£997/month recurring.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker"><div class="tl-dot">2</div><div class="tl-line"></div></div>
+        <div class="tl-content">
+          <div class="tl-title">Phase 2 — OpenTable Integration Launch (May–July 2026)</div>
+          <div class="tl-subtitle">Awaiting: OpenTable partner approval + sole trader registration</div>
+          <div class="tl-body">Once OpenTable sandbox access granted, build and test the Voice AI API booking flow. Register as sole trader (6 April) to strengthen application. Launch Full Stack tier at £399/month. Position as "the only WhatsApp AI that books tables directly in OpenTable." Issue press release / LinkedIn launch post. Target: 2 Full Stack customers = £798/month additional MRR.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker"><div class="tl-dot">3</div><div class="tl-line"></div></div>
+        <div class="tl-content">
+          <div class="tl-title">Phase 3 — Channel Expansion (Jul–Dec 2026)</div>
+          <div class="tl-subtitle">Target: 15–25 customers · Multi-channel referrals</div>
+          <div class="tl-body">Add ResDiary and Mews integrations (hotels). List on OpenTable Integrations Marketplace for inbound discovery. Partner with restaurant groups for multi-site contracts. Begin LinkedIn and SEO content around "conversational commerce" and "AI restaurant booking UK". Target: 15 customers by September, 25 by December.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-marker"><div class="tl-dot">4</div><div class="tl-line"></div></div>
+        <div class="tl-content">
+          <div class="tl-title">Phase 4 — Scale (2027)</div>
+          <div class="tl-subtitle">Target: 50+ customers · Consider Ltd company, VAT registration, hiring</div>
+          <div class="tl-body">Approach multi-site restaurant operators (pub chains, hotel groups) with bespoke pricing. Explore white-label licensing to restaurant tech resellers. Consider converting to Ltd company for contract credibility. Potential for partnership or acquisition interest from OpenTable, ResDiary or Mews at this scale.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 6. SALES CHANNELS -->
+  <div class="section">
+    <div class="section-heading"><div class="num">6</div> Sales Channels</div>
+    <div class="two-col">
+      <div class="info-box">
+        <div class="info-box-title">📲 Direct (Phase 1–2)</div>
+        <ul>
+          <li>Personal WhatsApp / email outreach</li>
+          <li>LinkedIn DMs to restaurant owners</li>
+          <li>Demo page on website (interactive)</li>
+          <li>One-pager PDF for cold email</li>
+          <li>Local networking and referrals</li>
+        </ul>
+      </div>
+      <div class="info-box">
+        <div class="info-box-title">🌐 Inbound (Phase 3+)</div>
+        <ul>
+          <li>OpenTable Integrations Marketplace listing</li>
+          <li>SEO — "WhatsApp booking AI UK restaurants"</li>
+          <li>LinkedIn content on conversational commerce</li>
+          <li>Google Ads — restaurant tech keywords</li>
+          <li>Referral programme (existing customers)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. REVENUE FORECAST -->
+  <div class="section">
+    <div class="section-heading"><div class="num">7</div> Revenue Forecast</div>
+
+    <table>
+      <tr>
+        <th>Month</th>
+        <th>Customers</th>
+        <th>Avg MRR/customer</th>
+        <th>Total MRR</th>
+        <th>Costs (API + infra)</th>
+        <th>Net Profit</th>
+      </tr>
+      <tr>
+        <td>April 2026</td>
+        <td>1</td>
+        <td>£199</td>
+        <td>£199</td>
+        <td>£15</td>
+        <td>£184</td>
+      </tr>
+      <tr>
+        <td>May 2026</td>
+        <td>3</td>
+        <td>£199</td>
+        <td>£597</td>
+        <td>£25</td>
+        <td>£572</td>
+      </tr>
+      <tr>
+        <td>July 2026</td>
+        <td>8</td>
+        <td>£230</td>
+        <td>£1,840</td>
+        <td>£60</td>
+        <td>£1,780</td>
+      </tr>
+      <tr class="forecast-row-highlight">
+        <td>October 2026</td>
+        <td>15</td>
+        <td>£250</td>
+        <td>£3,750</td>
+        <td>£120</td>
+        <td>£3,630</td>
+      </tr>
+      <tr class="forecast-row-highlight">
+        <td>March 2027</td>
+        <td>30</td>
+        <td>£280</td>
+        <td>£8,400</td>
+        <td>£220</td>
+        <td>£8,180</td>
+      </tr>
+    </table>
+
+    <p style="font-size:11px;color:#6b7280;">Assumptions: avg plan mix moves towards Full Stack as OpenTable integration launches. API costs based on ~200 handled conversations/customer/month at £0.003 per Claude API call. Infrastructure (Cloudflare, Supabase, Resend) remains on free/low tiers to 50+ customers.</p>
+  </div>
+
+  <!-- 8. KEY RISKS -->
+  <div class="section">
+    <div class="section-heading"><div class="num">8</div> Key Risks &amp; Mitigations</div>
+
+    <table>
+      <tr>
+        <th>Risk</th>
+        <th>Likelihood</th>
+        <th>Impact</th>
+        <th>Mitigation</th>
+      </tr>
+      <tr>
+        <td>OpenTable partner application rejected or delayed</td>
+        <td class="amber">Medium</td>
+        <td class="amber">High</td>
+        <td>Register as sole trader first. Lead with Voice AI API use case. Build ResDiary as fallback integration.</td>
+      </tr>
+      <tr>
+        <td>OpenTable revokes API access post-build</td>
+        <td class="green">Low</td>
+        <td class="amber">High</td>
+        <td>Build graceful fallback to "collect + confirm" mode. Multi-platform (ResDiary, Mews) reduces single dependency.</td>
+      </tr>
+      <tr>
+        <td>MillieAI or PolyAI add WhatsApp before us</td>
+        <td class="amber">Medium</td>
+        <td class="amber">Medium</td>
+        <td>Move fast. First-mover in WhatsApp+OpenTable is a moat. Focus on SME market they're unlikely to prioritise.</td>
+      </tr>
+      <tr>
+        <td>Price competition from Tableo (free tier)</td>
+        <td class="green">High</td>
+        <td class="green">Low</td>
+        <td>Compete on quality, UK focus, done-for-you setup, and OpenTable integration — not price. Tableo is self-serve.</td>
+      </tr>
+      <tr>
+        <td>Meta WhatsApp Business verification delays</td>
+        <td class="amber">Medium</td>
+        <td class="green">Low</td>
+        <td>Register sole trader 6 April. Already have test number operational. Customers can use own numbers pending verification.</td>
+      </tr>
+      <tr>
+        <td>GDPR — guest data flowing through AI pipeline</td>
+        <td class="green">Low</td>
+        <td class="amber">Medium</td>
+        <td>Update privacy policy. Add data processing addendum to customer contracts. Minimise PII stored in logs.</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 9. IMMEDIATE ACTIONS -->
+  <div class="section">
+    <div class="section-heading"><div class="num">9</div> Immediate Actions (Next 30 Days)</div>
+
+    <table>
+      <tr>
+        <th>Priority</th>
+        <th>Action</th>
+        <th>Owner</th>
+        <th>Deadline</th>
+      </tr>
+      <tr>
+        <td class="red">🔥 Critical</td>
+        <td>Send 10 outreach messages to independent restaurants this week</td>
+        <td>Dave</td>
+        <td>This week</td>
+      </tr>
+      <tr>
+        <td class="red">🔥 Critical</td>
+        <td>Subscribe to OpenTable API status page. Follow up on partner application.</td>
+        <td>Dave</td>
+        <td>Today</td>
+      </tr>
+      <tr>
+        <td class="amber">High</td>
+        <td>Register as sole trader with HMRC (after 6 April — new tax year)</td>
+        <td>Dave</td>
+        <td>7 April 2026</td>
+      </tr>
+      <tr>
+        <td class="amber">High</td>
+        <td>Obtain and share OpenTable In House Booking API docs for build assessment</td>
+        <td>Dave</td>
+        <td>This week</td>
+      </tr>
+      <tr>
+        <td class="amber">High</td>
+        <td>Upload HMRC registration to Meta for WhatsApp Business verification</td>
+        <td>Dave</td>
+        <td>8 April 2026</td>
+      </tr>
+      <tr>
+        <td style="color:#6b7280;">Normal</td>
+        <td>Add Stripe test key to Cloudflare and complete end-to-end payment test</td>
+        <td>Dave + Claude</td>
+        <td>This week</td>
+      </tr>
+      <tr>
+        <td style="color:#6b7280;">Normal</td>
+        <td>Build OpenTable booking integration (sandbox) once access granted</td>
+        <td>Claude</td>
+        <td>On approval</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <span>Inference Agents · inference-agents.com · hello@inference-agents.com</span>
+    <span>Confidential — Version 1.0 · March 2026</span>
+  </div>
+
+</div>
+
+</body>
+</html>
