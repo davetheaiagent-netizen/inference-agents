@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inference Agents — AI That Books Tables While You Sleep</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #10b981;
+      --green-dim: rgba(16,185,129,0.12);
+      --purple: #8b5cf6;
+      --bg: #050510;
+      --card: rgba(255,255,255,0.03);
+      --border: rgba(255,255,255,0.07);
+      --text: #f1f5f9;
+      --muted: rgba(255,255,255,0.45);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content:'';
+      position:fixed;
+      inset:0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events:none;
+      z-index:0;
+      opacity:.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(20px);
+      background: rgba(5,5,16,0.8);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--green);
+      color: #fff !important;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-weight: 600 !important;
+      font-size: 13px !important;
+      transition: background .2s !important;
+    }
+
+    .nav-cta:hover { background: #059669 !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 120px 40px 80px;
+      overflow: hidden;
+    }
+
+    /* Animated gradient orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      animation: drift 12s ease-in-out infinite alternate;
+    }
+
+    .orb-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(16,185,129,0.18) 0%, transparent 70%);
+      top: -200px; left: -100px;
+      animation-duration: 14s;
+    }
+
+    .orb-2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(139,92,246,0.14) 0%, transparent 70%);
+      bottom: -150px; right: -100px;
+      animation-duration: 10s;
+      animation-delay: -4s;
+    }
+
+    .orb-3 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%);
+      top: 40%; right: 20%;
+      animation-duration: 8s;
+      animation-delay: -2s;
+    }
+
+    @keyframes drift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(40px, 30px) scale(1.08); }
+    }
+
+    /* Grid lines */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .hero-left {}
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.25);
+      color: var(--green);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      animation: fadeUp .6s ease both;
+    }
+
+    .badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(1.4); }
+    }
+
+    .hero-h1 {
+      font-size: clamp(38px, 5vw, 68px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+      animation: fadeUp .7s ease both .1s;
+    }
+
+    .hero-h1 .line-green {
+      background: linear-gradient(90deg, #10b981, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-h1 .line-dim { color: rgba(255,255,255,0.35); }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 36px;
+      max-width: 460px;
+      animation: fadeUp .7s ease both .2s;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      animation: fadeUp .7s ease both .3s;
+    }
+
+    .btn-glow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 0 30px rgba(16,185,129,0.3);
+    }
+
+    .btn-glow::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+    }
+
+    .btn-glow:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(16,185,129,0.45);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card);
+      color: var(--text);
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: background .2s, border-color .2s;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 28px;
+      margin-top: 44px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      animation: fadeUp .7s ease both .4s;
+    }
+
+    .hero-stat-num {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .hero-stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ── PHONE MOCKUP ── */
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      animation: fadeUp .8s ease both .2s;
+    }
+
+    .phone-wrap {
+      position: relative;
+    }
+
+    .phone-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -40px;
+      background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .phone-device {
+      width: 280px;
+      background: #1a1a2e;
+      border-radius: 36px;
+      padding: 10px;
+      border: 2px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.03),
+        0 40px 80px rgba(0,0,0,0.7),
+        inset 0 0 0 1px rgba(255,255,255,0.03);
+      position: relative;
+      z-index: 1;
+    }
+
+    .phone-screen {
+      background: #e5ddd5;
+      border-radius: 28px;
+      overflow: hidden;
+      height: 520px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .wa-bar {
+      background: #075e54;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .wa-av {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: #25d366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .wa-n { color:#fff; font-size:12px; font-weight:600; }
+    .wa-s { color:rgba(255,255,255,0.55); font-size:10px; }
+
+    .wa-msgs {
+      flex:1;
+      padding:10px 8px;
+      display:flex;
+      flex-direction:column;
+      gap:5px;
+      overflow:hidden;
+    }
+
+    .wm {
+      max-width:85%;
+      padding:7px 10px 4px;
+      border-radius:8px;
+      font-size:11.5px;
+      line-height:1.4;
+      opacity:0;
+      transform:translateY(6px);
+      transition: opacity .4s ease, transform .4s ease;
+    }
+
+    .wm.vis { opacity:1; transform:translateY(0); }
+    .wm.i { background:#fff; align-self:flex-start; border-top-left-radius:2px; color:#111; }
+    .wm.o { background:#dcf8c6; align-self:flex-end; border-top-right-radius:2px; color:#111; }
+
+    .wm-t {
+      font-size:9px;
+      color:rgba(0,0,0,0.35);
+      text-align:right;
+      margin-top:2px;
+    }
+
+    .typ {
+      background:#fff;
+      align-self:flex-start;
+      padding:9px 12px;
+      border-radius:8px;
+      border-top-left-radius:2px;
+      display:none;
+      gap:4px;
+      align-items:center;
+    }
+    .typ.vis { display:flex; }
+    .td { width:6px;height:6px;border-radius:50%;background:#aaa;animation:bounce 1.2s infinite; }
+    .td:nth-child(2){animation-delay:.2s;}
+    .td:nth-child(3){animation-delay:.4s;}
+    @keyframes bounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-4px);}}
+
+    /* Floating badge on phone */
+    .phone-badge {
+      position: absolute;
+      bottom: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0b0b18;
+      border: 1px solid rgba(16,185,129,0.3);
+      border-radius: 20px;
+      padding: 7px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--green);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+
+    /* ── SECTION SHARED ── */
+    section {
+      padding: 100px 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--green);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .section-h2 {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .section-h2 span { color: var(--green); }
+
+    .section-sub {
+      font-size: 16px;
+      color: var(--muted);
+      text-align: center;
+      max-width: 520px;
+      margin: 0 auto 56px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(24px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* ── LOGOS STRIP ── */
+    .logos-strip {
+      padding: 32px 40px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .logos-label {
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 20px;
+    }
+
+    .logos-track {
+      display: flex;
+      gap: 48px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo-item {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .how-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s, transform .3s;
+    }
+
+    .how-card:hover {
+      border-color: rgba(16,185,129,0.3);
+      transform: translateY(-4px);
+    }
+
+    .how-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--green), var(--purple));
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .how-card:hover::before { opacity: 1; }
+
+    .how-num {
+      font-size: 48px;
+      font-weight: 900;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+      margin-bottom: 16px;
+      letter-spacing: -2px;
+    }
+
+    .how-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .how-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .how-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── OPENTABLE SECTION ── */
+    .ot-section {
+      background: linear-gradient(135deg, rgba(16,185,129,0.06) 0%, rgba(139,92,246,0.06) 100%);
+      border: 1px solid rgba(16,185,129,0.15);
+      border-radius: 24px;
+      padding: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .ot-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.25);
+      color: var(--green);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 16px;
+    }
+
+    .ot-h2 {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .ot-h2 span { color: var(--green); }
+
+    .ot-p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+
+    .ot-features {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ot-feat {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .ot-feat-icon {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--green-dim);
+      color: var(--green);
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: 700;
+    }
+
+    /* Flow diagram */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .flow-line-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .flow-dot {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--green-dim);
+      border: 2px solid rgba(16,185,129,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .flow-connector {
+      width: 2px;
+      height: 32px;
+      background: linear-gradient(to bottom, rgba(16,185,129,0.4), rgba(16,185,129,0.1));
+      margin: 4px 0;
+    }
+
+    .flow-content {
+      padding-top: 6px;
+      padding-bottom: 24px;
+    }
+
+    .flow-title { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+    .flow-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+    /* ── PRICING ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .price-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s, border-color .3s;
+    }
+
+    .price-card:hover { transform: translateY(-6px); }
+
+    .price-card.featured {
+      border-color: rgba(16,185,129,0.4);
+      background: rgba(16,185,129,0.05);
+    }
+
+    .price-card.featured::before {
+      content: 'MOST POPULAR';
+      position: absolute;
+      top: 16px; right: -28px;
+      background: var(--green);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      padding: 4px 40px;
+      transform: rotate(45deg);
+    }
+
+    .price-tier {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .price-card.featured .price-tier { color: var(--green); }
+
+    .price-amount {
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .price-period { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+
+    .price-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+
+    .price-features li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .price-features li::before {
+      content: '✓';
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--green-dim);
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .price-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 13px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all .2s;
+    }
+
+    .price-btn.outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .price-btn.outline:hover { border-color: var(--green); color: var(--green); }
+
+    .price-btn.solid {
+      background: var(--green);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(16,185,129,0.3);
+    }
+    .price-btn.solid:hover { background: #059669; transform: translateY(-1px); }
+
+    /* ── TESTIMONIAL ── */
+    .testi-section {
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(16,185,129,0.06) 0%, transparent 70%);
+    }
+
+    .testi-card {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .testi-card::before {
+      content: '"';
+      position: absolute;
+      top: -20px; left: 32px;
+      font-size: 80px;
+      font-weight: 900;
+      color: var(--green);
+      opacity: .3;
+      line-height: 1;
+    }
+
+    .testi-text {
+      font-size: 18px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.8);
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+
+    .testi-attr {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .testi-attr strong { color: var(--text); }
+
+    /* ── CTA ── */
+    .cta-section {
+      text-align: center;
+      padding: 120px 40px;
+    }
+
+    .cta-box {
+      max-width: 700px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(139,92,246,0.08) 100%);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 28px;
+      padding: 64px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%);
+    }
+
+    .cta-box::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: -40px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%);
+    }
+
+    .cta-h2 {
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+
+    .cta-h2 span { color: var(--green); }
+
+    .cta-p {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-small {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 16px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer .logo { color: var(--green); font-weight: 700; font-size: 15px; }
+    footer .copy { font-size: 12px; color: var(--muted); }
+    footer .links { display: flex; gap: 20px; }
+    footer .links a { font-size: 12px; color: var(--muted); text-decoration: none; }
+    footer .links a:hover { color: var(--text); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-right { display: none; }
+      .hero-stats { justify-content: center; }
+      .hero-actions { justify-content: center; }
+      .hero-sub { margin: 0 auto 36px; }
+      .how-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .ot-section { grid-template-columns: 1fr; padding: 32px; }
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      section { padding: 64px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg width="22" height="22" viewBox="0 0 56 56" fill="none">
+      <polygon points="28,3 54,51 2,51" fill="none" stroke="url(#ng)" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="28" cy="19" r="3" fill="url(#ng)"/>
+      <circle cx="18" cy="40" r="2.2" fill="url(#ng)" opacity=".75"/>
+      <circle cx="38" cy="40" r="2.2" fill="url(#ng)" opacity=".75"/>
+      <line x1="28" y1="19" x2="18" y2="40" stroke="url(#ng)" stroke-width="1.2" opacity=".5"/>
+      <line x1="28" y1="19" x2="38" y2="40" stroke="url(#ng)" stroke-width="1.2" opacity=".5"/>
+      <line x1="18" y1="40" x2="38" y2="40" stroke="url(#ng)" stroke-width="1.2" opacity=".4"/>
+      <defs><linearGradient id="ng" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#34d399"/></linearGradient></defs>
+    </svg>
+    Inference Agents
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#opentable">OpenTable</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="demo-booking.html" style="color:var(--green);">Live Demo</a></li>
+    <li><a href="pricing.html" class="nav-cta">Start free trial</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <div class="badge-dot"></div>
+        Now with OpenTable live booking integration
+      </div>
+      <h1 class="hero-h1">
+        AI that books<br>
+        <span class="line-green">tables while</span><br>
+        <span class="line-dim">you sleep.</span>
+      </h1>
+      <p class="hero-sub">
+        Your WhatsApp AI receptionist checks live availability, answers questions and confirms bookings directly in OpenTable — 24/7, in seconds, with zero staff involvement.
+      </p>
+      <div class="hero-actions">
+        <a href="demo-booking.html" class="btn-glow">▶ Watch live demo</a>
+        <a href="pricing.html" class="btn-ghost">Start free trial →</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">&lt;3s</div>
+          <div class="hero-stat-label">Average<br>response time</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">24/7</div>
+          <div class="hero-stat-label">Always on,<br>never sick</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">£0</div>
+          <div class="hero-stat-label">Extra staff<br>cost</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">30d</div>
+          <div class="hero-stat-label">Free trial,<br>no contract</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="phone-wrap">
+        <div class="phone-device">
+          <div class="phone-screen">
+            <div class="wa-bar">
+              <div class="wa-av">🍽️</div>
+              <div>
+                <div class="wa-n">The Harbour Inn</div>
+                <div class="wa-s" id="h-status">online</div>
+              </div>
+            </div>
+            <div class="wa-msgs" id="h-msgs">
+              <div class="typ" id="h-typ"><div class="td"></div><div class="td"></div><div class="td"></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="phone-badge">
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;animation:pulse 2s infinite;"></span>
+          Booking confirmed via OpenTable
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOGOS -->
+<div class="logos-strip">
+  <div class="logos-label">Integrates with the tools restaurants already use</div>
+  <div class="logos-track">
+    <div class="logo-item">OpenTable</div>
+    <div class="logo-item">ResDiary</div>
+    <div class="logo-item">Mews</div>
+    <div class="logo-item">WhatsApp Business</div>
+    <div class="logo-item">Stripe</div>
+    <div class="logo-item">Resend</div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="container">
+    <div class="section-label reveal">How it works</div>
+    <h2 class="section-h2 reveal">From message to <span>confirmed booking</span><br>in under 10 seconds</h2>
+    <p class="section-sub reveal">No phone calls. No missed enquiries. No staff pulled away from tables.</p>
+
+    <div class="how-grid">
+      <div class="how-card reveal">
+        <div class="how-num">01</div>
+        <div class="how-icon">💬</div>
+        <div class="how-title">Customer messages on WhatsApp</div>
+        <div class="how-desc">A guest messages your restaurant's WhatsApp number — at 11pm, during service, on Christmas Day. The AI picks up instantly.</div>
+      </div>
+      <div class="how-card reveal">
+        <div class="how-num">02</div>
+        <div class="how-icon">🔍</div>
+        <div class="how-title">AI checks live availability</div>
+        <div class="how-desc">The AI calls the OpenTable API in real time — checking exact availability for their party size, date and time. No guessing, no "we'll check and get back to you."</div>
+      </div>
+      <div class="how-card reveal">
+        <div class="how-num">03</div>
+        <div class="how-icon">✅</div>
+        <div class="how-title">Booking confirmed instantly</div>
+        <div class="how-desc">The AI creates the reservation directly in OpenTable, captures dietary requirements and seating preferences, and sends the guest a confirmation — all in one conversation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPENTABLE SECTION -->
+<section id="opentable" style="padding-top:0;">
+  <div class="container">
+    <div class="ot-section reveal">
+      <div>
+        <div class="ot-label">🍽️ OpenTable Integration</div>
+        <h2 class="ot-h2">The only WhatsApp AI with <span>native OpenTable</span> booking</h2>
+        <p class="ot-p">Every other chatbot collects the enquiry and says "someone will confirm soon." Ours closes the loop. Live availability. Instant confirmation. Zero humans in the middle.</p>
+        <div class="ot-features">
+          <div class="ot-feat"><div class="ot-feat-icon">✓</div> Real-time availability from OpenTable API</div>
+          <div class="ot-feat"><div class="ot-feat-icon">✓</div> Booking created directly in your OpenTable dashboard</div>
+          <div class="ot-feat"><div class="ot-feat-icon">✓</div> Dietary requirements and seating preferences captured</div>
+          <div class="ot-feat"><div class="ot-feat-icon">✓</div> Confirmation sent to guest automatically</div>
+          <div class="ot-feat"><div class="ot-feat-icon">✓</div> Escalates to you only when genuinely needed</div>
+        </div>
+      </div>
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-line-wrap"><div class="flow-dot">💬</div><div class="flow-connector"></div></div>
+          <div class="flow-content"><div class="flow-title">Customer WhatsApp message</div><div class="flow-desc">"Table for 4 this Saturday 7pm please"</div></div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-line-wrap"><div class="flow-dot">🧠</div><div class="flow-connector"></div></div>
+          <div class="flow-content"><div class="flow-title">Claude AI understands intent</div><div class="flow-desc">Extracts party size, date, time. Asks follow-up questions naturally.</div></div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-line-wrap"><div class="flow-dot">📡</div><div class="flow-connector"></div></div>
+          <div class="flow-content"><div class="flow-title">OpenTable API called</div><div class="flow-desc">Live availability checked. Available slots returned in milliseconds.</div></div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-line-wrap"><div class="flow-dot">✅</div></div>
+          <div class="flow-content"><div class="flow-title">Booking confirmed</div><div class="flow-desc">Reservation created in OpenTable. Guest receives confirmation. You see it in your dashboard.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-label reveal">Pricing</div>
+    <h2 class="section-h2 reveal">Simple pricing.<br><span>Cancel anytime.</span></h2>
+    <p class="section-sub reveal">Start free for 30 days. No setup fee. No contract. Upgrade or cancel whenever you like.</p>
+
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <div class="price-tier">Starter</div>
+        <div class="price-amount">£99</div>
+        <div class="price-period">per month</div>
+        <div class="price-desc">AI handles enquiries and provisional bookings. Your team confirms.</div>
+        <ul class="price-features">
+          <li>WhatsApp AI receptionist</li>
+          <li>Unlimited conversations</li>
+          <li>FAQ training on your business</li>
+          <li>Smart escalation to your phone</li>
+          <li>Monthly digest report</li>
+          <li>Dashboard access</li>
+        </ul>
+        <a href="checkout.html?plan=starter" class="price-btn outline">Start free trial</a>
+      </div>
+      <div class="price-card featured reveal">
+        <div class="price-tier">Growth</div>
+        <div class="price-amount">£199</div>
+        <div class="price-period">per month</div>
+        <div class="price-desc">Everything in Starter plus email channel and priority support.</div>
+        <ul class="price-features">
+          <li>Everything in Starter</li>
+          <li>Email AI channel included</li>
+          <li>Weekly performance digest</li>
+          <li>Priority support</li>
+          <li>Setup fully included</li>
+          <li>Unlimited agent updates</li>
+        </ul>
+        <a href="checkout.html?plan=growth" class="price-btn solid">Start free trial</a>
+      </div>
+      <div class="price-card reveal">
+        <div class="price-tier">Full Stack</div>
+        <div class="price-amount">£399</div>
+        <div class="price-period">per month</div>
+        <div class="price-desc">Live OpenTable booking integration. AI confirms instantly, no human step.</div>
+        <ul class="price-features">
+          <li>Everything in Growth</li>
+          <li>Live OpenTable integration</li>
+          <li>Instant booking confirmation</li>
+          <li>All channels included</li>
+          <li>Daily reports</li>
+          <li>Dedicated account manager</li>
+        </ul>
+        <a href="checkout.html?plan=fullstack" class="price-btn outline">Start free trial</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testi-section">
+  <div class="container">
+    <div class="testi-card reveal">
+      <p class="testi-text">"We were missing enquiries every evening — people messaging at 9pm about weekend availability and hearing nothing until Monday. Since the AI went live, we haven't missed a single one. It paid for itself in the first week."</p>
+      <div class="testi-attr"><strong>Sarah M.</strong> · Boutique hotel owner, Cornwall · Inference Agents customer</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-box reveal">
+    <h2 class="cta-h2">Stop losing bookings<br>to <span>slow replies.</span></h2>
+    <p class="cta-p">Set up in under an hour. Free for 30 days. Your AI receptionist handles the first message before you've even seen it.</p>
+    <div class="cta-buttons">
+      <a href="demo-booking.html" class="btn-glow">▶ See it in action</a>
+      <a href="pricing.html" class="btn-ghost">View pricing →</a>
+    </div>
+    <p class="cta-small">No credit card required · No contract · Cancel anytime</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Inference Agents</div>
+  <div class="links">
+    <a href="pricing.html">Pricing</a>
+    <a href="demo-booking.html">Demo</a>
+    <a href="contact.html">Contact</a>
+    <a href="privacy.html">Privacy</a>
+  </div>
+  <div class="copy">© 2026 Inference Agents Ltd · hello@inference-agents.com</div>
+</footer>
+
+<script>
+  // ── SCROLL REVEAL ──
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  // ── HERO PHONE ANIMATION ──
+  const heroConvo = [
+    { t:'i', text:"Hi, table for 4 this Saturday 7pm?" },
+    { t:'o', text:"Hi! Let me check availability for Saturday 5th April at 7pm for 4... 🔍" },
+    { t:'o', text:"Great news — 7:00pm and 7:30pm are available. Which do you prefer?" },
+    { t:'i', text:"7pm please. Sarah Thompson" },
+    { t:'o', text:"Any dietary requirements?" },
+    { t:'i', text:"1 vegetarian, 1 nut allergy" },
+    { t:'o', text:"✅ Confirmed! Table for 4 at 7pm Saturday. See you then, Sarah! 🍽️" },
+  ];
+
+  const msgsEl = document.getElementById('h-msgs');
+  const typEl = document.getElementById('h-typ');
+  const statusEl = document.getElementById('h-status');
+  let hi = 0;
+
+  function heroStep() {
+    if (hi >= heroConvo.length) {
+      setTimeout(() => {
+        msgsEl.querySelectorAll('.wm').forEach(m => m.remove());
+        hi = 0;
+        setTimeout(heroStep, 1000);
+      }, 4000);
+      return;
+    }
+    const item = heroConvo[hi];
+    if (item.t === 'o') {
+      typEl.className = 'typ vis';
+      statusEl.textContent = 'typing...';
+      msgsEl.scrollTop = msgsEl.scrollHeight;
+      setTimeout(() => {
+        typEl.className = 'typ';
+        statusEl.textContent = 'online';
+        addHeroMsg(item.t, item.text);
+        hi++;
+        setTimeout(heroStep, item.text.length * 18 + 600);
+      }, 1400);
+    } else {
+      addHeroMsg(item.t, item.text);
+      hi++;
+      setTimeout(heroStep, 800);
+    }
+  }
+
+  function addHeroMsg(type, text) {
+    const div = document.createElement('div');
+    div.className = 'wm ' + type;
+    div.innerHTML = text + '<div class="wm-t">' + getT() + (type==='o'?' ✓✓':'') + '</div>';
+    msgsEl.insertBefore(div, typEl);
+    requestAnimationFrame(() => requestAnimationFrame(() => div.classList.add('vis')));
+    msgsEl.scrollTop = msgsEl.scrollHeight;
+  }
+
+  function getT() {
+    const n = new Date();
+    return n.getHours().toString().padStart(2,'0') + ':' + n.getMinutes().toString().padStart(2,'0');
+  }
+
+  setTimeout(heroStep, 1800);
+</script>
+</body>
+</html>
