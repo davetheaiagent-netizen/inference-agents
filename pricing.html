@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) — Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQEVHHCQ07"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', wait_for_update: 500 });
+    gtag('js', new Date());
+    gtag('config', 'G-RQEVHHCQ07');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pricing | Inference Agents</title>
-  <meta name="description" content="Simple, transparent pricing for AI agents. Choose the plan that fits your business needs.">
+  <title>Pricing | WhatsApp AI for Restaurants from £99/mo | Inference Agents</title>
+  <meta name="description" content="Simple pricing for UK restaurants. WhatsApp AI that integrates with OpenTable, ResDiary and more. Starts at £99/month. No setup fee, no contracts.">
   <meta property="og:title" content="Pricing | Inference Agents">
-  <meta property="og:description" content="Simple pricing for AI agents. Start from £97/month.">
+  <meta property="og:description" content="WhatsApp AI for UK restaurants from £99/month. Integrated with your booking system.">
   <meta property="og:url" content="https://inference-agents.com/pricing.html">
   <meta property="og:type" content="website">
   <link rel="canonical" href="https://inference-agents.com/pricing.html">
@@ -14,56 +23,293 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles-dark.css">
   <style>
+    :root {
+      --green: #25d366;
+      --green-dim: rgba(37,211,102,0.15);
+      --green-border: rgba(37,211,102,0.3);
+    }
+
+    /* ── Pricing grid ────────────────────────────────────── */
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 24px;
-      max-width: 1000px;
-      margin: 0 auto;
+      max-width: 1040px;
+      margin: 0 auto 64px;
+      align-items: start;
     }
     .pricing-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 22px;
       padding: 36px;
-      text-align: center;
+      position: relative;
       transition: all 0.3s ease;
     }
-    .pricing-card.featured {
-      border-color: rgba(99,102,241,0.45);
-      background: linear-gradient(160deg, rgba(99,102,241,0.09), rgba(16,185,129,0.04));
-      transform: scale(1.03);
-    }
     .pricing-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--border-accent);
+      border-color: var(--green-border);
+      box-shadow: 0 0 40px rgba(37,211,102,0.08);
+      transform: translateY(-4px);
     }
-    .pricing-card.featured:hover {
-      transform: scale(1.05) translateY(-6px);
+    .pricing-card.featured {
+      border-color: var(--green-border);
+      background: linear-gradient(160deg, rgba(37,211,102,0.07), rgba(16,185,129,0.03));
     }
-    .price { font-size: 48px; font-weight: 800; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .price span { font-size: 16px; color: var(--text-muted); -webkit-text-fill-color: var(--text-muted); }
-    .price-per { color: var(--text-muted); margin-top: 8px; font-size: 14px; }
-    .pricing-card ul { list-style: none; text-align: left; margin: 24px 0; }
-    .pricing-card li { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text-muted); }
-    .pricing-card li::before { content: "✓"; color: var(--accent); margin-right: 10px; font-weight: 600; }
-    .pricing-card .btn { width: 100%; margin-top: 10px; }
-    .badge {
-      display: inline-block;
-      background: linear-gradient(135deg, #fbbf24, #f59e0b);
-      color: white;
-      padding: 6px 14px;
+    .pricing-card.featured:hover { transform: translateY(-6px); }
+
+    .popular-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 100px;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(37,211,102,0.4);
+    }
+
+    .plan-name {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .plan-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .price {
+      font-size: 52px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .price span { font-size: 18px; font-weight: 500; color: var(--text-muted); letter-spacing: 0; }
+    .price-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .integration-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .integration-tag.handoff {
+      background: rgba(245,158,11,0.12);
+      border: 1px solid rgba(245,158,11,0.25);
+      color: #f59e0b;
+    }
+    .integration-tag.live {
+      background: rgba(37,211,102,0.12);
+      border: 1px solid rgba(37,211,102,0.3);
+      color: var(--green);
+    }
+    .integration-tag.multichannel {
+      background: rgba(99,102,241,0.12);
+      border: 1px solid rgba(99,102,241,0.3);
+      color: #818cf8;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin: 0 0 28px;
+    }
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .feature-list li:last-child { border-bottom: none; }
+    .feature-list li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .feature-list li strong { color: var(--text); }
+
+    .pricing-card .btn { width: 100%; text-align: center; padding: 14px; }
+    .btn-green {
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: #fff;
+      border: none;
+      font-weight: 700;
+    }
+    .btn-green:hover { opacity: 0.9; box-shadow: 0 0 24px rgba(37,211,102,0.35); }
+
+    /* ── How it differs ──────────────────────────────────── */
+    .integration-explainer {
+      max-width: 1040px;
+      margin: 0 auto 80px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .integration-card {
+      border-radius: 18px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+    .integration-card.amber { border-color: rgba(245,158,11,0.2); background: rgba(245,158,11,0.04); }
+    .integration-card.green { border-color: rgba(37,211,102,0.2); background: rgba(37,211,102,0.04); }
+    .integration-card.purple { border-color: rgba(99,102,241,0.2); background: rgba(99,102,241,0.04); }
+    .integration-card h3 { font-size: 15px; font-weight: 700; margin: 12px 0 6px; }
+    .integration-card p { font-size: 13px; color: var(--text-muted); line-height: 1.7; margin: 0; }
+    .ic-icon { font-size: 28px; }
+    .ic-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+    .ic-label.amber { color: #f59e0b; }
+    .ic-label.green { color: var(--green); }
+    .ic-label.purple { color: #818cf8; }
+
+    /* ── What's always included ──────────────────────────── */
+    .always-included {
+      max-width: 1040px;
+      margin: 0 auto 80px;
+      background: rgba(37,211,102,0.04);
+      border: 1px solid rgba(37,211,102,0.15);
       border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 16px;
+      padding: 40px 48px;
     }
-    .badge.silver { background: linear-gradient(135deg, #9ca3af, #6b7280); }
-    .faq { max-width: 800px; margin: 60px auto 0; }
-    .faq h2 { text-align: center; margin-bottom: 30px; }
-    .faq-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 16px; }
-    .faq-item h3 { font-size: 17px; margin-bottom: 10px; }
-    .faq-item p { color: var(--text-muted); font-size: 14px; }
+    .always-included h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+    .included-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .included-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .included-icon {
+      width: 36px; height: 36px;
+      background: rgba(37,211,102,0.1);
+      border: 1px solid rgba(37,211,102,0.2);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .included-text strong { display: block; font-size: 14px; margin-bottom: 2px; }
+    .included-text span { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── Comparison table ────────────────────────────────── */
+    .compare-wrap {
+      max-width: 1040px;
+      margin: 0 auto 80px;
+      overflow-x: auto;
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .compare-table th {
+      padding: 16px 20px;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .compare-table th:not(:first-child) { text-align: center; }
+    .compare-table td {
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--text-muted);
+      vertical-align: middle;
+    }
+    .compare-table td:not(:first-child) { text-align: center; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table .col-feat { color: var(--text); font-weight: 500; }
+    .compare-table .col-mid { background: rgba(37,211,102,0.04); }
+    .tick { color: var(--green); font-size: 16px; font-weight: 700; }
+    .cross { color: #475569; font-size: 16px; }
+    .compare-head-mid { color: var(--green) !important; }
+
+    /* ── FAQ ─────────────────────────────────────────────── */
+    .faq { max-width: 760px; margin: 0 auto; }
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 24px;
+      text-align: left;
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .faq-q:hover { color: var(--green); }
+    .faq-arrow { font-size: 18px; color: var(--text-muted); transition: transform 0.3s; flex-shrink: 0; }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a {
+      display: none;
+      padding: 0 24px 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    @media (max-width: 900px) {
+      .pricing-grid { grid-template-columns: 1fr; max-width: 440px; }
+      .integration-explainer { grid-template-columns: 1fr; max-width: 440px; }
+      .included-grid { grid-template-columns: 1fr 1fr; }
+      .always-included { padding: 28px; }
+    }
+    @media (max-width: 600px) {
+      .included-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -72,118 +318,326 @@
       <nav>
         <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
         <ul class="nav-links">
-          <li><a href="index.html#services">Services</a></li>
-          <li><a href="index.html#agents">AI Agents</a></li>
+          <li><a href="index.html#how-it-works">How It Works</a></li>
+          <li><a href="index.html#integrations">Integrations</a></li>
           <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="blog.html">Blog</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
-        <a href="contact.html" class="btn">Get Started</a>
+        <a href="consultation.html" class="btn">Book Free Call</a>
       </nav>
     </div>
   </header>
 
   <section class="page-hero">
     <div class="container">
-      <div class="page-badge"><div class="badge-dot"></div>Simple Pricing</div>
-      <h1>Simple, Transparent <span>Pricing</span></h1>
-      <p>No hidden fees. No surprises. Just powerful AI agents that deliver results.</p>
+      <div class="page-badge"><div class="badge-dot" style="background:var(--green)"></div>Simple Pricing</div>
+      <h1>No setup fee. <span>No surprises.</span></h1>
+      <p>Three plans, each with a different level of WhatsApp integration. All include setup, onboarding, and full UK support.</p>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" style="padding-top: 0;">
     <div class="container">
+
+      <!-- Integration depth explainer -->
+      <div class="integration-explainer reveal">
+        <div class="integration-card amber">
+          <div class="ic-icon">💬</div>
+          <div class="ic-label amber">Starter — Booking Handoff</div>
+          <h3>AI qualifies, human books</h3>
+          <p>Your WhatsApp AI handles all enquiries 24/7 — answers FAQs, collects party details, checks availability windows — then sends guests a direct booking link or notifies your team to confirm.</p>
+        </div>
+        <div class="integration-card green">
+          <div class="ic-icon">⚡</div>
+          <div class="ic-label green">Growth — Live Integration</div>
+          <h3>AI books directly into your system</h3>
+          <p>The AI connects live to OpenTable or ResDiary. It checks real-time availability, creates the reservation, and sends the guest a confirmation — all inside WhatsApp. Zero human involvement needed.</p>
+        </div>
+        <div class="integration-card purple">
+          <div class="ic-icon">🚀</div>
+          <div class="ic-label purple">Full Stack — Multi-Channel</div>
+          <h3>WhatsApp + Instagram + custom flows</h3>
+          <p>Everything in Growth, plus Instagram DMs handled by the same AI, custom upsell flows (pre-orders, special occasions, deposits), and a dedicated account manager to tune performance.</p>
+        </div>
+      </div>
+
+      <!-- Pricing cards -->
       <div class="pricing-grid">
+
         <div class="pricing-card reveal">
-          <div class="badge">STARTER</div>
-          <div class="tier-name">Single Agent</div>
+          <div class="plan-name">Starter</div>
+          <div class="integration-tag handoff">💬 Booking Handoff</div>
+          <p class="plan-desc">WhatsApp AI that handles all guest enquiries 24/7 and passes confirmed bookings to your team or booking link.</p>
           <div class="price">£99<span>/mo</span></div>
-          <div class="price-per">per agent</div>
-          <ul>
-            <li>1 AI Agent</li>
-            <li>Basic Support</li>
-            <li>Standard Speed</li>
-            <li>Email Reports</li>
-            <li>30-Day Trial</li>
+          <div class="price-note">No setup fee. No contract.</div>
+          <ul class="feature-list">
+            <li><strong>WhatsApp AI</strong> on your existing number</li>
+            <li>24/7 enquiry handling &amp; FAQ responses</li>
+            <li>Guest details collected before handoff</li>
+            <li>Booking link sent automatically</li>
+            <li>Trained on your menu, hours &amp; policies</li>
+            <li>Email support</li>
+            <li>Monthly conversation summary</li>
           </ul>
-          <a href="contact.html" class="btn btn-outline">Get Started</a>
+          <a href="consultation.html" class="btn btn-outline">Get Started →</a>
         </div>
 
         <div class="pricing-card featured reveal">
-          <div class="badge">POPULAR</div>
-          <div class="tier-name">Quick Start Bundle</div>
-          <div class="price">£299<span>/mo</span></div>
-          <div class="price-per">5 agents</div>
-          <ul>
-            <li>5 AI Agents</li>
-            <li>Priority Support</li>
-            <li>Priority Speed</li>
-            <li>Analytics Dashboard</li>
-            <li>Setup Included</li>
-            <li>API Access</li>
+          <div class="popular-badge">Most Popular</div>
+          <div class="plan-name">Growth</div>
+          <div class="integration-tag live">⚡ Live Integration</div>
+          <p class="plan-desc">Direct two-way connection to your booking system. The AI creates real reservations without your team lifting a finger.</p>
+          <div class="price">£199<span>/mo</span></div>
+          <div class="price-note">No setup fee. No contract.</div>
+          <ul class="feature-list">
+            <li><strong>Everything in Starter</strong></li>
+            <li><strong>Live OpenTable or ResDiary</strong> integration</li>
+            <li>AI creates &amp; confirms reservations directly</li>
+            <li>Real-time availability checking</li>
+            <li>Automated confirmation messages to guests</li>
+            <li>Cancellation &amp; amendment handling</li>
+            <li>Priority support + monthly review call</li>
           </ul>
-          <a href="ai-quick-start-bundle.html" class="btn">Get Started</a>
+          <a href="consultation.html" class="btn btn-green">Get Started →</a>
         </div>
 
         <div class="pricing-card reveal">
-          <div class="badge silver">TEAM</div>
-          <div class="tier-name">Growth Bundle</div>
-          <div class="price">£499<span>/mo</span></div>
-          <div class="price-per">10 agents</div>
-          <ul>
-            <li>10 AI Agents</li>
-            <li>Priority Support</li>
-            <li>Analytics Dashboard</li>
-            <li>Custom Integrations</li>
-            <li>Dedicated Manager</li>
-            <li>Custom Training</li>
+          <div class="plan-name">Full Stack</div>
+          <div class="integration-tag multichannel">🚀 Multi-Channel</div>
+          <p class="plan-desc">Full coverage across WhatsApp and Instagram DMs, with custom flows for upsells, special occasions, and deposits.</p>
+          <div class="price">£399<span>/mo</span></div>
+          <div class="price-note">No setup fee. No contract.</div>
+          <ul class="feature-list">
+            <li><strong>Everything in Growth</strong></li>
+            <li><strong>Instagram DMs</strong> handled by same AI</li>
+            <li>Pre-order &amp; special occasion flows</li>
+            <li>Deposit collection automation</li>
+            <li>Custom upsell sequences</li>
+            <li>Dedicated account manager</li>
+            <li>Fortnightly performance call</li>
+            <li>Custom integrations on request</li>
           </ul>
-          <a href="contact.html" class="btn btn-outline">Contact Sales</a>
+          <a href="consultation.html" class="btn btn-outline">Get Started →</a>
         </div>
 
-        <div class="pricing-card reveal">
-          <div class="badge silver">ENTERPRISE</div>
-          <div class="tier-name">AI Workforce</div>
-          <div class="price">£799<span>/mo</span></div>
-          <div class="price-per">20+ agents</div>
-          <ul>
-            <li>20+ AI Agents</li>
-            <li>24/7 Phone Support</li>
-            <li>Custom Development</li>
-            <li>Advanced Analytics</li>
-            <li>Dedicated Account Manager</li>
-            <li>SLA Guarantee</li>
-          </ul>
-          <a href="ai-workforce.html" class="btn btn-outline">Contact Sales</a>
+      </div>
+
+      <!-- What's always included -->
+      <div class="always-included reveal">
+        <h2>Included in every plan</h2>
+        <div class="included-grid">
+          <div class="included-item">
+            <div class="included-icon">⚡</div>
+            <div class="included-text">
+              <strong>Live in under 1 hour</strong>
+              <span>We handle the setup. You're live on WhatsApp same day.</span>
+            </div>
+          </div>
+          <div class="included-item">
+            <div class="included-icon">🇬🇧</div>
+            <div class="included-text">
+              <strong>UK-based team</strong>
+              <span>We understand UK hospitality, licensing, and guest expectations.</span>
+            </div>
+          </div>
+          <div class="included-item">
+            <div class="included-icon">🔄</div>
+            <div class="included-text">
+              <strong>No contracts</strong>
+              <span>Cancel any time, no penalty, no questions asked.</span>
+            </div>
+          </div>
+          <div class="included-item">
+            <div class="included-icon">🧠</div>
+            <div class="included-text">
+              <strong>Trained on your venue</strong>
+              <span>Your menu, your policies, your tone — not a generic chatbot.</span>
+            </div>
+          </div>
+          <div class="included-item">
+            <div class="included-icon">📊</div>
+            <div class="included-text">
+              <strong>Conversation reporting</strong>
+              <span>See how many enquiries were handled, bookings created, and revenue recovered.</span>
+            </div>
+          </div>
+          <div class="included-item">
+            <div class="included-icon">🔒</div>
+            <div class="included-text">
+              <strong>GDPR compliant</strong>
+              <span>UK GDPR and Meta Business Platform compliant. Guest data stays yours.</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="faq">
-        <h2>Frequently Asked Questions</h2>
-        <div class="faq-item reveal">
-          <h3>Can I cancel anytime?</h3>
-          <p>Yes, you can cancel your subscription at any time with no penalties. We'll pro-rate any unused time.</p>
+      <!-- Comparison table -->
+      <div class="section-header reveal">
+        <div class="section-tag">Compare plans</div>
+        <h2>What's in each plan</h2>
+      </div>
+
+      <div class="compare-wrap reveal">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th style="width:40%;">Feature</th>
+              <th>Starter<br><span style="font-size:16px; color:var(--text); font-weight:800; text-transform:none; letter-spacing:0;">£99/mo</span></th>
+              <th class="compare-head-mid col-mid">Growth<br><span style="font-size:16px; color:var(--green); font-weight:800; text-transform:none; letter-spacing:0;">£199/mo</span></th>
+              <th>Full Stack<br><span style="font-size:16px; color:var(--text); font-weight:800; text-transform:none; letter-spacing:0;">£399/mo</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-feat">WhatsApp AI on your number</td>
+              <td><span class="tick">✓</span></td>
+              <td class="col-mid"><span class="tick">✓</span></td>
+              <td><span class="tick">✓</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">24/7 enquiry &amp; FAQ handling</td>
+              <td><span class="tick">✓</span></td>
+              <td class="col-mid"><span class="tick">✓</span></td>
+              <td><span class="tick">✓</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Booking handoff to link/team</td>
+              <td><span class="tick">✓</span></td>
+              <td class="col-mid"><span class="tick">✓</span></td>
+              <td><span class="tick">✓</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Live booking system integration</td>
+              <td><span class="cross">—</span></td>
+              <td class="col-mid"><span class="tick">✓</span></td>
+              <td><span class="tick">✓</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">AI creates reservations directly</td>
+              <td><span class="cross">—</span></td>
+              <td class="col-mid"><span class="tick">✓</span></td>
+              <td><span class="tick">✓</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Cancellation &amp; amendment handling</td>
+              <td><span class="cross">—</span></td>
+              <td class="col-mid"><span class="tick">✓</span></td>
+              <td><span class="tick">✓</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Instagram DMs</td>
+              <td><span class="cross">—</span></td>
+              <td class="col-mid"><span class="cross">—</span></td>
+              <td><span class="tick">✓</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Pre-order &amp; deposit flows</td>
+              <td><span class="cross">—</span></td>
+              <td class="col-mid"><span class="cross">—</span></td>
+              <td><span class="tick">✓</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Custom upsell sequences</td>
+              <td><span class="cross">—</span></td>
+              <td class="col-mid"><span class="cross">—</span></td>
+              <td><span class="tick">✓</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Dedicated account manager</td>
+              <td><span class="cross">—</span></td>
+              <td class="col-mid"><span class="cross">—</span></td>
+              <td><span class="tick">✓</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Monthly review call</td>
+              <td><span class="cross">—</span></td>
+              <td class="col-mid"><span class="tick">✓</span></td>
+              <td><span class="tick">✓</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Setup &amp; onboarding</td>
+              <td><span class="tick">✓</span> included</td>
+              <td class="col-mid"><span class="tick">✓</span> included</td>
+              <td><span class="tick">✓</span> included</td>
+            </tr>
+            <tr>
+              <td class="col-feat">Minimum contract</td>
+              <td>None</td>
+              <td class="col-mid">None</td>
+              <td>None</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Supported platforms -->
+      <div style="max-width:760px; margin: 0 auto 80px; text-align:center;" class="reveal">
+        <p style="color:var(--text-muted); font-size:15px; line-height:1.8; margin-bottom: 20px;">
+          Live booking integration currently available for:
+        </p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:12px;">
+          <span style="background: rgba(37,211,102,0.08); border: 1px solid rgba(37,211,102,0.2); border-radius: 100px; padding: 8px 18px; font-size:14px; font-weight:600; color:var(--green);">✓ OpenTable</span>
+          <span style="background: rgba(37,211,102,0.08); border: 1px solid rgba(37,211,102,0.2); border-radius: 100px; padding: 8px 18px; font-size:14px; font-weight:600; color:var(--green);">✓ ResDiary</span>
+          <span style="background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 100px; padding: 8px 18px; font-size:14px; color:var(--text-muted);">Mews — coming soon</span>
+          <span style="background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 100px; padding: 8px 18px; font-size:14px; color:var(--text-muted);">Access Collins — coming soon</span>
         </div>
-        <div class="faq-item reveal">
-          <h3>Do you offer a free trial?</h3>
-          <p>Yes! All plans come with a 14-day free trial. No credit card required to start.</p>
+        <p style="font-size:13px; color:var(--text-muted);">Not on this list? <a href="contact.html" style="color:var(--green);">Get in touch</a> — we'll check if we can integrate with your system.</p>
+      </div>
+
+      <!-- FAQ -->
+      <div class="section-header reveal">
+        <div class="section-tag">Common questions</div>
+        <h2>Frequently asked questions</h2>
+      </div>
+
+      <div class="faq reveal">
+        <div class="faq-item">
+          <button class="faq-q">Is there a setup fee? <span class="faq-arrow">▾</span></button>
+          <div class="faq-a">No. Setup, WhatsApp configuration, booking system integration, and training the AI on your venue is included in every plan at no extra cost.</div>
         </div>
-        <div class="faq-item reveal">
-          <h3>What happens after the trial?</h3>
-          <p>If you don't continue, your agent will be paused. You can resume anytime or export your data.</p>
+        <div class="faq-item">
+          <button class="faq-q">How long does it take to go live? <span class="faq-arrow">▾</span></button>
+          <div class="faq-a">Most restaurants are live within an hour of signing up. We connect your WhatsApp Business number, integrate with your booking system, and train the AI on your venue details. You don't need to touch any code.</div>
         </div>
-        <div class="faq-item reveal">
-          <h3>Can I change plans later?</h3>
-          <p>Absolutely! Upgrade or downgrade your plan at any time. We'll pro-rate the difference.</p>
+        <div class="faq-item">
+          <button class="faq-q">What's the difference between Handoff and Live Integration? <span class="faq-arrow">▾</span></button>
+          <div class="faq-a">With Handoff (Starter), the AI collects all the guest's details and then sends them your booking link or notifies your team — a human clicks 'confirm'. With Live Integration (Growth), the AI connects directly to OpenTable or ResDiary: it checks availability in real time and creates the reservation itself. No human in the loop required.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Which booking systems do you integrate with? <span class="faq-arrow">▾</span></button>
+          <div class="faq-a">OpenTable and ResDiary are live now. Mews and Access Collins are in progress. If you use a different system, contact us and we'll let you know if it's feasible — many have APIs we can connect to.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Can I cancel at any time? <span class="faq-arrow">▾</span></button>
+          <div class="faq-a">Yes. No minimum contracts, no penalties. Cancel by email any time and we'll stop your subscription at the end of the billing period.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Can I upgrade or downgrade my plan? <span class="faq-arrow">▾</span></button>
+          <div class="faq-a">Absolutely. Upgrade any time and we'll activate the additional integration immediately. Downgrades take effect at the next billing date.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Do I need a WhatsApp Business account? <span class="faq-arrow">▾</span></button>
+          <div class="faq-a">We set one up for you if you don't already have one, or connect to your existing number. We use the official WhatsApp Business Platform API — the same infrastructure as large enterprise companies, fully Meta-approved.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">What happens if the AI can't answer something? <span class="faq-arrow">▾</span></button>
+          <div class="faq-a">The AI is trained to escalate anything it's not confident about — it'll send the guest a message saying your team will be in touch, and notify you. You set the escalation rules. Nothing falls through the cracks.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Is guest data safe and GDPR compliant? <span class="faq-arrow">▾</span></button>
+          <div class="faq-a">Yes. We operate under UK GDPR and the Meta Business Platform data processing agreements. Guest data is only used to process bookings and is never shared with third parties. See our <a href="privacy.html">Privacy Policy</a> for full details.</div>
         </div>
       </div>
+
     </div>
   </section>
 
   <section class="cta">
     <div class="container">
       <h2>Not Sure Which Plan?</h2>
-      <p>Book a free consultation and we'll help you choose.</p>
-      <a href="consultation.html" class="btn" style="padding: 16px 40px; font-size: 18px;">Book Free Call</a>
+      <p>Book a free 20-minute call — we'll look at your current setup and tell you exactly which plan makes sense and what the ROI looks like.</p>
+      <a href="consultation.html" class="btn" style="padding:16px 40px; font-size:18px;">Book Free Call →</a>
     </div>
   </section>
 
@@ -192,34 +646,45 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
-          <p>AI automation agency helping UK businesses deploy autonomous AI agents that work 24/7.</p>
+          <p>WhatsApp AI for UK restaurants, integrated with your booking system.</p>
         </div>
         <div class="footer-col">
-          <h4>Services</h4>
-          <a href="sales-ai.html">Sales AI</a>
-          <a href="marketing-ai.html">Marketing AI</a>
-          <a href="hr-ai.html">HR AI</a>
-          <a href="operations-ai.html">Operations</a>
+          <h4>Product</h4>
+          <a href="index.html#how-it-works">How It Works</a>
+          <a href="index.html#integrations">Integrations</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="consultation.html">Book Free Call</a>
         </div>
         <div class="footer-col">
           <h4>Company</h4>
+          <a href="blog.html">Blog</a>
           <a href="case-studies.html">Case Studies</a>
-          <a href="compare.html">Compare</a>
-          <a href="roi-calculator.html">ROI Calculator</a>
-          <a href="affiliate.html">Partner Program</a>
+          <a href="contact.html">Contact</a>
         </div>
         <div class="footer-col">
-          <h4>Contact</h4>
-          <a href="contact.html">Get in Touch</a>
-          <a href="consultation.html">Book Call</a>
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy &amp; Cookie Policy</a>
           <a href="mailto:hello@inference-agents.com">hello@inference-agents.com</a>
         </div>
       </div>
-      <div class="footer-bottom">© 2026 Inference Agents. All rights reserved. UK Business.</div>
+      <div class="footer-bottom">
+        © 2026 Inference Agents. All rights reserved. UK Business.
+      </div>
     </div>
   </footer>
 
   <script>
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
@@ -227,5 +692,9 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
+  <script src="nav.js"></script>
+  <script src="effects.js"></script>
+  <script src="analytics.js"></script>
+  <script src="cookies.js"></script>
 </body>
 </html>

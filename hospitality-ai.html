@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) — Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQEVHHCQ07"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', wait_for_update: 500 });
+    gtag('js', new Date());
+    gtag('config', 'G-RQEVHHCQ07');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp AI for Restaurants | OpenTable & ResDiary Integration | Inference Agents</title>
+  <meta name="description" content="WhatsApp AI for UK restaurants that integrates with OpenTable and ResDiary. Books tables, handles enquiries, and sends confirmations — 24/7. From £99/month.">
+  <meta name="keywords" content="WhatsApp AI restaurant UK, OpenTable WhatsApp integration, ResDiary WhatsApp, restaurant booking AI, AI for restaurants UK, WhatsApp booking system restaurant">
+  <meta property="og:title" content="WhatsApp AI for UK Restaurants | Inference Agents">
+  <meta property="og:description" content="WhatsApp AI that integrates with your booking system. Books tables 24/7 without staff involvement. From £99/month.">
+  <meta property="og:url" content="https://inference-agents.com/hospitality-ai.html">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://inference-agents.com/hospitality-ai.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-dark.css">
+  <style>
+    :root {
+      --green: #25d366;
+      --green-dim: rgba(37,211,102,0.12);
+      --green-border: rgba(37,211,102,0.28);
+    }
+
+    /* Stats bar */
+    .stats-bar {
+      padding: 52px 0;
+      background: linear-gradient(90deg, rgba(37,211,102,0.08), rgba(0,229,255,0.06), rgba(37,211,102,0.08));
+      border-top: 1px solid var(--green-border);
+      border-bottom: 1px solid var(--green-border);
+      text-align: center;
+    }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .stat-num {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--green), #00e5ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+    }
+    .stat-label { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
+
+    /* Problem cards */
+    .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 40px; }
+    .pain-card {
+      background: rgba(239,68,68,0.05);
+      border: 1px solid rgba(239,68,68,0.15);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .pain-card h4 { color: #f87171; margin-bottom: 8px; font-size: 16px; }
+    .pain-card p { color: var(--text-muted); font-size: 14px; line-height: 1.65; margin: 0; }
+
+    /* Solution banner */
+    .solution-banner {
+      background: rgba(37,211,102,0.06);
+      border: 1px solid var(--green-border);
+      border-radius: 20px;
+      padding: 36px 40px;
+      margin-top: 48px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .solution-icon { font-size: 48px; flex-shrink: 0; }
+    .solution-banner h3 { font-size: 22px; font-weight: 700; margin-bottom: 8px; color: var(--green); }
+    .solution-banner p { color: var(--text-muted); font-size: 15px; line-height: 1.7; margin: 0; }
+
+    /* How it works steps */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+      position: relative;
+    }
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      position: relative;
+    }
+    .step-card:hover { border-color: var(--green-border); box-shadow: 0 0 30px rgba(37,211,102,0.08); }
+    .step-num {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 800; color: #fff;
+      margin-bottom: 18px;
+    }
+    .step-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .step-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin: 0; }
+
+    /* Integration grid */
+    .integration-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .integration-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      transition: all 0.3s;
+    }
+    .integration-card:hover { transform: translateY(-3px); }
+    .integration-card.live { border-color: var(--green-border); background: var(--green-dim); }
+    .integration-card.soon { opacity: 0.55; }
+    .int-icon { font-size: 32px; margin-bottom: 12px; }
+    .int-name { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .int-desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; margin-bottom: 12px; }
+    .int-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 100px;
+    }
+    .badge-live { background: rgba(37,211,102,0.12); color: var(--green); border: 1px solid rgba(37,211,102,0.3); }
+    .badge-soon { background: rgba(255,255,255,0.06); color: var(--text-muted); border: 1px solid var(--border); }
+
+    /* Convo mockup */
+    .convo-wrap {
+      background: #111827;
+      border: 1px solid rgba(37,211,102,0.2);
+      border-radius: 20px;
+      overflow: hidden;
+      max-width: 420px;
+      margin: 0 auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .convo-header {
+      background: #075e54;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .convo-avatar {
+      width: 40px; height: 40px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .convo-header-text strong { display: block; color: #fff; font-size: 15px; }
+    .convo-header-text span { font-size: 12px; color: rgba(255,255,255,0.6); }
+    .convo-body { padding: 20px 16px; display: flex; flex-direction: column; gap: 10px; }
+    .msg {
+      max-width: 80%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .msg-guest { background: #2a2a3a; color: #e2e8f0; align-self: flex-start; border-bottom-left-radius: 4px; }
+    .msg-ai { background: #005c4b; color: #e2e8f0; align-self: flex-end; border-bottom-right-radius: 4px; }
+    .msg-time { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 3px; }
+    .msg-tick { color: #34b7f1; }
+    .convo-confirm {
+      margin: 0 16px 16px;
+      background: rgba(37,211,102,0.1);
+      border: 1px solid rgba(37,211,102,0.25);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    /* Pricing mini cards */
+    .mini-pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+    .mini-plan {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .mini-plan:hover { border-color: var(--green-border); transform: translateY(-3px); }
+    .mini-plan.featured { border-color: var(--green-border); background: var(--green-dim); }
+    .mini-plan-name { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 8px; }
+    .mini-price { font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 4px; }
+    .mini-price span { font-size: 14px; font-weight: 500; color: var(--text-muted); }
+    .mini-plan-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 18px; }
+    .mini-plan .btn { width: 100%; text-align: center; padding: 12px; font-size: 14px; }
+
+    /* FAQ */
+    .faq { max-width: 760px; margin: 0 auto; }
+    .faq-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 10px; overflow: hidden; }
+    .faq-q { width: 100%; background: none; border: none; padding: 20px 24px; text-align: left; font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 600; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .faq-q:hover { color: var(--green); }
+    .faq-arrow { font-size: 18px; color: var(--text-muted); transition: transform 0.3s; flex-shrink: 0; }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a { display: none; padding: 16px 24px 20px; font-size: 14px; color: var(--text-muted); line-height: 1.8; border-top: 1px solid var(--border); }
+    .faq-item.open .faq-a { display: block; }
+
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps { grid-template-columns: 1fr; }
+      .mini-pricing { grid-template-columns: 1fr; max-width: 360px; margin-left: auto; margin-right: auto; }
+      .solution-banner { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "Does the WhatsApp AI work with OpenTable?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. On our Growth plan and above, the AI connects live to OpenTable and creates reservations directly — no staff involvement required."}},
+      {"@type": "Question", "name": "How long does setup take?", "acceptedAnswer": {"@type": "Answer", "text": "Most restaurants are live in under an hour. We connect your WhatsApp number and booking system, then train the AI on your venue."}},
+      {"@type": "Question", "name": "What if a guest asks something the AI can't answer?", "acceptedAnswer": {"@type": "Answer", "text": "The AI escalates anything it's not confident about and notifies your team. Nothing falls through the cracks."}},
+      {"@type": "Question", "name": "Does it work with ResDiary?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. ResDiary integration is live on Growth and Full Stack plans."}}
+    ]
+  }</script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
+        <ul class="nav-links">
+          <li><a href="index.html#how-it-works">How It Works</a></li>
+          <li><a href="index.html#integrations">Integrations</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="consultation.html" class="btn">Book Free Call</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div style="margin-bottom:18px; font-size:13px; color:var(--text-dim);">
+        <a href="/" style="color:var(--text-dim); text-decoration:none;">Home</a>
+        <span style="margin: 0 8px; opacity:0.4;">›</span>
+        <span style="color:var(--green);">Restaurants</span>
+      </div>
+      <div class="page-badge"><div class="badge-dot" style="background:var(--green)"></div>UK Restaurants</div>
+      <h1>WhatsApp AI for <span>UK Restaurants</span></h1>
+      <p>Your guests are already messaging you on WhatsApp. Our AI answers instantly, checks availability, and books the table — integrated live with OpenTable or ResDiary. No staff required.</p>
+      <div style="margin-top: 28px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="consultation.html" class="btn">Book Free Demo</a>
+        <a href="pricing.html" class="btn btn-outline">View Pricing →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="reveal">
+          <div class="stat-num">80%</div>
+          <div class="stat-label">of UK adults use WhatsApp — it's your guests' first instinct</div>
+        </div>
+        <div class="reveal">
+          <div class="stat-num">98%</div>
+          <div class="stat-label">open rate for WhatsApp messages vs 20% for email</div>
+        </div>
+        <div class="reveal">
+          <div class="stat-num">&lt;3s</div>
+          <div class="stat-label">average AI response time — vs 4+ hours for staff replies</div>
+        </div>
+        <div class="reveal">
+          <div class="stat-num">£16K</div>
+          <div class="stat-label">average annual revenue lost to unanswered booking enquiries</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">The Problem</div>
+        <h2>Bookings are leaking out of WhatsApp</h2>
+        <p>Guests message on WhatsApp because it's where they live. But restaurants can't staff a real-time messaging service 24/7.</p>
+      </div>
+      <div class="pain-grid">
+        <div class="pain-card reveal">
+          <h4>Messages after 10pm go unanswered</h4>
+          <p>Your Saturday night enquiry arrives at 10:30pm. You reply Tuesday morning. They booked somewhere else on Sunday. That's a table for 4 at £50/head — gone.</p>
+        </div>
+        <div class="pain-card reveal">
+          <h4>Staff can't monitor WhatsApp during service</h4>
+          <p>Your front-of-house team is on the floor. Nobody is watching the phone. "We checked messages at the end of the night" means you're always a day behind.</p>
+        </div>
+        <div class="pain-card reveal">
+          <h4>Enquiries that don't convert to bookings</h4>
+          <p>Even when you do reply, the back-and-forth — date, time, party size, availability — takes 6 messages and an hour. Half of guests give up and book somewhere easier.</p>
+        </div>
+        <div class="pain-card reveal">
+          <h4>No record of what was discussed</h4>
+          <p>Dietary requirements, special occasions, pre-orders — mentioned in WhatsApp, never makes it into OpenTable. Guests arrive for a birthday dinner and nothing's been set up.</p>
+        </div>
+      </div>
+
+      <div class="solution-banner reveal">
+        <div class="solution-icon">💬</div>
+        <div>
+          <h3>The fix: WhatsApp AI that connects to your booking system</h3>
+          <p>Our AI responds instantly to every WhatsApp message, collects the details, checks live availability in your booking system, and confirms the reservation — all inside the conversation. Your team wakes up to a full diary, not a backlog of unanswered messages.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section section-alt" id="how-it-works">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">How It Works</div>
+        <h2>Three steps, fully automated</h2>
+        <p>From first message to confirmed booking — without your team touching a phone</p>
+      </div>
+      <div class="steps">
+        <div class="step-card reveal">
+          <div class="step-num">1</div>
+          <h3>Guest messages on WhatsApp</h3>
+          <p>They ask about availability, a special occasion, group size — whatever's on their mind. The AI responds in under 3 seconds, any time of day or night, in a natural conversational tone that matches your restaurant's personality.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-num">2</div>
+          <h3>AI checks your live booking system</h3>
+          <p>Once the AI has date, time, and party size, it queries OpenTable or ResDiary in real time. It only offers slots that are actually available — no double-bookings, no awkward follow-up corrections.</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-num">3</div>
+          <h3>Reservation confirmed, guest delighted</h3>
+          <p>The AI creates the booking directly in your system and sends the guest a confirmation in WhatsApp — with the booking reference, any notes about special requirements, and a reminder the day before.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live demo mockup -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">See It In Action</div>
+        <h2>What your guests experience</h2>
+        <p>A real conversation, handled entirely by AI, with a confirmed booking in OpenTable at the end</p>
+      </div>
+      <div class="convo-wrap reveal">
+        <div class="convo-header">
+          <div class="convo-avatar">🍽️</div>
+          <div class="convo-header-text">
+            <strong>The Clove Club</strong>
+            <span>🟢 Online</span>
+          </div>
+        </div>
+        <div class="convo-body">
+          <div class="msg msg-guest">
+            Hi, do you have a table for 4 this Saturday evening?
+            <div class="msg-time">21:47</div>
+          </div>
+          <div class="msg msg-ai">
+            Hi! Yes, we have availability on Saturday 5th April. Would you prefer 6:30pm, 7:00pm or 8:00pm?
+            <div class="msg-time">21:47 <span class="msg-tick">✓✓</span></div>
+          </div>
+          <div class="msg msg-guest">
+            7pm would be perfect
+            <div class="msg-time">21:48</div>
+          </div>
+          <div class="msg msg-ai">
+            Lovely. May I take a name for the booking and any dietary requirements?
+            <div class="msg-time">21:48 <span class="msg-tick">✓✓</span></div>
+          </div>
+          <div class="msg msg-guest">
+            Sarah Johnson — one guest is vegetarian
+            <div class="msg-time">21:49</div>
+          </div>
+          <div class="msg msg-ai">
+            Done! I've confirmed your table for 4 at 7:00pm on Saturday 5th April. Vegetarian noted for your party. You'll receive a reminder on Friday morning.
+            <div class="msg-time">21:49 <span class="msg-tick">✓✓</span></div>
+          </div>
+        </div>
+        <div class="convo-confirm">
+          ✓ Reservation created in OpenTable — Ref #TCK-4821
+        </div>
+      </div>
+      <p style="text-align:center; color:var(--text-muted); font-size:13px; margin-top:16px;">This entire conversation happened while your team was on the floor. No staff involved.</p>
+    </div>
+  </section>
+
+  <!-- Integrations -->
+  <section class="section section-alt" id="integrations">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Booking Systems</div>
+        <h2>Integrated with your platform</h2>
+        <p>We connect directly to your existing booking system — no migration, no double-entry</p>
+      </div>
+      <div class="integration-grid">
+        <div class="integration-card live reveal">
+          <div class="int-icon">🍴</div>
+          <div class="int-name">OpenTable</div>
+          <div class="int-desc">Live two-way integration. AI checks real-time availability and creates reservations directly inside OpenTable.</div>
+          <span class="int-badge badge-live">✓ Live now</span>
+        </div>
+        <div class="integration-card live reveal">
+          <div class="int-icon">📋</div>
+          <div class="int-name">ResDiary</div>
+          <div class="int-desc">Full integration with ResDiary. Bookings appear instantly in your diary with all guest notes captured.</div>
+          <span class="int-badge badge-live">✓ Live now</span>
+        </div>
+        <div class="integration-card soon reveal">
+          <div class="int-icon">🏨</div>
+          <div class="int-name">Mews</div>
+          <div class="int-desc">Integration in progress — ideal for hotel restaurants managing both accommodation and dining in one system.</div>
+          <span class="int-badge badge-soon">Coming soon</span>
+        </div>
+        <div class="integration-card soon reveal">
+          <div class="int-icon">📱</div>
+          <div class="int-name">Access Collins</div>
+          <div class="int-desc">Popular with high-volume UK restaurant groups and late-night venues. Integration in development.</div>
+          <span class="int-badge badge-soon">Coming soon</span>
+        </div>
+        <div class="integration-card soon reveal">
+          <div class="int-icon">✂️</div>
+          <div class="int-name">SevenRooms</div>
+          <div class="int-desc">Enterprise restaurant CRM and reservation management. On our integration roadmap for late 2026.</div>
+          <span class="int-badge badge-soon">Coming soon</span>
+        </div>
+        <div class="integration-card soon reveal">
+          <div class="int-icon">💬</div>
+          <div class="int-name">Instagram DMs</div>
+          <div class="int-desc">Same AI, second channel. Handle Instagram DMs alongside WhatsApp on our Full Stack plan.</div>
+          <span class="int-badge badge-soon">Full Stack</span>
+        </div>
+      </div>
+      <p style="text-align:center; margin-top:24px; color:var(--text-muted); font-size:14px;">On a different system? <a href="contact.html" style="color:var(--green);">Get in touch</a> — if it has an API, we can likely integrate.</p>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section" id="pricing">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Pricing</div>
+        <h2>Choose your integration depth</h2>
+        <p>Start with handoff and upgrade to live booking integration when you're ready</p>
+      </div>
+      <div class="mini-pricing">
+        <div class="mini-plan reveal">
+          <div class="mini-plan-name">Starter</div>
+          <div class="mini-price">£99<span>/mo</span></div>
+          <div class="mini-plan-desc">WhatsApp AI handles enquiries and sends guests to your booking link. No setup fee.</div>
+          <a href="consultation.html" class="btn btn-outline">Get Started →</a>
+        </div>
+        <div class="mini-plan featured reveal">
+          <div class="mini-plan-name">Growth — Most Popular</div>
+          <div class="mini-price">£199<span>/mo</span></div>
+          <div class="mini-plan-desc">Live integration with OpenTable or ResDiary. AI books directly into your system. No setup fee.</div>
+          <a href="consultation.html" class="btn" style="background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;border:none;">Get Started →</a>
+        </div>
+        <div class="mini-plan reveal">
+          <div class="mini-plan-name">Full Stack</div>
+          <div class="mini-price">£399<span>/mo</span></div>
+          <div class="mini-plan-desc">WhatsApp + Instagram DMs, custom flows, upsells, and a dedicated account manager.</div>
+          <a href="consultation.html" class="btn btn-outline">Get Started →</a>
+        </div>
+      </div>
+      <p style="text-align:center; margin-top:20px; font-size:14px; color:var(--text-muted);">Full plan details at <a href="pricing.html" style="color:var(--green);">pricing.html</a> — no contracts, cancel any time.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Questions</div>
+        <h2>Frequently asked questions</h2>
+      </div>
+      <div class="faq reveal">
+        <div class="faq-item">
+          <button class="faq-q">Does the AI work with OpenTable? <span class="faq-arrow">▾</span></button>
+          <div class="faq-a">Yes. On our Growth and Full Stack plans, the AI connects live to OpenTable via the In House Booking API. It checks real-time availability and creates reservations directly — guests see a booking reference inside WhatsApp.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">What about ResDiary? <span class="faq-arrow">▾</span></button>
+          <div class="faq-a">ResDiary integration is also live on Growth and Full Stack plans. All bookings appear instantly in your ResDiary diary with guest names, party sizes, and any dietary or special occasion notes captured during the WhatsApp conversation.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">How long does setup take? <span class="faq-arrow">▾</span></button>
+          <div class="faq-a">Most restaurants are live in under an hour. We connect your WhatsApp Business number (or set one up if you don't have one), integrate with your booking system, and train the AI on your venue — menus, opening hours, policies, tone of voice. You don't need to do anything technical.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">What happens when the AI can't handle something? <span class="faq-arrow">▾</span></button>
+          <div class="faq-a">The AI is trained to escalate anything it's not confident about — it sends the guest a message saying your team will be in touch shortly, and notifies you. You define the escalation rules. Nothing falls through the cracks.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Can it handle dietary requirements and special occasions? <span class="faq-arrow">▾</span></button>
+          <div class="faq-a">Yes. The AI collects this information during the booking conversation and writes it into the booking notes in your system. Your front-of-house team sees it before the guest arrives — no more last-minute surprises.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Do I need to change my existing WhatsApp number? <span class="faq-arrow">▾</span></button>
+          <div class="faq-a">No. We can connect to your existing WhatsApp Business number or set up a new one. We use the official WhatsApp Business Platform API — Meta-approved, fully compliant.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Is there a contract? <span class="faq-arrow">▾</span></button>
+          <div class="faq-a">No minimum contract. Cancel any time by email. No setup fees, no penalties. We're confident the results will make you want to stay.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to stop missing bookings?</h2>
+      <p>Book a free 20-minute demo — we'll show you the AI live, connected to a test OpenTable environment, and tell you exactly what it would look like for your restaurant.</p>
+      <a href="consultation.html" class="btn" style="padding:16px 40px; font-size:18px;">Book Free Demo →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
+          <p>WhatsApp AI for UK restaurants, integrated with your booking system.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <a href="index.html#how-it-works">How It Works</a>
+          <a href="index.html#integrations">Integrations</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="consultation.html">Book Free Demo</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="blog.html">Blog</a>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy &amp; Cookie Policy</a>
+          <a href="mailto:hello@inference-agents.com">hello@inference-agents.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 Inference Agents. All rights reserved. UK Business.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+  <script src="nav.js"></script>
+  <script src="effects.js"></script>
+  <script src="analytics.js"></script>
+  <script src="cookies.js"></script>
+</body>
+</html>
