@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Control | Central Hub</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎛️</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: rgba(255,255,255,0.03);
+      --bg-card-hover: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.08);
+      --border-glow: rgba(16,185,129,0.3);
+      --text: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --primary: #10b981;
+      --primary-dim: rgba(16,185,129,0.15);
+      --accent: #8b5cf6;
+      --accent-dim: rgba(139,92,246,0.15);
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --info: #3b82f6;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 80% 50% at 20% 0%, rgba(16,185,129,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(139,92,246,0.06) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .app {
+      display: flex;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border);
+      padding: 20px 12px;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 12px 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+
+    .sidebar-logo {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .sidebar-title {
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .sidebar-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .nav-section {
+      margin-bottom: 24px;
+    }
+
+    .nav-section-title {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      padding: 0 12px;
+      margin-bottom: 8px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+    }
+
+    .nav-item:hover {
+      background: var(--bg-card-hover);
+      color: var(--text);
+    }
+
+    .nav-item.active {
+      background: var(--primary-dim);
+      color: var(--primary);
+    }
+
+    .nav-item .icon {
+      font-size: 16px;
+      width: 24px;
+      text-align: center;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .clock-widget {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .clock-time {
+      font-size: 28px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .clock-date {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      margin-left: 260px;
+      padding: 24px 32px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .header-left h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .header-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text);
+    }
+
+    .btn:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background: #0ea572;
+    }
+
+    /* Views */
+    .view { display: none; }
+    .view.active { display: block; animation: fadeIn 0.3s ease; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: all 0.3s;
+    }
+
+    .stat-card:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(16,185,129,0.1);
+    }
+
+    .stat-icon {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .qa-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .qa-btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .qa-btn .icon {
+      font-size: 20px;
+    }
+
+    /* Integrations Grid */
+    .integrations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .integration-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.2s;
+    }
+
+    .integration-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .integration-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--primary-dim);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .integration-info {
+      flex: 1;
+    }
+
+    .integration-name {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .integration-status {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .integration-status .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .integration-status .dot.connected { background: var(--primary); }
+    .integration-status .dot.warning { background: var(--warning); }
+    .integration-status .dot.error { background: var(--danger); }
+
+    .integration-action {
+      padding: 8px 14px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .integration-action:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #000;
+    }
+
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background: linear-gradient(135deg, var(--bg-card), rgba(16,185,129,0.03));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      box-shadow: 0 12px 40px rgba(16,185,129,0.15);
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    .project-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .project-name {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .project-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .project-link {
+      font-size: 12px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Kanban Board */
+    .kanban-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      min-height: 400px;
+    }
+
+    .kanban-column {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+
+    .kanban-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .kanban-title {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .kanban-count {
+      background: var(--primary-dim);
+      color: var(--primary);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .kanban-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 200px;
+    }
+
+    .kanban-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      cursor: grab;
+      transition: all 0.2s;
+    }
+
+    .kanban-card:hover {
+      border-color: var(--primary);
+      transform: translateX(4px);
+    }
+
+    .kanban-card-title {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .kanban-card-labels {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .kanban-label {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+
+    /* Tools Grid */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px;
+    }
+
+    .tool-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tool-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .tool-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .tool-icon {
+      font-size: 24px;
+    }
+
+    .tool-name {
+      font-weight: 600;
+    }
+
+    .tool-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Settings */
+    .settings-section {
+      margin-bottom: 32px;
+    }
+
+    .settings-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .setting-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .setting-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .setting-icon {
+      font-size: 20px;
+    }
+
+    .setting-name {
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .setting-value {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    .setting-btn {
+      padding: 6px 12px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .setting-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #000;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      max-width: 500px;
+      width: 90%;
+      animation: modalIn 0.3s ease;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .modal-close:hover { color: var(--text); }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    /* Lock Screen */
+    .lock-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .lock-box {
+      text-align: center;
+      max-width: 400px;
+      padding: 40px;
+    }
+
+    .lock-icon {
+      font-size: 64px;
+      margin-bottom: 24px;
+    }
+
+    .lock-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .lock-desc {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .sidebar { transform: translateX(-100%); }
+      .main { margin-left: 0; }
+      .kanban-board { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="lock-screen" class="lock-screen">
+    <div class="lock-box">
+      <div class="lock-icon">🔐</div>
+      <h1 class="lock-title">Mission Control</h1>
+      <p class="lock-desc">Enter your access PIN to continue</p>
+      <div class="form-group">
+        <input type="password" id="pin-input" class="form-input" placeholder="Enter PIN" maxlength="6">
+      </div>
+      <button class="btn btn-primary" onclick="unlock()">Unlock</button>
+      <p style="margin-top: 16px; font-size: 12px; color: var(--text-muted);">
+        Default PIN: <code>0000</code> • Change in Settings
+      </p>
+    </div>
+  </div>
+
+  <div class="app" id="app" style="display: none;">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">🎛️</div>
+        <div>
+          <div class="sidebar-title">Mission Control</div>
+          <div class="sidebar-subtitle">Central Hub</div>
+        </div>
+      </div>
+
+      <nav class="nav-section">
+        <div class="nav-section-title">Dashboard</div>
+        <button class="nav-item active" onclick="showView('overview')">
+          <span class="icon">📊</span> Overview
+        </button>
+        <button class="nav-item" onclick="showView('projects')">
+          <span class="icon">🚀</span> Projects
+        </button>
+        <button class="nav-item" onclick="showView('kanban')">
+          <span class="icon">📋</span> Kanban
+        </button>
+        <button class="nav-item" onclick="showView('integrations')">
+          <span class="icon">🔗</span> Integrations
+        </button>
+        <button class="nav-item" onclick="showView('tools')">
+          <span class="icon">⚡</span> Tools
+        </button>
+      </nav>
+
+      <nav class="nav-section">
+        <div class="nav-section-title">Quick Access</div>
+        <button class="nav-item" onclick="openLink('https://trello.com')">
+          <span class="icon">📌</span> Trello
+        </button>
+        <button class="nav-item" onclick="openLink('https://chat.openai.com')">
+          <span class="icon">🤖</span> ChatGPT
+        </button>
+        <button class="nav-item" onclick="openLink('https://github.com')">
+          <span class="icon">🐙</span> GitHub
+        </button>
+        <button class="nav-item" onclick="openLink('https://mail.google.com')">
+          <span class="icon">📧</span> Gmail
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="clock-widget">
+          <div class="clock-time" id="clock">--:--</div>
+          <div class="clock-date" id="date">---</div>
+        </div>
+        <button class="nav-item" onclick="showView('settings')">
+          <span class="icon">⚙️</span> Settings
+        </button>
+        <button class="nav-item" onclick="lock()">
+          <span class="icon">🔒</span> Lock
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Overview View -->
+      <div id="view-overview" class="view active">
+        <div class="header">
+          <div class="header-left">
+            <h1>Overview</h1>
+            <div class="header-status">
+              <span class="status-dot"></span>
+              All systems operational
+            </div>
+          </div>
+          <div class="header-actions">
+            <button class="btn" onclick="showModal('add-task')">+ Add Task</button>
+            <button class="btn btn-primary" onclick="openLink('https://trello.com')">Open Trello</button>
+          </div>
+        </div>
+
+        <div class="stats-grid" id="stats-grid"></div>
+
+        <div class="quick-actions">
+          <button class="qa-btn" onclick="runAction('leads')">
+            <span class="icon">🎯</span>
+            <div>
+              <div style="font-weight: 600;">Generate Leads</div>
+              <div style="font-size: 11px; opacity: 0.7;">UK tradespeople</div>
+            </div>
+          </button>
+          <button class="qa-btn" onclick="runAction('email')">
+            <span class="icon">📧</span>
+            <div>
+              <div style="font-weight: 600;">Send Outreach</div>
+              <div style="font-size: 11px; opacity: 0.7;">Cold email campaign</div>
+            </div>
+          </button>
+          <button class="qa-btn" onclick="runAction('deploy')">
+            <span class="icon">☁️</span>
+            <div>
+              <div style="font-weight: 600;">Deploy Site</div>
+              <div style="font-size: 11px; opacity: 0.7;">Cloudflare Pages</div>
+            </div>
+          </button>
+          <button class="qa-btn" onclick="openLink('https://dashboard.stripe.com')">
+            <span class="icon">💳</span>
+            <div>
+              <div style="font-weight: 600;">Check Stripe</div>
+              <div style="font-size: 11px; opacity: 0.7;">Payments & revenue</div>
+            </div>
+          </button>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Recent Activity</div>
+          </div>
+          <div id="activity-list" style="color: var(--text-secondary); font-size: 13px;">
+            No recent activity. Start by adding a task or running a tool.
+          </div>
+        </div>
+      </div>
+
+      <!-- Projects View -->
+      <div id="view-projects" class="view">
+        <div class="header">
+          <div class="header-left">
+            <h1>Projects</h1>
+          </div>
+        </div>
+
+        <div class="projects-grid">
+          <div class="project-card" onclick="openLink('http://localhost:3000')">
+            <div class="project-icon">📝</div>
+            <div class="project-name">Notion Clone</div>
+            <div class="project-desc">Block editor with pages, databases, and AI assistant. Local storage with optional Supabase sync.</div>
+            <div class="project-link">Open localhost:3000 →</div>
+          </div>
+          <div class="project-card" onclick="openLink('https://app--fresh-track-a9266e05.base44.app')">
+            <div class="project-icon">🥦</div>
+            <div class="project-name">FreshTrack</div>
+            <div class="project-desc">AI-powered food waste reduction app. Receipt scanning, expiry tracking, GPT-4 recipes.</div>
+            <div class="project-link">Open app →</div>
+          </div>
+          <div class="project-card" onclick="openLink('https://inference-agents.com')">
+            <div class="project-icon">🤖</div>
+            <div class="project-name">Inference Agents</div>
+            <div class="project-desc">AI agent platform with local LLMs via Ollama. Master agent architecture with subagents.</div>
+            <div class="project-link">Open site →</div>
+          </div>
+          <div class="project-card" onclick="openLink('https://tradesman-ai.com')">
+            <div class="project-icon">🔧</div>
+            <div class="project-name">Tradesman AI</div>
+            <div class="project-desc">AI solutions for UK tradespeople. Professional website with £99/mo AI assistant.</div>
+            <div class="project-link">Open site →</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanban View -->
+      <div id="view-kanban" class="view">
+        <div class="header">
+          <div class="header-left">
+            <h1>Kanban Board</h1>
+          </div>
+          <div class="header-actions">
+            <button class="btn" onclick="openLink('https://trello.com')">Open Trello</button>
+          </div>
+        </div>
+
+        <div class="kanban-board" id="kanban-board"></div>
+      </div>
+
+      <!-- Integrations View -->
+      <div id="view-integrations" class="view">
+        <div class="header">
+          <div class="header-left">
+            <h1>Integrations</h1>
+          </div>
+        </div>
+
+        <div class="integrations-grid">
+          <div class="integration-card">
+            <div class="integration-icon">🦞</div>
+            <div class="integration-info">
+              <div class="integration-name">Ollama</div>
+              <div class="integration-status"><span class="dot connected"></span> Local LLMs running</div>
+            </div>
+            <button class="integration-action" onclick="openLink('http://localhost:11434')">Open</button>
+          </div>
+          <div class="integration-card">
+            <div class="integration-icon">☁️</div>
+            <div class="integration-info">
+              <div class="integration-name">Cloudflare</div>
+              <div class="integration-status"><span class="dot connected"></span> Pages connected</div>
+            </div>
+            <button class="integration-action" onclick="openLink('https://dash.cloudflare.com')">Dashboard</button>
+          </div>
+          <div class="integration-card">
+            <div class="integration-icon">🤖</div>
+            <div class="integration-info">
+              <div class="integration-name">OpenClaw</div>
+              <div class="integration-status"><span class="dot connected"></span> Gateway running</div>
+            </div>
+            <button class="integration-action" onclick="runAction('cli')">CLI</button>
+          </div>
+          <div class="integration-card">
+            <div class="integration-icon">📱</div>
+            <div class="integration-info">
+              <div class="integration-name">Telegram</div>
+              <div class="integration-status"><span class="dot connected"></span> Bot active</div>
+            </div>
+            <button class="integration-action" onclick="openLink('https://t.me/DaveTheMasterAgentBot')">Bot</button>
+          </div>
+          <div class="integration-card">
+            <div class="integration-icon">🐙</div>
+            <div class="integration-info">
+              <div class="integration-name">GitHub</div>
+              <div class="integration-status"><span class="dot connected"></span> Connected</div>
+            </div>
+            <button class="integration-action" onclick="openLink('https://github.com')">Repo</button>
+          </div>
+          <div class="integration-card">
+            <div class="integration-icon">💳</div>
+            <div class="integration-info">
+              <div class="integration-name">Stripe</div>
+              <div class="integration-status"><span class="dot warning"></span> No subscribers</div>
+            </div>
+            <button class="integration-action" onclick="openLink('https://dashboard.stripe.com')">Dashboard</button>
+          </div>
+          <div class="integration-card">
+            <div class="integration-icon">📧</div>
+            <div class="integration-info">
+              <div class="integration-name">Gmail</div>
+              <div class="integration-status"><span class="dot connected"></span> Configured</div>
+            </div>
+            <button class="integration-action" onclick="openLink('https://mail.google.com')">Mail</button>
+          </div>
+          <div class="integration-card">
+            <div class="integration-icon">📊</div>
+            <div class="integration-info">
+              <div class="integration-name">HubSpot</div>
+              <div class="integration-status"><span class="dot connected"></span> 5 contacts</div>
+            </div>
+            <button class="integration-action" onclick="openLink('https://app.hubspot.com')">CRM</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools View -->
+      <div id="view-tools" class="view">
+        <div class="header">
+          <div class="header-left">
+            <h1>Tools</h1>
+          </div>
+        </div>
+
+        <div class="tools-grid">
+          <div class="tool-card" onclick="runAction('leads')">
+            <div class="tool-header">
+              <span class="tool-icon">🎯</span>
+              <span class="tool-name">Lead Generator</span>
+            </div>
+            <div class="tool-desc">Generate leads for UK tradespeople using Apify scrapers</div>
+          </div>
+          <div class="tool-card" onclick="runAction('email')">
+            <div class="tool-header">
+              <span class="tool-icon">📧</span>
+              <span class="tool-name">Email Outreach</span>
+            </div>
+            <div class="tool-desc">Send personalized cold emails to leads via Gmail</div>
+          </div>
+          <div class="tool-card" onclick="runAction('social')">
+            <div class="tool-header">
+              <span class="tool-icon">📱</span>
+              <span class="tool-name">Social Post</span>
+            </div>
+            <div class="tool-desc">Schedule and post to X/Twitter automatically</div>
+          </div>
+          <div class="tool-card" onclick="runAction('deploy')">
+            <div class="tool-header">
+              <span class="tool-icon">☁️</span>
+              <span class="tool-name">Deploy to Cloudflare</span>
+            </div>
+            <div class="tool-desc">Push latest site changes to Cloudflare Pages</div>
+          </div>
+          <div class="tool-card" onclick="runAction('analytics')">
+            <div class="tool-header">
+              <span class="tool-icon">📊</span>
+              <span class="tool-name">Analytics Report</span>
+            </div>
+            <div class="tool-desc">Generate business analytics reports</div>
+          </div>
+          <div class="tool-card" onclick="runAction('crm')">
+            <div class="tool-header">
+              <span class="tool-icon">📋</span>
+              <span class="tool-name">CRM Sync</span>
+            </div>
+            <div class="tool-desc">Sync contacts between Gmail, HubSpot & pipeline</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings View -->
+      <div id="view-settings" class="view">
+        <div class="header">
+          <div class="header-left">
+            <h1>Settings</h1>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-title">Security</div>
+          <div class="settings-grid">
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-icon">🔑</span>
+                <div>
+                  <div class="setting-name">Access PIN</div>
+                  <div class="setting-value">••••</div>
+                </div>
+              </div>
+              <button class="setting-btn" onclick="showModal('change-pin')">Change</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-title">Quick Links</div>
+          <div class="settings-grid">
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-icon">🎛️</span>
+                <div>
+                  <div class="setting-name">OpenClaw CLI</div>
+                  <div class="setting-value">Local gateway</div>
+                </div>
+              </div>
+              <button class="setting-btn" onclick="runAction('cli')">Open</button>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-icon">📌</span>
+                <div>
+                  <div class="setting-name">Trello Board</div>
+                  <div class="setting-value">Kanban tasks</div>
+                </div>
+              </div>
+              <button class="setting-btn" onclick="openLink('https://trello.com')">Open</button>
+            </div>
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-icon">☁️</span>
+                <div>
+                  <div class="setting-name">Cloudflare</div>
+                  <div class="setting-value">inference-agents.pages.dev</div>
+                </div>
+              </div>
+              <button class="setting-btn" onclick="runAction('deploy')">Deploy</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <div class="settings-title">About</div>
+          <div class="settings-grid">
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-icon">🎛️</span>
+                <div>
+                  <div class="setting-name">Mission Control</div>
+                  <div class="setting-value">v2.0 • Secure Edition</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modals -->
+  <div id="modal-add-task" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Add Task</div>
+        <button class="modal-close" onclick="closeModal('add-task')">×</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Task Title</label>
+        <input type="text" id="task-title" class="form-input" placeholder="Enter task title">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Column</label>
+        <select id="task-column" class="form-input">
+          <option value="today">Today</option>
+          <option value="week">This Week</option>
+          <option value="later">Later</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" onclick="addTask()" style="width: 100%;">Add Task</button>
+    </div>
+  </div>
+
+  <div id="modal-change-pin" class="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Change PIN</div>
+        <button class="modal-close" onclick="closeModal('change-pin')">×</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">New PIN</label>
+        <input type="password" id="new-pin" class="form-input" placeholder="Enter new PIN" maxlength="6">
+      </div>
+      <button class="btn btn-primary" onclick="changePin()" style="width: 100%;">Save PIN</button>
+    </div>
+  </div>
+
+  <script>
+    // ── Config ──────────────────────────────────────────────────────────────
+    const CONFIG = {
+      pin: localStorage.getItem('mc_pin') || '0000',
+      stats: {
+        tasksToday: 0,
+        tasksWeek: 0,
+        tasksLater: 0,
+        agents: 6,
+        leads: 0,
+        clients: 0
+      }
+    };
+
+    // ── Auth ───────────────────────────────────────────────────────────────
+    function unlock() {
+      const input = document.getElementById('pin-input');
+      if (input.value === CONFIG.pin) {
+        document.getElementById('lock-screen').style.display = 'none';
+        document.getElementById('app').style.display = 'flex';
+        init();
+      } else {
+        input.style.borderColor = 'var(--danger)';
+        setTimeout(() => input.style.borderColor = '', 1000);
+      }
+    }
+
+    function lock() {
+      document.getElementById('lock-screen').style.display = 'flex';
+      document.getElementById('app').style.display = 'none';
+      document.getElementById('pin-input').value = '';
+    }
+
+    function changePin() {
+      const newPin = document.getElementById('new-pin').value;
+      if (newPin.length >= 4) {
+        CONFIG.pin = newPin;
+        localStorage.setItem('mc_pin', newPin);
+        closeModal('change-pin');
+        alert('PIN updated successfully!');
+      }
+    }
+
+    // ── Navigation ─────────────────────────────────────────────────────────
+    function showView(name) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.getElementById('view-' + name).classList.add('active');
+      event.target.closest('.nav-item')?.classList.add('active');
+    }
+
+    function openLink(url) {
+      window.open(url, '_blank');
+    }
+
+    // ── Clock ──────────────────────────────────────────────────────────────
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('clock').textContent = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+      document.getElementById('date').textContent = now.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+    }
+
+    // ── Stats ──────────────────────────────────────────────────────────────
+    function renderStats() {
+      const grid = document.getElementById('stats-grid');
+      grid.innerHTML = `
+        <div class="stat-card">
+          <div class="stat-icon">📌</div>
+          <div class="stat-value">${CONFIG.stats.tasksToday}</div>
+          <div class="stat-label">Today</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📅</div>
+          <div class="stat-value">${CONFIG.stats.tasksWeek}</div>
+          <div class="stat-label">This Week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🚀</div>
+          <div class="stat-value">${CONFIG.stats.tasksLater}</div>
+          <div class="stat-label">Later</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🤖</div>
+          <div class="stat-value">${CONFIG.stats.agents}</div>
+          <div class="stat-label">Agents</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-value">${CONFIG.stats.leads}</div>
+          <div class="stat-label">Leads</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💼</div>
+          <div class="stat-value">${CONFIG.stats.clients}</div>
+          <div class="stat-label">Clients</div>
+        </div>
+      `;
+    }
+
+    // ── Kanban ─────────────────────────────────────────────────────────────
+    function renderKanban() {
+      const board = document.getElementById('kanban-board');
+      const data = JSON.parse(localStorage.getItem('mc_kanban') || '{"today":[],"week":[],"later":[]}');
+      
+      board.innerHTML = ['today', 'week', 'later'].map(col => `
+        <div class="kanban-column">
+          <div class="kanban-header">
+            <div class="kanban-title">${col === 'today' ? '📌 Today' : col === 'week' ? '📅 This Week' : '🚀 Later'}</div>
+            <span class="kanban-count">${data[col]?.length || 0}</span>
+          </div>
+          <div class="kanban-cards">
+            ${(data[col] || []).map(card => `
+              <div class="kanban-card">
+                <div class="kanban-card-title">${card.title}</div>
+                ${card.labels?.length ? `<div class="kanban-card-labels">${card.labels.map(l => `<span class="kanban-label">${l}</span>`).join('')}</div>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addTask() {
+      const title = document.getElementById('task-title').value;
+      const column = document.getElementById('task-column').value;
+      if (!title) return;
+      
+      const data = JSON.parse(localStorage.getItem('mc_kanban') || '{"today":[],"week":[],"later":[]}');
+      data[column].push({ title, labels: [] });
+      localStorage.setItem('mc_kanban', JSON.stringify(data));
+      
+      renderKanban();
+      updateStats();
+      closeModal('add-task');
+      document.getElementById('task-title').value = '';
+    }
+
+    function updateStats() {
+      const data = JSON.parse(localStorage.getItem('mc_kanban') || '{"today":[],"week":[],"later":[]}');
+      CONFIG.stats.tasksToday = data.today?.length || 0;
+      CONFIG.stats.tasksWeek = data.week?.length || 0;
+      CONFIG.stats.tasksLater = data.later?.length || 0;
+      renderStats();
+    }
+
+    // ── Modals ─────────────────────────────────────────────────────────────
+    function showModal(name) {
+      document.getElementById('modal-' + name).classList.add('active');
+    }
+
+    function closeModal(name) {
+      document.getElementById('modal-' + name).classList.remove('active');
+    }
+
+    // ── Actions ────────────────────────────────────────────────────────────
+    function runAction(action) {
+      const messages = {
+        leads: 'Opening lead generator... Use OpenClaw CLI to generate UK trades leads.',
+        email: 'Opening email outreach... Use OpenClaw CLI to send cold emails.',
+        deploy: 'Running: wrangler pages deploy . --project-name=inference-agents',
+        social: 'Opening social scheduler... Use Postiz for X/Twitter posts.',
+        analytics: 'Opening analytics... Generate business reports.',
+        crm: 'Opening CRM sync... Use HubSpot for contact management.',
+        cli: 'Use terminal to run: openclaw'
+      };
+      alert(messages[action] || 'Action: ' + action);
+    }
+
+    // ── Init ────────────────────────────────────────────────────────────────
+    function init() {
+      updateClock();
+      setInterval(updateClock, 1000);
+      renderStats();
+      renderKanban();
+    }
+
+    // Enter key on PIN
+    document.getElementById('pin-input')?.addEventListener('keydown', e => {
+      if (e.key === 'Enter') unlock();
+    });
+  </script>
+</body>
+</html>

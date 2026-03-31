@@ -1,38 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) — Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQEVHHCQ07"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', wait_for_update: 500 });
+    gtag('js', new Date());
+    gtag('config', 'G-RQEVHHCQ07');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ROI Calculator | Inference Agents</title>
-  <meta name="description" content="Calculate your ROI from AI automation. See how much you can save.">
+  <title>AI ROI Calculator | How Much Could You Save? | Inference Agents</title>
+  <meta name="description" content="Calculate how much your UK business could save by automating admin, customer service and back-office tasks with AI. Free, instant result.">
   <link rel="canonical" href="https://inference-agents.com/roi-calculator.html">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles-dark.css">
   <style>
-    .calculator { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; max-width: 600px; margin: 0 auto; }
-    .calc-input { margin-bottom: 24px; }
-    .calc-input label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 13px; font-weight: 500; }
-    .calc-input input, .calc-input select {
-      background: rgba(255,255,255,0.05);
+    /* ── Layout ──────────────────────────────────────────── */
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* ── Calculator card ─────────────────────────────────── */
+    .calc-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .calc-card-head {
+      padding: 28px 32px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .calc-card-head h2 { font-size: 20px; margin-bottom: 4px; }
+    .calc-card-head p { font-size: 14px; color: var(--text-muted); }
+    .calc-card-body { padding: 28px 32px 32px; }
+
+    /* ── Sector tabs ─────────────────────────────────────── */
+    .sector-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .sector-tab {
+      padding: 10px 6px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+      line-height: 1.4;
+    }
+    .sector-tab:hover { border-color: rgba(99,102,241,0.4); color: var(--primary-light); }
+    .sector-tab.active {
+      background: rgba(99,102,241,0.12);
+      border-color: rgba(99,102,241,0.45);
+      color: var(--primary-light);
+    }
+    .sector-tab .tab-icon { display: block; font-size: 20px; margin-bottom: 4px; }
+
+    /* ── Sliders ─────────────────────────────────────────── */
+    .slider-group { margin-bottom: 24px; }
+    .slider-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+    .slider-label span { font-size: 14px; color: var(--text-muted); font-weight: 500; }
+    .slider-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      min-width: 80px;
+      text-align: right;
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      cursor: pointer;
+      box-shadow: 0 0 0 4px rgba(99,102,241,0.2);
+      transition: box-shadow 0.2s;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover { box-shadow: 0 0 0 6px rgba(99,102,241,0.3); }
+    .slider-ticks {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+    }
+    .slider-ticks span { font-size: 11px; color: var(--text-dim); }
+
+    /* ── Divider ─────────────────────────────────────────── */
+    .calc-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 24px 0;
+    }
+
+    /* ── Result panel ────────────────────────────────────── */
+    .result-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      position: sticky;
+      top: 80px;
+    }
+    .result-head {
+      padding: 24px 28px 20px;
+      background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(16,185,129,0.06));
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    .result-head p { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
+    .result-saving {
+      font-size: 52px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      letter-spacing: -2px;
+    }
+    .result-saving-label { font-size: 14px; color: var(--text-muted); margin-top: 6px; }
+
+    .result-body { padding: 20px 28px; }
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 14px;
+    }
+    .result-row:last-child { border-bottom: none; }
+    .result-row-label { color: var(--text-muted); }
+    .result-row-value { font-weight: 600; color: var(--text); }
+    .result-row-value.positive { color: var(--accent); }
+    .result-row-value.cost { color: #f87171; }
+    .result-row-value.highlight { color: var(--primary-light); font-size: 16px; }
+
+    .result-roi {
+      margin: 16px 0;
+      padding: 16px;
+      background: rgba(99,102,241,0.08);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 12px;
+      text-align: center;
+    }
+    .result-roi-value { font-size: 28px; font-weight: 800; color: var(--primary-light); }
+    .result-roi-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    /* ── Plan recommendation ─────────────────────────────── */
+    .plan-rec {
+      padding: 14px 16px;
+      background: rgba(16,185,129,0.07);
+      border: 1px solid rgba(16,185,129,0.18);
+      border-radius: 12px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+    .plan-rec strong { color: #34d399; }
+
+    /* ── Lead capture ────────────────────────────────────── */
+    .lead-capture {
+      padding: 20px 28px 24px;
+      border-top: 1px solid var(--border);
+    }
+    .lead-capture p { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.6; }
+    .lead-capture strong { color: var(--text); }
+    .lead-form { display: flex; flex-direction: column; gap: 10px; }
+    .lead-form input {
+      padding: 11px 14px;
       border: 1px solid var(--border);
       border-radius: 10px;
+      background: rgba(255,255,255,0.05);
       color: var(--text);
-      padding: 13px 16px;
       font-family: 'Outfit', sans-serif;
+      font-size: 14px;
       width: 100%;
-      font-size: 16px;
+      box-sizing: border-box;
     }
-    .calc-input input:focus, .calc-input select:focus {
+    .lead-form input:focus {
+      outline: none;
       border-color: var(--primary);
       background: rgba(99,102,241,0.07);
       box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
-      outline: none;
     }
-    .result { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; text-align: center; margin-top: 30px; }
-    .result h3 { font-size: 18px; margin-bottom: 10px; color: var(--text-muted); }
-    .result .amount { font-size: 42px; font-weight: 800; color: var(--primary-light); }
-    .result .subtitle { font-size: 14px; color: var(--text-muted); margin-top: 10px; }
+    .lead-form button { width: 100%; padding: 12px; font-size: 14px; }
+
+    /* ── Breakdown section ───────────────────────────────── */
+    .breakdown {
+      margin-top: 48px;
+    }
+    .breakdown-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .breakdown-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .breakdown-icon { font-size: 24px; margin-bottom: 10px; }
+    .breakdown-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .breakdown-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    @media (max-width: 960px) {
+      .calc-layout { grid-template-columns: 1fr; }
+      .result-panel { position: static; }
+    }
+    @media (max-width: 600px) {
+      .sector-tabs { grid-template-columns: repeat(2, 1fr); }
+      .breakdown-grid { grid-template-columns: 1fr 1fr; }
+      .calc-card-body { padding: 20px; }
+      .calc-card-head { padding: 20px; }
+    }
+    @media (max-width: 400px) {
+      .breakdown-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -42,78 +254,198 @@
         <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
         <ul class="nav-links">
           <li><a href="index.html#services">Services</a></li>
-          <li><a href="index.html#agents">AI Agents</a></li>
+          <li><a href="index.html#sectors">Sectors</a></li>
           <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="blog.html">Blog</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
-        <a href="contact.html" class="btn">Get Started</a>
+        <a href="consultation.html" class="btn">Book Free Call</a>
       </nav>
     </div>
   </header>
 
   <section class="page-hero">
     <div class="container">
-      <div class="page-badge"><div class="badge-dot"></div>ROI Calculator</div>
-      <h1>ROI <span>Calculator</span></h1>
-      <p>Calculate how much you can save with AI automation</p>
+      <div class="page-badge"><div class="badge-dot"></div>Free Calculator</div>
+      <h1>How Much Could You <span>Save with AI?</span></h1>
+      <p>Move the sliders — see your savings update instantly. Takes 30 seconds.</p>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" style="padding-top: 0;">
     <div class="container">
-      <div class="calculator reveal">
-        <div class="calc-input">
-          <label>How many employees do you have?</label>
-          <input type="number" id="employees" value="5" min="1">
-        </div>
-        <div class="calc-input">
-          <label>Average salary (£)</label>
-          <input type="number" id="salary" value="35000" min="10000">
-        </div>
-        <div class="calc-input">
-          <label>What functions do you need?</label>
-          <select id="function">
-            <option value="1">Sales</option>
-            <option value="1">Customer Support</option>
-            <option value="1">Marketing</option>
-            <option value="2">Sales + Support</option>
-            <option value="3">Sales + Support + Marketing</option>
-          </select>
-        </div>
-        <button class="btn" style="width: 100%;" onclick="calculateROI()">Calculate Savings</button>
+      <div class="calc-layout">
 
-        <div class="result" id="result" style="display: none;">
-          <h3>Your Potential Annual Savings</h3>
-          <div class="amount" id="savings">£0</div>
-          <div class="subtitle">by using AI agents instead of hiring more staff</div>
+        <!-- LEFT: Inputs -->
+        <div class="calc-card reveal">
+          <div class="calc-card-head">
+            <h2>About your business</h2>
+            <p>Adjust the sliders to match your situation — we'll calculate the rest.</p>
+          </div>
+          <div class="calc-card-body">
+
+            <!-- Sector selector -->
+            <div style="margin-bottom: 28px;">
+              <div style="font-size: 13px; color: var(--text-muted); font-weight: 500; margin-bottom: 12px;">Your sector</div>
+              <div class="sector-tabs">
+                <button class="sector-tab active" data-sector="hospitality" data-plan="199" data-hours="18">
+                  <span class="tab-icon">🏨</span>Hospitality
+                </button>
+                <button class="sector-tab" data-sector="retail" data-plan="199" data-hours="20">
+                  <span class="tab-icon">🛍️</span>Retail
+                </button>
+                <button class="sector-tab" data-sector="proserv" data-plan="199" data-hours="15">
+                  <span class="tab-icon">⚖️</span>Prof. Services
+                </button>
+                <button class="sector-tab" data-sector="healthcare" data-plan="199" data-hours="14">
+                  <span class="tab-icon">🦷</span>Healthcare
+                </button>
+              </div>
+            </div>
+
+            <hr class="calc-divider">
+
+            <!-- Slider: admin hours/week -->
+            <div class="slider-group">
+              <div class="slider-label">
+                <span>Hours/week spent on admin &amp; repetitive tasks</span>
+                <div class="slider-value" id="val-hours">18 hrs</div>
+              </div>
+              <input type="range" id="slider-hours" min="4" max="60" value="18" step="1">
+              <div class="slider-ticks"><span>4 hrs</span><span>30 hrs</span><span>60 hrs</span></div>
+            </div>
+
+            <!-- Slider: staff hourly cost -->
+            <div class="slider-group">
+              <div class="slider-label">
+                <span>Fully-loaded hourly staff cost (salary + NI + pension)</span>
+                <div class="slider-value" id="val-rate">£18/hr</div>
+              </div>
+              <input type="range" id="slider-rate" min="12" max="45" value="18" step="1">
+              <div class="slider-ticks"><span>£12</span><span>£28</span><span>£45</span></div>
+            </div>
+
+            <!-- Slider: % AI can handle -->
+            <div class="slider-group">
+              <div class="slider-label">
+                <span>% of those tasks AI can fully automate</span>
+                <div class="slider-value" id="val-pct">75%</div>
+              </div>
+              <input type="range" id="slider-pct" min="40" max="90" value="75" step="5">
+              <div class="slider-ticks"><span>40%</span><span>65%</span><span>90%</span></div>
+            </div>
+
+            <hr class="calc-divider">
+
+            <!-- Sector-specific breakdown -->
+            <div id="sector-tasks" style="font-size: 13px; color: var(--text-muted); line-height: 1.7;">
+              <strong style="color: var(--text); display: block; margin-bottom: 8px;">Tasks AI handles in your sector:</strong>
+              <span id="task-list">Booking enquiries, guest messaging, review requests, no-show follow-ups, supplier comms</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- RIGHT: Result -->
+        <div class="result-panel reveal">
+          <div class="result-head">
+            <p>Your estimated annual saving</p>
+            <div class="result-saving" id="annual-saving">£0</div>
+            <div class="result-saving-label">per year</div>
+          </div>
+
+          <div class="result-body">
+            <div class="result-row">
+              <span class="result-row-label">Admin hours saved/week</span>
+              <span class="result-row-value positive" id="res-hours-saved">— hrs</span>
+            </div>
+            <div class="result-row">
+              <span class="result-row-label">Monthly staff cost of those hours</span>
+              <span class="result-row-value cost" id="res-monthly-staff">£—</span>
+            </div>
+            <div class="result-row">
+              <span class="result-row-label">AI plan cost/month</span>
+              <span class="result-row-value" id="res-plan-cost">£199</span>
+            </div>
+            <div class="result-row">
+              <span class="result-row-label">Net monthly saving</span>
+              <span class="result-row-value highlight" id="res-monthly-saving">£—</span>
+            </div>
+
+            <div class="result-roi">
+              <div class="result-roi-value" id="res-roi">—×</div>
+              <div class="result-roi-label">return on investment</div>
+            </div>
+
+            <div class="plan-rec" id="plan-rec">
+              <strong>Recommended: Growth Package at £199/mo</strong> — covers all core automation for your sector.
+            </div>
+          </div>
+
+          <div class="lead-capture">
+            <p>📩 Want a <strong>free personalised breakdown</strong>? We'll map exactly which agents save you the most — sent to your inbox.</p>
+            <form class="lead-form" id="roi-lead-form" action="https://formspree.io/f/xpwzgvzl" method="POST">
+              <input type="hidden" name="_subject" value="ROI Calculator Lead">
+              <input type="hidden" name="annual_saving" id="hidden-saving">
+              <input type="hidden" name="sector" id="hidden-sector">
+              <input type="text" name="name" placeholder="Your name" required>
+              <input type="email" name="email" placeholder="Work email" required>
+              <button type="submit" class="btn">Send Me My Free Plan →</button>
+            </form>
+            <p id="roi-success" style="display:none; color:var(--accent); font-size:13px; text-align:center; padding-top:8px;">✅ On its way — check your inbox within 2 hours.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Breakdown cards -->
+      <div class="breakdown reveal">
+        <div class="section-header" style="margin-bottom: 32px;">
+          <div class="section-tag">What does AI actually do?</div>
+          <h2 style="font-size: 28px;">The tasks that eat your time</h2>
+        </div>
+        <div class="breakdown-grid">
+          <div class="breakdown-card">
+            <div class="breakdown-icon">💬</div>
+            <h4>Answering enquiries</h4>
+            <p>The same 20 questions, answered differently every time. AI handles them instantly, 24/7, without fatigue.</p>
+          </div>
+          <div class="breakdown-card">
+            <div class="breakdown-icon">📅</div>
+            <h4>Booking &amp; scheduling</h4>
+            <p>Back-and-forth emails to find a time. AI confirms, reminds, and reschedules — no human needed.</p>
+          </div>
+          <div class="breakdown-card">
+            <div class="breakdown-icon">🧾</div>
+            <h4>Chasing invoices</h4>
+            <p>Overdue payment reminders nobody wants to send. AI does it politely and automatically on a schedule.</p>
+          </div>
+          <div class="breakdown-card">
+            <div class="breakdown-icon">⭐</div>
+            <h4>Requesting reviews</h4>
+            <p>Happy customers rarely leave reviews unprompted. AI asks at the perfect moment, every time.</p>
+          </div>
+          <div class="breakdown-card">
+            <div class="breakdown-icon">📦</div>
+            <h4>Order &amp; returns queries</h4>
+            <p>Where's my order? Can I return this? AI resolves 70%+ of these without a human ever reading them.</p>
+          </div>
+          <div class="breakdown-card">
+            <div class="breakdown-icon">📊</div>
+            <h4>Reports &amp; summaries</h4>
+            <p>Weekly reports nobody has time to write. AI compiles, formats and sends them automatically.</p>
+          </div>
         </div>
       </div>
 
-      <div class="card-grid" style="margin-top: 50px;">
-        <div class="card reveal">
-          <div class="card-icon">💰</div>
-          <h3>Typical Savings</h3>
-          <p>Businesses save £20,000-180,000 per year by automating with AI agents.</p>
-        </div>
-        <div class="card reveal">
-          <div class="card-icon">⚡</div>
-          <h3>Quick Setup</h3>
-          <p>Most agents are up and running within 24 hours of signup.</p>
-        </div>
-        <div class="card reveal">
-          <div class="card-icon">📈</div>
-          <h3>Proven Results</h3>
-          <p>Our clients see ROI within the first 30 days on average.</p>
-        </div>
-      </div>
     </div>
   </section>
 
   <section class="cta">
     <div class="container">
-      <h2>Start Saving Today</h2>
-      <p>Book a consultation to discuss your needs</p>
-      <a href="consultation.html" class="btn" style="padding: 16px 40px; font-size: 18px;">Book Free Call</a>
+      <h2>Ready to <span>Stop Doing This Manually?</span></h2>
+      <p>Book a free call — we'll show you exactly which agents to deploy first.</p>
+      <a href="consultation.html" class="btn" style="padding: 16px 40px; font-size: 18px;">Book Free Consultation →</a>
     </div>
   </section>
 
@@ -125,52 +457,159 @@
           <p>AI automation agency helping UK businesses deploy autonomous AI agents that work 24/7.</p>
         </div>
         <div class="footer-col">
-          <h4>Services</h4>
-          <a href="sales-ai.html">Sales AI</a>
-          <a href="marketing-ai.html">Marketing AI</a>
-          <a href="hr-ai.html">HR AI</a>
-          <a href="operations-ai.html">Operations</a>
+          <h4>Sectors</h4>
+          <a href="hospitality-ai.html">Hospitality AI</a>
+          <a href="retail-ai.html">Retail AI</a>
+          <a href="professional-services-ai.html">Professional Services AI</a>
+          <a href="healthcare-ai.html">Healthcare AI</a>
         </div>
         <div class="footer-col">
           <h4>Company</h4>
+          <a href="blog.html">Blog</a>
+          <a href="roi-calculator.html" style="color:var(--primary-light);">ROI Calculator</a>
           <a href="case-studies.html">Case Studies</a>
-          <a href="compare.html">Compare</a>
-          <a href="roi-calculator.html">ROI Calculator</a>
           <a href="affiliate.html">Partner Program</a>
         </div>
         <div class="footer-col">
-          <h4>Contact</h4>
-          <a href="contact.html">Get in Touch</a>
-          <a href="consultation.html">Book Call</a>
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy &amp; Cookie Policy</a>
+          <a href="contact.html">Contact</a>
+          <a href="consultation.html">Book Free Call</a>
           <a href="mailto:hello@inference-agents.com">hello@inference-agents.com</a>
         </div>
       </div>
-      <div class="footer-bottom">© 2026 Inference Agents. All rights reserved. UK Business.</div>
+      <div class="footer-bottom">
+        © 2026 Inference Agents. All rights reserved. UK Business.
+      </div>
     </div>
   </footer>
 
   <script>
-    function calculateROI() {
-      const employees = parseInt(document.getElementById('employees').value) || 0;
-      const salary = parseInt(document.getElementById('salary').value) || 0;
-      const functions = parseInt(document.getElementById('function').value) || 1;
+    // ── Sector data ────────────────────────────────────────
+    const sectors = {
+      hospitality: {
+        plan: 199,
+        planName: 'Growth Package',
+        defaultHours: 18,
+        tasks: 'Booking enquiries, guest messaging, review requests, no-show follow-ups, supplier comms'
+      },
+      retail: {
+        plan: 199,
+        planName: 'Growth Package',
+        defaultHours: 20,
+        tasks: 'Customer service emails, returns handling, order tracking queries, review responses, abandoned cart follow-ups'
+      },
+      proserv: {
+        plan: 199,
+        planName: 'Practice Package',
+        defaultHours: 15,
+        tasks: 'Client intake, appointment scheduling, invoice chasing, document reminders, compliance follow-ups'
+      },
+      healthcare: {
+        plan: 199,
+        planName: 'Clinic Package',
+        defaultHours: 14,
+        tasks: 'Appointment reminders, patient enquiries, recall messaging, review requests, post-appointment follow-ups'
+      }
+    };
 
-      const aiCost = 197 * 12 * functions;
-      const employeeCost = employees * salary;
-      const savings = employeeCost - aiCost;
+    let activeSector = 'hospitality';
 
-      document.getElementById('savings').textContent = '£' + savings.toLocaleString();
-      document.getElementById('result').style.display = 'block';
+    // ── DOM refs ───────────────────────────────────────────
+    const sliderHours = document.getElementById('slider-hours');
+    const sliderRate  = document.getElementById('slider-rate');
+    const sliderPct   = document.getElementById('slider-pct');
+    const valHours    = document.getElementById('val-hours');
+    const valRate     = document.getElementById('val-rate');
+    const valPct      = document.getElementById('val-pct');
+
+    // ── Calculate & render ─────────────────────────────────
+    function calculate() {
+      const hours = parseInt(sliderHours.value);
+      const rate  = parseInt(sliderRate.value);
+      const pct   = parseInt(sliderPct.value) / 100;
+      const sector = sectors[activeSector];
+
+      const hoursSaved      = Math.round(hours * pct);
+      const monthlyStaff    = Math.round(hoursSaved * rate * 4.33);
+      const planCost        = sector.plan;
+      const monthlySaving   = monthlyStaff - planCost;
+      const annualSaving    = monthlySaving * 12;
+      const roi             = planCost > 0 ? Math.round((monthlySaving / planCost) * 10) / 10 : 0;
+
+      // Update display values
+      valHours.textContent = hours + ' hrs';
+      valRate.textContent  = '£' + rate + '/hr';
+      valPct.textContent   = Math.round(pct * 100) + '%';
+
+      document.getElementById('annual-saving').textContent    = '£' + Math.max(0, annualSaving).toLocaleString();
+      document.getElementById('res-hours-saved').textContent  = hoursSaved + ' hrs';
+      document.getElementById('res-monthly-staff').textContent = '£' + monthlyStaff.toLocaleString();
+      document.getElementById('res-plan-cost').textContent    = '£' + planCost + '/mo';
+      document.getElementById('res-monthly-saving').textContent = '£' + Math.max(0, monthlySaving).toLocaleString();
+      document.getElementById('res-roi').textContent          = Math.max(0, roi) + '×';
+
+      document.getElementById('plan-rec').innerHTML =
+        '<strong>Recommended: ' + sector.planName + ' at £' + planCost + '/mo</strong> — covers all core automation for your sector.';
+
+      // Update hidden fields for lead form
+      document.getElementById('hidden-saving').value = '£' + Math.max(0, annualSaving).toLocaleString() + ' per year';
+      document.getElementById('hidden-sector').value = activeSector;
+
+      // Slide the track fill
+      const fillHours = ((hours - 4) / (60 - 4)) * 100;
+      const fillRate  = ((rate - 12) / (45 - 12)) * 100;
+      const fillPct   = ((Math.round(pct * 100) - 40) / (90 - 40)) * 100;
+      sliderHours.style.background = `linear-gradient(to right, #6366f1 ${fillHours}%, rgba(255,255,255,0.1) ${fillHours}%)`;
+      sliderRate.style.background  = `linear-gradient(to right, #6366f1 ${fillRate}%, rgba(255,255,255,0.1) ${fillRate}%)`;
+      sliderPct.style.background   = `linear-gradient(to right, #6366f1 ${fillPct}%, rgba(255,255,255,0.1) ${fillPct}%)`;
     }
-  </script>
 
-  <script>
+    // ── Sector tab switching ───────────────────────────────
+    document.querySelectorAll('.sector-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.sector-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeSector = tab.dataset.sector;
+        sliderHours.value = sectors[activeSector].defaultHours;
+        document.getElementById('task-list').textContent = sectors[activeSector].tasks;
+        calculate();
+      });
+    });
+
+    // ── Slider listeners ───────────────────────────────────
+    [sliderHours, sliderRate, sliderPct].forEach(s => s.addEventListener('input', calculate));
+
+    // ── Lead form ──────────────────────────────────────────
+    document.getElementById('roi-lead-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('button[type="submit"]');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+      try {
+        const res = await fetch(this.action, { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' } });
+        if (res.ok) {
+          this.style.display = 'none';
+          document.getElementById('roi-success').style.display = 'block';
+        } else { btn.textContent = 'Try again'; btn.disabled = false; }
+      } catch { btn.textContent = 'Try again'; btn.disabled = false; }
+    });
+
+    // ── Scroll reveal ──────────────────────────────────────
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── Init ───────────────────────────────────────────────
+    document.getElementById('task-list').textContent = sectors[activeSector].tasks;
+    calculate();
   </script>
+  <script src="nav.js"></script>
+  <script src="effects.js"></script>
+  <script src="analytics.js"></script>
+  <script src="cookies.js"></script>
 </body>
 </html>

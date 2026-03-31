@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQEVHHCQ07"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', wait_for_update: 500 });
+    gtag('js', new Date());
+    gtag('config', 'G-RQEVHHCQ07');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request a Change | Inference Agents</title>
+  <meta name="description" content="Update your agent, swap to a different AI agent, or request changes to your setup.">
+  <link rel="canonical" href="https://inference-agents.com/change-request.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-dark.css">
+  <style>
+    .cr-wrap { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
+    .cr-card { width: 100%; max-width: 560px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 48px; position: relative; overflow: hidden; }
+    .cr-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #6366f1, #10b981); }
+    .cr-logo { text-align: center; margin-bottom: 32px; }
+    .cr-logo img { height: 32px; }
+    h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; text-align: center; }
+    .cr-desc { color: var(--text-muted); font-size: 15px; text-align: center; margin-bottom: 32px; line-height: 1.6; }
+    .field { margin-bottom: 18px; }
+    .field label { display: block; font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.7px; margin-bottom: 7px; }
+    .field label span { color: #ef4444; }
+    .field input, .field select, .field textarea {
+      width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; color: var(--text); font-family: 'Outfit', sans-serif;
+      font-size: 14px; padding: 13px 16px; box-sizing: border-box; transition: border-color 0.2s;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: rgba(99,102,241,0.5); }
+    .field textarea { min-height: 120px; resize: vertical; line-height: 1.6; }
+    .field-hint { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+    /* Agent swap cards */
+    .swap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 6px; }
+    .swap-card {
+      padding: 14px; border: 2px solid rgba(255,255,255,0.08);
+      border-radius: 12px; cursor: pointer; transition: all 0.2s;
+      background: rgba(255,255,255,0.02);
+    }
+    .swap-card:hover { border-color: rgba(99,102,241,0.4); }
+    .swap-card.selected { border-color: #6366f1; background: rgba(99,102,241,0.1); }
+    .swap-card input { display: none; }
+    .swap-icon { font-size: 20px; margin-bottom: 6px; }
+    .swap-name { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+    .swap-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+    .divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 24px 0; }
+
+    .btn-submit {
+      width: 100%; background: linear-gradient(135deg, #6366f1, #4f46e5);
+      border: none; color: #fff; padding: 15px; border-radius: 12px;
+      font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 16px rgba(99,102,241,0.3);
+    }
+    .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99,102,241,0.4); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .success { display: none; text-align: center; padding: 20px 0; }
+    .success.show { display: block; }
+    .success-icon { font-size: 56px; margin-bottom: 16px; }
+    .success h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+    .success p { color: var(--text-muted); font-size: 14px; line-height: 1.7; }
+
+    @media (max-width: 480px) {
+      .cr-card { padding: 28px 20px; }
+      .swap-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cr-wrap">
+    <div class="cr-card">
+      <div class="cr-logo"><a href="/"><img src="logo.svg" alt="Inference Agents"></a></div>
+
+      <div id="formSection">
+        <h1>Request a Change</h1>
+        <p class="cr-desc">Update your agent configuration, swap to a different agent, or let us know what you need. We action all requests within 24 hours.</p>
+
+        <div class="field">
+          <label>Your name <span>*</span></label>
+          <input type="text" id="reqName" placeholder="Your name" autocomplete="name">
+        </div>
+        <div class="field">
+          <label>Email address <span>*</span></label>
+          <input type="email" id="reqEmail" placeholder="you@yourbusiness.co.uk" autocomplete="email">
+        </div>
+        <div class="field">
+          <label>Business name</label>
+          <input type="text" id="reqBusiness" placeholder="Your business name">
+        </div>
+
+        <hr class="divider">
+
+        <div class="field">
+          <label>What do you need? <span>*</span></label>
+          <select id="reqType" onchange="handleTypeChange()">
+            <option value="">Select a request type...</option>
+            <option value="swap">Swap to a different agent</option>
+            <option value="update_faqs">Update my FAQs / business knowledge</option>
+            <option value="add_channel">Add a new channel</option>
+            <option value="escalation">Change my escalation contact</option>
+            <option value="pause">Pause my agent temporarily</option>
+            <option value="resume">Resume my paused agent</option>
+            <option value="other">Something else</option>
+          </select>
+        </div>
+
+        <!-- Agent swap selection (shown when type = swap) -->
+        <div id="swapSection" style="display:none;">
+          <div class="field">
+            <label>Which agent do you want instead? <span>*</span></label>
+            <div class="swap-grid">
+              <label class="swap-card" onclick="selectAgent('enquiry_handler')">
+                <input type="radio" name="newAgent" value="enquiry_handler">
+                <div class="swap-icon">💬</div>
+                <div class="swap-name">Enquiry Handler</div>
+                <div class="swap-desc">24/7 inbound enquiry handling via WhatsApp & email</div>
+              </label>
+              <label class="swap-card" onclick="selectAgent('invoice_chaser')">
+                <input type="radio" name="newAgent" value="invoice_chaser">
+                <div class="swap-icon">💰</div>
+                <div class="swap-name">Invoice Chaser</div>
+                <div class="swap-desc">Automated payment reminders — polite, timed, effective</div>
+              </label>
+              <label class="swap-card" onclick="selectAgent('appointment_reminder')">
+                <input type="radio" name="newAgent" value="appointment_reminder">
+                <div class="swap-icon">🔔</div>
+                <div class="swap-name">Appointment Reminders</div>
+                <div class="swap-desc">Reduces no-shows with automated reminder sequences</div>
+              </label>
+              <label class="swap-card" onclick="selectAgent('review_requester')">
+                <input type="radio" name="newAgent" value="review_requester">
+                <div class="swap-icon">⭐</div>
+                <div class="swap-name">Review Requester</div>
+                <div class="swap-desc">Automatically requests reviews after each interaction</div>
+              </label>
+              <label class="swap-card" onclick="selectAgent('booking_followup')">
+                <input type="radio" name="newAgent" value="booking_followup">
+                <div class="swap-icon">📅</div>
+                <div class="swap-name">Booking Follow-Up</div>
+                <div class="swap-desc">Follows up with enquiries that didn't convert to bookings</div>
+              </label>
+              <label class="swap-card" onclick="selectAgent('lead_qualifier')">
+                <input type="radio" name="newAgent" value="lead_qualifier">
+                <div class="swap-icon">🎯</div>
+                <div class="swap-name">Lead Qualifier</div>
+                <div class="swap-desc">Qualifies inbound leads before they reach your sales team</div>
+              </label>
+            </div>
+            <div class="field-hint">Your previous agent config is saved for 90 days — you can swap back any time</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Details <span>*</span></label>
+          <textarea id="reqDetails" placeholder="Tell us exactly what you need..."></textarea>
+          <div class="field-hint">The more detail you give, the faster we can action your request</div>
+        </div>
+
+        <div class="field">
+          <label>Urgency</label>
+          <select id="reqUrgency">
+            <option value="normal">Normal — within 24 hours is fine</option>
+            <option value="urgent">Urgent — please prioritise</option>
+          </select>
+        </div>
+
+        <button class="btn-submit" id="submitBtn" onclick="submitRequest()">Send Request →</button>
+      </div>
+
+      <div class="success" id="successSection">
+        <div class="success-icon">✅</div>
+        <h2>Request received</h2>
+        <p>We'll action this within 24 hours and email you when it's done. For urgent issues, WhatsApp us directly at <strong>hello@inference-agents.com</strong>.</p>
+        <a href="portal.html" class="btn" style="display:inline-block;margin-top:20px;font-size:14px;">Back to Dashboard →</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let selectedNewAgent = '';
+
+    function handleTypeChange() {
+      const type = document.getElementById('reqType').value;
+      document.getElementById('swapSection').style.display = type === 'swap' ? 'block' : 'none';
+    }
+
+    function selectAgent(val) {
+      selectedNewAgent = val;
+      document.querySelectorAll('.swap-card').forEach(c => c.classList.remove('selected'));
+      event.currentTarget.classList.add('selected');
+    }
+
+    async function submitRequest() {
+      const name = document.getElementById('reqName').value.trim();
+      const email = document.getElementById('reqEmail').value.trim();
+      const type = document.getElementById('reqType').value;
+      const details = document.getElementById('reqDetails').value.trim();
+
+      if (!name || !email || !type || !details) {
+        alert('Please fill in all required fields.'); return;
+      }
+      if (type === 'swap' && !selectedNewAgent) {
+        alert('Please select which agent you want.'); return;
+      }
+
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true; btn.textContent = 'Sending...';
+
+      const payload = {
+        type: 'change_request',
+        name, email,
+        business: document.getElementById('reqBusiness').value.trim(),
+        requestType: type,
+        newAgent: selectedNewAgent,
+        details,
+        urgency: document.getElementById('reqUrgency').value,
+        source: 'change-request.html',
+        token: new URLSearchParams(window.location.search).get('token') || '',
+      };
+
+      try {
+        const res = await fetch('/api/change-request', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          document.getElementById('formSection').style.display = 'none';
+          document.getElementById('successSection').classList.add('show');
+        } else throw new Error();
+      } catch(e) {
+        btn.disabled = false; btn.textContent = 'Send Request →';
+        alert('Something went wrong. Please email hello@inference-agents.com directly.');
+      }
+    }
+  </script>
+  <script src="analytics.js"></script>
+  <script src="cookies.js"></script>
+</body>
+</html>

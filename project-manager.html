@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) — Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQEVHHCQ07"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', wait_for_update: 500 });
+    gtag('js', new Date());
+    gtag('config', 'G-RQEVHHCQ07');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Project Manager AI | Inference Agents</title>
@@ -34,11 +43,12 @@
         </a>
         <ul class="nav-links">
           <li><a href="index.html#services">Services</a></li>
-          <li><a href="index.html#agents">AI Agents</a></li>
-          <li><a href="index.html#pricing">Pricing</a></li>
+          <li><a href="index.html#sectors">Sectors</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="blog.html">Blog</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
-        <a href="contact.html" class="btn">Get Started</a>
+        <a href="consultation.html" class="btn">Book Free Call</a>
       </nav>
     </div>
   </header>
@@ -74,19 +84,19 @@
       <div class="pricing-grid">
         <div class="price-card reveal">
           <h3>Starter</h3>
-          <div class="price">£39<span>/mo</span></div>
+          <div class="price">£99<span>/mo</span></div>
           <ul class="price-features">
             <li>3 projects</li>
             <li>Task management</li>
             <li>Basic reporting</li>
             <li>5 team members</li>
           </ul>
-          <a href="mailto:davetheaiagent@gmail.com?subject=Project Manager Starter" class="btn">Get Started</a>
+          <a href="consultation.html" class="btn">Book Free Call</a>
         </div>
         <div class="price-card featured reveal">
           <div style="background: linear-gradient(135deg, var(--primary), var(--accent)); color:#fff; padding:5px; border-radius:4px; font-size:12px; margin-bottom:10px;">MOST POPULAR</div>
-          <h3>Professional</h3>
-          <div class="price">£79<span>/mo</span></div>
+          <h3>Growth Package</h3>
+          <div class="price">£199<span>/mo</span></div>
           <ul class="price-features">
             <li>Unlimited projects</li>
             <li>Resource planning</li>
@@ -94,7 +104,19 @@
             <li>Unlimited team</li>
             <li>Priority support</li>
           </ul>
-          <a href="mailto:davetheaiagent@gmail.com?subject=Project Manager Professional" class="btn">Get Started</a>
+          <a href="consultation.html" class="btn">Book Free Call</a>
+        </div>
+        <div class="price-card reveal">
+          <h3>Full Stack</h3>
+          <div class="price">£399<span>/mo</span></div>
+          <ul class="price-features">
+            <li>Everything in Growth</li>
+            <li>All sector AI agents</li>
+            <li>Custom integrations</li>
+            <li>Dedicated account manager</li>
+            <li>Unlimited swaps</li>
+          </ul>
+          <a href="consultation.html" class="btn">Book Free Call</a>
         </div>
       </div>
     </div>
@@ -104,7 +126,7 @@
     <div class="container">
       <h2>Deliver Projects On Time, Every Time</h2>
       <p>Join 31 UK businesses with AI project management</p>
-      <a href="mailto:hello@inference-agents.com?subject=Project Manager Demo" class="btn">Book a Demo</a>
+      <a href="consultation.html" class="btn" style="padding:16px 40px; font-size:18px;">Book Free Call →</a>
     </div>
   </section>
 
@@ -148,5 +170,9 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
+<script src="nav.js"></script>
+  <script src="effects.js"></script>
+  <script src="analytics.js"></script>
+<script src="cookies.js"></script>
 </body>
 </html>

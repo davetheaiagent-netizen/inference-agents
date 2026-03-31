@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) — Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQEVHHCQ07"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', wait_for_update: 500 });
+    gtag('js', new Date());
+    gtag('config', 'G-RQEVHHCQ07');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set Up Your AI Agent | Inference Agents</title>
+  <meta name="description" content="Complete your AI agent setup — takes about 10 minutes. We'll have your agent live within 7 days.">
+  <link rel="canonical" href="https://inference-agents.com/onboarding.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-dark.css">
+  <style>
+    body { background: #05050f; }
+
+    .onboard-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 40px 20px 80px;
+    }
+
+    .onboard-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .onboard-header img { height: 36px; margin-bottom: 24px; }
+    .onboard-header h1 { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+    .onboard-header p { color: var(--text-muted); font-size: 16px; }
+
+    /* Progress bar */
+    .progress-wrap {
+      width: 100%;
+      max-width: 680px;
+      margin-bottom: 36px;
+    }
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .progress-steps::before {
+      content: '';
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: rgba(255,255,255,0.08);
+      z-index: 0;
+    }
+    .progress-line {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      height: 2px;
+      background: linear-gradient(90deg, #6366f1, #10b981);
+      z-index: 1;
+      transition: width 0.4s ease;
+    }
+    .step-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.15);
+      background: #0d0d1f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+    .step-dot.active {
+      border-color: #6366f1;
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: #fff;
+      box-shadow: 0 0 16px rgba(99,102,241,0.4);
+    }
+    .step-dot.done {
+      border-color: #10b981;
+      background: #10b981;
+      color: #fff;
+    }
+    .step-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+    .step-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+      width: 32px;
+      white-space: nowrap;
+      transform: translateX(-50%);
+      margin-left: 16px;
+    }
+    .step-label:first-child { margin-left: 0; transform: none; }
+    .step-label:last-child { margin-left: 0; transform: translateX(-100%); }
+    .step-label.active { color: var(--primary-light); }
+
+    /* Card */
+    .onboard-card {
+      width: 100%;
+      max-width: 680px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      padding: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .onboard-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #6366f1, #10b981);
+    }
+
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+
+    .step-title {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .step-desc {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    /* Form elements */
+    .field { margin-bottom: 20px; }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      margin-bottom: 8px;
+    }
+    .field label span { color: #ef4444; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      padding: 14px 18px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-sizing: border-box;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: none;
+      border-color: rgba(99,102,241,0.5);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+    }
+    .field input::placeholder, .field textarea::placeholder { color: rgba(148,163,184,0.5); }
+    .field select { appearance: none; cursor: pointer; }
+    .field textarea { min-height: 100px; resize: vertical; line-height: 1.6; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field-hint { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+    /* Sector cards */
+    .sector-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .sector-card {
+      padding: 20px;
+      border: 2px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      background: rgba(255,255,255,0.02);
+    }
+    .sector-card:hover { border-color: rgba(99,102,241,0.4); }
+    .sector-card.selected {
+      border-color: #6366f1;
+      background: rgba(99,102,241,0.1);
+      box-shadow: 0 0 20px rgba(99,102,241,0.15);
+    }
+    .sector-card input[type="radio"] { display: none; }
+    .sector-icon { font-size: 32px; margin-bottom: 8px; }
+    .sector-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .sector-hint { font-size: 12px; color: var(--text-muted); }
+
+    /* Tone cards */
+    .tone-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+    .tone-card {
+      padding: 16px 12px;
+      border: 2px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      background: rgba(255,255,255,0.02);
+    }
+    .tone-card:hover { border-color: rgba(99,102,241,0.4); }
+    .tone-card.selected { border-color: #10b981; background: rgba(16,185,129,0.08); }
+    .tone-card input[type="radio"] { display: none; }
+    .tone-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .tone-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+    /* Channel toggles */
+    .channel-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .channel-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .channel-item.active { border-color: rgba(99,102,241,0.4); background: rgba(99,102,241,0.06); }
+    .channel-left { display: flex; align-items: center; gap: 14px; }
+    .channel-icon { font-size: 24px; }
+    .channel-name { font-size: 14px; font-weight: 700; }
+    .channel-desc { font-size: 12px; color: var(--text-muted); }
+    .toggle {
+      width: 44px; height: 24px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      position: relative;
+      transition: background 0.3s;
+      flex-shrink: 0;
+    }
+    .toggle.on { background: #6366f1; }
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      transition: left 0.3s;
+    }
+    .toggle.on::after { left: 23px; }
+
+    /* Channel detail fields */
+    .channel-detail { display: none; padding: 12px 0 4px; }
+    .channel-detail.show { display: block; }
+
+    /* FAQ builder */
+    .faq-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+    .faq-item { display: flex; gap: 10px; align-items: flex-start; }
+    .faq-item input {
+      flex: 1;
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      padding: 11px 14px;
+    }
+    .faq-item input:focus { outline: none; border-color: rgba(99,102,241,0.5); }
+    .faq-remove {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2);
+      color: #ef4444; font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .add-faq-btn {
+      background: transparent;
+      border: 1px dashed rgba(99,102,241,0.4);
+      color: var(--primary-light);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .add-faq-btn:hover { background: rgba(99,102,241,0.08); }
+
+    /* Plan badge */
+    .plan-badge-wrap {
+      background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(16,185,129,0.07));
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .plan-name { font-size: 18px; font-weight: 800; }
+    .plan-price { font-size: 28px; font-weight: 800; background: linear-gradient(135deg, #6366f1, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .plan-includes { font-size: 13px; color: var(--text-muted); }
+
+    /* Callout */
+    .callout-info {
+      background: rgba(99,102,241,0.08);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .callout-info strong { color: var(--primary-light); }
+
+    /* Review */
+    .review-section { margin-bottom: 24px; }
+    .review-section h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); margin-bottom: 12px; }
+    .review-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .review-item { font-size: 14px; }
+    .review-label { color: var(--text-muted); }
+    .review-value { color: var(--text); font-weight: 600; }
+
+    /* Nav buttons */
+    .step-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .btn-back {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text-muted);
+      padding: 13px 24px;
+      border-radius: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-back:hover { border-color: rgba(255,255,255,0.3); color: var(--text); }
+    .btn-next {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      border: none;
+      color: #fff;
+      padding: 13px 32px;
+      border-radius: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(99,102,241,0.3);
+    }
+    .btn-next:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99,102,241,0.4); }
+    .btn-submit {
+      background: linear-gradient(135deg, #10b981, #059669);
+      border: none;
+      color: #fff;
+      padding: 14px 36px;
+      border-radius: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(16,185,129,0.3);
+    }
+    .btn-submit:hover { transform: translateY(-1px); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* Success screen */
+    .success-screen {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .success-screen.show { display: block; }
+    .success-icon { font-size: 72px; margin-bottom: 24px; }
+    .success-screen h2 { font-size: 28px; font-weight: 800; margin-bottom: 12px; }
+    .success-screen p { color: var(--text-muted); font-size: 16px; line-height: 1.7; margin-bottom: 24px; }
+
+    /* Sector-specific fields */
+    .sector-fields { display: none; }
+    .sector-fields.show { display: block; }
+
+    /* Error */
+    .field-error { border-color: rgba(239,68,68,0.5) !important; }
+    .error-msg { font-size: 12px; color: #ef4444; margin-top: 5px; }
+
+    @media (max-width: 640px) {
+      .onboard-card { padding: 28px 20px; }
+      .field-row { grid-template-columns: 1fr; }
+      .sector-grid { grid-template-columns: 1fr 1fr; }
+      .tone-grid { grid-template-columns: 1fr; }
+      .review-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="onboard-wrap">
+
+    <div class="onboard-header">
+      <a href="/"><img src="logo.svg" alt="Inference Agents"></a>
+      <h1>Set Up Your AI Agent</h1>
+      <p>Takes about 10 minutes. Your agent will be live within 7 days.</p>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-wrap">
+      <div class="progress-steps" id="progressSteps">
+        <div class="progress-line" id="progressLine" style="width:0%"></div>
+        <div class="step-dot active" data-step="1">1</div>
+        <div class="step-dot" data-step="2">2</div>
+        <div class="step-dot" data-step="3">3</div>
+        <div class="step-dot" data-step="4">4</div>
+        <div class="step-dot" data-step="5">5</div>
+      </div>
+      <div class="step-labels">
+        <span class="step-label active">Your plan</span>
+        <span class="step-label">Business</span>
+        <span class="step-label">Agent setup</span>
+        <span class="step-label">Channels</span>
+        <span class="step-label">Review</span>
+      </div>
+    </div>
+
+    <!-- Main card -->
+    <div class="onboard-card">
+
+      <!-- STEP 1: Plan + Contact -->
+      <div class="step-panel active" id="step1">
+        <div class="step-title">Welcome to Inference Agents</div>
+        <div class="step-desc">Let's confirm your plan and get your contact details.</div>
+
+        <div class="plan-badge-wrap" id="planBadge">
+          <div>
+            <div class="plan-name" id="planName">Growth Package</div>
+            <div class="plan-includes" id="planIncludes">3 AI agents · Agent swaps every month · Priority support</div>
+          </div>
+          <div class="plan-price" id="planPrice">£199/mo</div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>First name <span>*</span></label>
+            <input type="text" id="firstName" placeholder="e.g. Sarah" autocomplete="given-name">
+          </div>
+          <div class="field">
+            <label>Last name <span>*</span></label>
+            <input type="text" id="lastName" placeholder="e.g. Thompson" autocomplete="family-name">
+          </div>
+        </div>
+        <div class="field">
+          <label>Email address <span>*</span></label>
+          <input type="email" id="email" placeholder="sarah@yourhotel.co.uk" autocomplete="email">
+          <div class="field-hint">We'll send your agent reports and updates here</div>
+        </div>
+        <div class="field">
+          <label>Mobile number <span>*</span></label>
+          <input type="tel" id="phone" placeholder="+44 7700 900000" autocomplete="tel">
+          <div class="field-hint">For urgent escalations from your agent</div>
+        </div>
+
+        <div class="step-nav">
+          <div></div>
+          <button class="btn-next" onclick="nextStep(1)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Business Info -->
+      <div class="step-panel" id="step2">
+        <div class="step-title">Tell us about your business</div>
+        <div class="step-desc">We use this to train your agent so it sounds exactly like you.</div>
+
+        <div class="field">
+          <label>Business name <span>*</span></label>
+          <input type="text" id="businessName" placeholder="e.g. The Crown Hotel">
+        </div>
+        <div class="field">
+          <label>Business website</label>
+          <input type="url" id="websiteUrl" placeholder="https://thecrownhotel.co.uk">
+        </div>
+        <div class="field">
+          <label>Your sector <span>*</span></label>
+          <div class="sector-grid">
+            <label class="sector-card" id="sc-hospitality" onclick="selectSector('hospitality')">
+              <input type="radio" name="sector" value="hospitality">
+              <div class="sector-icon">🏨</div>
+              <div class="sector-name">Hospitality</div>
+              <div class="sector-hint">Hotels, B&Bs, restaurants, pubs</div>
+            </label>
+            <label class="sector-card" id="sc-retail" onclick="selectSector('retail')">
+              <input type="radio" name="sector" value="retail">
+              <div class="sector-icon">🛍️</div>
+              <div class="sector-name">Retail</div>
+              <div class="sector-hint">Online stores, physical shops</div>
+            </label>
+            <label class="sector-card" id="sc-professional" onclick="selectSector('professional')">
+              <input type="radio" name="sector" value="professional">
+              <div class="sector-icon">⚖️</div>
+              <div class="sector-name">Professional Services</div>
+              <div class="sector-hint">Legal, accountancy, consultancy</div>
+            </label>
+            <label class="sector-card" id="sc-healthcare" onclick="selectSector('healthcare')">
+              <input type="radio" name="sector" value="healthcare">
+              <div class="sector-icon">🏥</div>
+              <div class="sector-name">Healthcare</div>
+              <div class="sector-hint">Dental, physio, GP, clinics</div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Sector-specific fields -->
+        <div class="sector-fields" id="sf-hospitality">
+          <div class="field">
+            <label>Property type</label>
+            <select id="propertyType">
+              <option value="">Select...</option>
+              <option>Hotel</option><option>B&B</option><option>Restaurant</option>
+              <option>Pub / Bar</option><option>Holiday let</option><option>Other</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Check-in time</label>
+              <input type="text" id="checkinTime" placeholder="e.g. 3:00pm">
+            </div>
+            <div class="field">
+              <label>Check-out time</label>
+              <input type="text" id="checkoutTime" placeholder="e.g. 11:00am">
+            </div>
+          </div>
+          <div class="field">
+            <label>Do you accept pets?</label>
+            <select id="petsPolicy">
+              <option value="">Select...</option>
+              <option>Yes — all pets welcome</option>
+              <option>Dogs only</option>
+              <option>No pets</option>
+              <option>By arrangement</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sector-fields" id="sf-retail">
+          <div class="field">
+            <label>E-commerce platform</label>
+            <select id="ecommPlatform">
+              <option value="">Select...</option>
+              <option>Shopify</option><option>WooCommerce</option><option>BigCommerce</option>
+              <option>Physical shop only</option><option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Returns policy (brief summary)</label>
+            <input type="text" id="returnsPolicy" placeholder="e.g. 30-day returns, unworn items only">
+          </div>
+          <div class="field">
+            <label>Typical delivery timeframe</label>
+            <input type="text" id="deliveryTime" placeholder="e.g. 3-5 working days, free over £50">
+          </div>
+        </div>
+
+        <div class="sector-fields" id="sf-professional">
+          <div class="field">
+            <label>Type of practice</label>
+            <select id="practiceType">
+              <option value="">Select...</option>
+              <option>Law firm</option><option>Accountancy</option><option>HR consultancy</option>
+              <option>Financial advisory</option><option>Architecture</option><option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Standard invoice terms</label>
+            <input type="text" id="invoiceTerms" placeholder="e.g. 30 days from invoice date">
+          </div>
+          <div class="field">
+            <label>Initial consultation process</label>
+            <input type="text" id="consultProcess" placeholder="e.g. Free 20-min call, then we send a proposal">
+          </div>
+        </div>
+
+        <div class="sector-fields" id="sf-healthcare">
+          <div class="field">
+            <label>Practice type</label>
+            <select id="healthcareType">
+              <option value="">Select...</option>
+              <option>Dental practice</option><option>Physiotherapy</option><option>GP surgery</option>
+              <option>Optician</option><option>Cosmetic clinic</option><option>Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Appointment reminder preference</label>
+            <select id="reminderTiming">
+              <option>7 days, 48 hours, and 2 hours before</option>
+              <option>48 hours and 2 hours before</option>
+              <option>24 hours before only</option>
+              <option>I'll set this later</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Opening hours</label>
+          <input type="text" id="openingHours" placeholder="e.g. Mon–Fri 9am–6pm, Sat 10am–4pm">
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-back" onclick="prevStep(2)">← Back</button>
+          <button class="btn-next" onclick="nextStep(2)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Agent Configuration -->
+      <div class="step-panel" id="step3">
+        <div class="step-title">Configure your agent</div>
+        <div class="step-desc">This is how we make the AI sound like your business, not a generic bot.</div>
+
+        <div class="field">
+          <label>Tone of voice <span>*</span></label>
+          <div class="tone-grid">
+            <label class="tone-card" id="tone-professional" onclick="selectTone('professional')">
+              <input type="radio" name="tone" value="professional">
+              <div class="tone-name">Professional</div>
+              <div class="tone-desc">Formal, courteous, precise. Good for law firms, accountants.</div>
+            </label>
+            <label class="tone-card" id="tone-friendly" onclick="selectTone('friendly')">
+              <input type="radio" name="tone" value="friendly">
+              <div class="tone-name">Friendly</div>
+              <div class="tone-desc">Warm, helpful, approachable. Works for most businesses.</div>
+            </label>
+            <label class="tone-card" id="tone-casual" onclick="selectTone('casual')">
+              <input type="radio" name="tone" value="casual">
+              <div class="tone-name">Casual</div>
+              <div class="tone-desc">Relaxed, personable. Great for hospitality, lifestyle brands.</div>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Your 5 most common customer questions <span>*</span></label>
+          <div class="faq-list" id="faqList">
+            <div class="faq-item">
+              <input type="text" placeholder="e.g. What are your opening hours?" class="faq-input">
+              <button class="faq-remove" onclick="removeFaq(this)">✕</button>
+            </div>
+            <div class="faq-item">
+              <input type="text" placeholder="e.g. Do you have parking?" class="faq-input">
+              <button class="faq-remove" onclick="removeFaq(this)">✕</button>
+            </div>
+            <div class="faq-item">
+              <input type="text" placeholder="e.g. What's your cancellation policy?" class="faq-input">
+              <button class="faq-remove" onclick="removeFaq(this)">✕</button>
+            </div>
+          </div>
+          <button class="add-faq-btn" onclick="addFaq()">+ Add another question</button>
+          <div class="field-hint">The agent will learn to answer these correctly every time</div>
+        </div>
+
+        <div class="field">
+          <label>Things the agent must NEVER say or do</label>
+          <textarea id="neverSay" placeholder="e.g. Never quote prices — always direct them to call us. Never discuss competitors. Never make promises about availability."></textarea>
+          <div class="field-hint">Think of this as the agent's ground rules</div>
+        </div>
+
+        <div class="field">
+          <label>Escalation contact name <span>*</span></label>
+          <input type="text" id="escalationName" placeholder="e.g. Sarah (owner) or Front Desk">
+          <div class="field-hint">Who the agent passes urgent queries to</div>
+        </div>
+
+        <div class="field">
+          <label>Escalation WhatsApp / mobile <span>*</span></label>
+          <input type="tel" id="escalationPhone" placeholder="+44 7700 900000">
+          <div class="field-hint">The agent will notify this number for anything it can't handle</div>
+        </div>
+
+        <div class="callout-info">
+          <strong>How escalation works:</strong> When a customer sends something the agent isn't confident to handle — a complaint, a specific legal question, a request for a callback — it sends a WhatsApp message to your escalation contact with the customer's details and a summary. You take over from there.
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-back" onclick="prevStep(3)">← Back</button>
+          <button class="btn-next" onclick="nextStep(3)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Channels -->
+      <div class="step-panel" id="step4">
+        <div class="step-title">Which channels should your agent monitor?</div>
+        <div class="step-desc">Pick the channels where your customers currently contact you. Your agent will handle them all.</div>
+
+        <div class="channel-list">
+          <div class="channel-item" id="ch-whatsapp" onclick="toggleChannel('whatsapp')">
+            <div class="channel-left">
+              <div class="channel-icon">💬</div>
+              <div>
+                <div class="channel-name">WhatsApp</div>
+                <div class="channel-desc">Most popular in UK — customers message your WhatsApp number</div>
+              </div>
+            </div>
+            <div class="toggle" id="tog-whatsapp"></div>
+          </div>
+          <div class="channel-detail" id="cd-whatsapp">
+            <div class="field">
+              <label>Your WhatsApp Business number</label>
+              <input type="tel" id="waNumber" placeholder="+44 7700 900000">
+              <div class="field-hint">Leave blank if you don't have one yet — we'll provide a number</div>
+            </div>
+          </div>
+
+          <div class="channel-item" id="ch-email" onclick="toggleChannel('email')">
+            <div class="channel-left">
+              <div class="channel-icon">📧</div>
+              <div>
+                <div class="channel-name">Email</div>
+                <div class="channel-desc">Agent monitors and responds to your enquiry inbox</div>
+              </div>
+            </div>
+            <div class="toggle" id="tog-email"></div>
+          </div>
+          <div class="channel-detail" id="cd-email">
+            <div class="field">
+              <label>Enquiry email address</label>
+              <input type="email" id="enquiryEmail" placeholder="enquiries@yourbusiness.co.uk">
+            </div>
+          </div>
+
+          <div class="channel-item" id="ch-webchat" onclick="toggleChannel('webchat')">
+            <div class="channel-left">
+              <div class="channel-icon">🌐</div>
+              <div>
+                <div class="channel-name">Website chat widget</div>
+                <div class="channel-desc">A chat bubble appears on your website — we provide the embed code</div>
+              </div>
+            </div>
+            <div class="toggle" id="tog-webchat"></div>
+          </div>
+          <div class="channel-detail" id="cd-webchat">
+            <div class="field">
+              <label>Website URL</label>
+              <input type="url" id="webchatUrl" placeholder="https://yourbusiness.co.uk">
+              <div class="field-hint">We'll send you a one-line embed code to add to your site</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout-info">
+          <strong>Don't worry if you're not sure yet.</strong> You can add or change channels at any time from your dashboard. WhatsApp is the most effective channel for most UK businesses — we recommend starting there.
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-back" onclick="prevStep(4)">← Back</button>
+          <button class="btn-next" onclick="nextStep(4)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- STEP 5: Review + Submit -->
+      <div class="step-panel" id="step5">
+        <div class="step-title">Review your setup</div>
+        <div class="step-desc">Check everything looks right, then submit. We'll get your agent live within 7 days.</div>
+
+        <div class="review-section">
+          <h4>Your details</h4>
+          <div class="review-grid">
+            <div class="review-item"><span class="review-label">Name: </span><span class="review-value" id="rv-name">—</span></div>
+            <div class="review-item"><span class="review-label">Email: </span><span class="review-value" id="rv-email">—</span></div>
+            <div class="review-item"><span class="review-label">Mobile: </span><span class="review-value" id="rv-phone">—</span></div>
+            <div class="review-item"><span class="review-label">Plan: </span><span class="review-value" id="rv-plan">—</span></div>
+          </div>
+        </div>
+
+        <div class="review-section">
+          <h4>Your business</h4>
+          <div class="review-grid">
+            <div class="review-item"><span class="review-label">Business: </span><span class="review-value" id="rv-business">—</span></div>
+            <div class="review-item"><span class="review-label">Sector: </span><span class="review-value" id="rv-sector">—</span></div>
+            <div class="review-item"><span class="review-label">Hours: </span><span class="review-value" id="rv-hours">—</span></div>
+            <div class="review-item"><span class="review-label">Website: </span><span class="review-value" id="rv-website">—</span></div>
+          </div>
+        </div>
+
+        <div class="review-section">
+          <h4>Agent configuration</h4>
+          <div class="review-grid">
+            <div class="review-item"><span class="review-label">Tone: </span><span class="review-value" id="rv-tone">—</span></div>
+            <div class="review-item"><span class="review-label">Escalation: </span><span class="review-value" id="rv-escalation">—</span></div>
+            <div class="review-item"><span class="review-label">FAQs added: </span><span class="review-value" id="rv-faqs">—</span></div>
+            <div class="review-item"><span class="review-label">Channels: </span><span class="review-value" id="rv-channels">—</span></div>
+          </div>
+        </div>
+
+        <div class="callout-info">
+          <strong>What happens next:</strong> We'll email you within 2 hours to confirm receipt. Your agent will be configured within 48 hours and you'll get a preview link to test it before it goes live. Any changes at that stage — just reply to our email.
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-back" onclick="prevStep(5)">← Back</button>
+          <button class="btn-submit" id="submitBtn" onclick="submitForm()">Submit Setup →</button>
+        </div>
+      </div>
+
+      <!-- Success screen -->
+      <div class="success-screen" id="successScreen">
+        <div class="success-icon">🎉</div>
+        <h2>You're all set!</h2>
+        <p>We've received your setup details. You'll get a confirmation email within 2 hours and a preview of your agent within 48 hours.</p>
+        <p style="font-size:14px;">In the meantime, if you have any questions just email us at <a href="mailto:hello@inference-agents.com" style="color:var(--primary-light);">hello@inference-agents.com</a> or WhatsApp us directly.</p>
+        <a href="portal.html" class="btn" style="display:inline-block;margin-top:8px;">View Your Dashboard →</a>
+      </div>
+
+    </div><!-- /onboard-card -->
+  </div><!-- /onboard-wrap -->
+
+  <script>
+    // ── State ────────────────────────────────────────────────────────────────
+    let currentStep = 1;
+    const totalSteps = 5;
+    let selectedSector = '';
+    let selectedTone = '';
+    const channels = { whatsapp: false, email: false, webchat: false };
+
+    // Read plan from URL params
+    const params = new URLSearchParams(window.location.search);
+    const planParam = params.get('plan') || 'growth';
+    const token = params.get('token') || '';
+
+    const planData = {
+      starter:  { name: 'Starter Plan',      price: '£99/mo',  includes: '1 AI agent · Quarterly agent swaps' },
+      growth:   { name: 'Growth Package',    price: '£199/mo', includes: '3 AI agents · Monthly agent swaps · Priority support' },
+      fullstack:{ name: 'Full Stack',         price: '£399/mo', includes: 'All agents · Unlimited swaps · Dedicated account manager' },
+    };
+    const plan = planData[planParam] || planData.growth;
+    document.getElementById('planName').textContent = plan.name;
+    document.getElementById('planPrice').textContent = plan.price;
+    document.getElementById('planIncludes').textContent = plan.includes;
+
+    // ── Navigation ────────────────────────────────────────────────────────────
+    function nextStep(from) {
+      if (!validateStep(from)) return;
+      goToStep(from + 1);
+    }
+    function prevStep(from) { goToStep(from - 1); }
+
+    function goToStep(n) {
+      document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('step' + n).classList.add('active');
+
+      const dots = document.querySelectorAll('.step-dot');
+      const labels = document.querySelectorAll('.step-label');
+      dots.forEach((d, i) => {
+        d.classList.remove('active', 'done');
+        labels[i].classList.remove('active');
+        if (i + 1 < n) d.classList.add('done'), d.textContent = '✓';
+        else if (i + 1 === n) d.classList.add('active'), d.textContent = i + 1, labels[i].classList.add('active');
+        else d.textContent = i + 1;
+      });
+
+      const pct = ((n - 1) / (totalSteps - 1)) * 100;
+      document.getElementById('progressLine').style.width = pct + '%';
+
+      currentStep = n;
+      if (n === 5) populateReview();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ── Validation ────────────────────────────────────────────────────────────
+    function validateStep(step) {
+      let ok = true;
+      if (step === 1) {
+        ok = requireField('firstName') & requireField('lastName') & requireField('email') & requireField('phone');
+      } else if (step === 2) {
+        ok = requireField('businessName');
+        if (!selectedSector) { alert('Please select your sector.'); ok = false; }
+      } else if (step === 3) {
+        ok = requireField('escalationName') & requireField('escalationPhone');
+        if (!selectedTone) { alert('Please select a tone of voice.'); ok = false; }
+        const faqs = document.querySelectorAll('.faq-input');
+        const filled = Array.from(faqs).filter(f => f.value.trim()).length;
+        if (filled < 1) { alert('Please add at least one FAQ.'); ok = false; }
+      } else if (step === 4) {
+        if (!channels.whatsapp && !channels.email && !channels.webchat) {
+          alert('Please enable at least one channel.'); ok = false;
+        }
+      }
+      return ok;
+    }
+
+    function requireField(id) {
+      const el = document.getElementById(id);
+      if (!el || !el.value.trim()) {
+        if (el) el.classList.add('field-error');
+        return false;
+      }
+      el.classList.remove('field-error');
+      return true;
+    }
+
+    // ── Sector selection ──────────────────────────────────────────────────────
+    function selectSector(s) {
+      selectedSector = s;
+      document.querySelectorAll('.sector-card').forEach(c => c.classList.remove('selected'));
+      document.getElementById('sc-' + s).classList.add('selected');
+      document.querySelectorAll('.sector-fields').forEach(f => f.classList.remove('show'));
+      document.getElementById('sf-' + s).classList.add('show');
+    }
+
+    // ── Tone selection ────────────────────────────────────────────────────────
+    function selectTone(t) {
+      selectedTone = t;
+      document.querySelectorAll('.tone-card').forEach(c => c.classList.remove('selected'));
+      document.getElementById('tone-' + t).classList.add('selected');
+    }
+
+    // ── Channels ──────────────────────────────────────────────────────────────
+    function toggleChannel(ch) {
+      channels[ch] = !channels[ch];
+      const tog = document.getElementById('tog-' + ch);
+      const item = document.getElementById('ch-' + ch);
+      const detail = document.getElementById('cd-' + ch);
+      tog.classList.toggle('on', channels[ch]);
+      item.classList.toggle('active', channels[ch]);
+      detail.classList.toggle('show', channels[ch]);
+    }
+
+    // ── FAQs ──────────────────────────────────────────────────────────────────
+    function addFaq() {
+      const list = document.getElementById('faqList');
+      if (list.children.length >= 10) return;
+      const item = document.createElement('div');
+      item.className = 'faq-item';
+      item.innerHTML = `<input type="text" placeholder="Enter a common customer question..." class="faq-input"><button class="faq-remove" onclick="removeFaq(this)">✕</button>`;
+      list.appendChild(item);
+    }
+    function removeFaq(btn) {
+      const list = document.getElementById('faqList');
+      if (list.children.length <= 1) return;
+      btn.parentElement.remove();
+    }
+
+    // ── Review ────────────────────────────────────────────────────────────────
+    function populateReview() {
+      const v = (id) => document.getElementById(id)?.value?.trim() || '—';
+      document.getElementById('rv-name').textContent = v('firstName') + ' ' + v('lastName');
+      document.getElementById('rv-email').textContent = v('email');
+      document.getElementById('rv-phone').textContent = v('phone');
+      document.getElementById('rv-plan').textContent = plan.name;
+      document.getElementById('rv-business').textContent = v('businessName');
+      document.getElementById('rv-sector').textContent = selectedSector ? selectedSector.charAt(0).toUpperCase() + selectedSector.slice(1) : '—';
+      document.getElementById('rv-hours').textContent = v('openingHours');
+      document.getElementById('rv-website').textContent = v('websiteUrl') || '—';
+      document.getElementById('rv-tone').textContent = selectedTone ? selectedTone.charAt(0).toUpperCase() + selectedTone.slice(1) : '—';
+      document.getElementById('rv-escalation').textContent = v('escalationName') + ' · ' + v('escalationPhone');
+      const faqs = Array.from(document.querySelectorAll('.faq-input')).filter(f => f.value.trim());
+      document.getElementById('rv-faqs').textContent = faqs.length + ' question' + (faqs.length !== 1 ? 's' : '');
+      const activeChannels = Object.entries(channels).filter(([,v]) => v).map(([k]) => k).join(', ') || '—';
+      document.getElementById('rv-channels').textContent = activeChannels;
+    }
+
+    // ── Submit ────────────────────────────────────────────────────────────────
+    async function submitForm() {
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      const faqs = Array.from(document.querySelectorAll('.faq-input'))
+        .map(f => f.value.trim()).filter(Boolean);
+
+      const fName = document.getElementById('firstName').value.trim();
+      const lName = document.getElementById('lastName').value.trim();
+
+      const payload = {
+        token,
+        plan: planParam,
+        name: [fName, lName].filter(Boolean).join(' '),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        businessName: document.getElementById('businessName').value.trim(),
+        websiteUrl: document.getElementById('websiteUrl').value.trim(),
+        sector: selectedSector,
+        openingHours: document.getElementById('openingHours').value.trim(),
+        tone: selectedTone,
+        faqs: faqs.map(f => ({ q: f, a: '' })), // structured for worker
+        neverSay: document.getElementById('neverSay').value.trim(),
+        escalationName: document.getElementById('escalationName').value.trim(),
+        escalationPhone: document.getElementById('escalationPhone').value.trim(),
+        channels,
+        whatsappNumber: document.getElementById('waNumber').value.trim(),
+        emailAddress: document.getElementById('enquiryEmail').value.trim(),
+        webchatPage: document.getElementById('webchatUrl').value.trim(),
+      };
+
+      try {
+        const res = await fetch('/api/intake-webhook', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+          document.getElementById('successScreen').classList.add('show');
+          document.getElementById('progressLine').style.width = '100%';
+          document.querySelectorAll('.step-dot').forEach(d => { d.classList.add('done'); d.classList.remove('active'); d.textContent = '✓'; });
+        } else {
+          throw new Error('Submission failed');
+        }
+      } catch(e) {
+        btn.disabled = false;
+        btn.textContent = 'Submit Setup →';
+        alert('Something went wrong. Please email hello@inference-agents.com and we\'ll sort it straight away.');
+      }
+    }
+  </script>
+  <script src="analytics.js"></script>
+  <script src="cookies.js"></script>
+</body>
+</html>

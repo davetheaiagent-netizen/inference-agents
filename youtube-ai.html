@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) — Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQEVHHCQ07"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', wait_for_update: 500 });
+    gtag('js', new Date());
+    gtag('config', 'G-RQEVHHCQ07');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>YouTube AI Agent | Inference Agents</title>
@@ -37,11 +46,12 @@
         </a>
         <ul class="nav-links">
           <li><a href="index.html#services">Services</a></li>
-          <li><a href="index.html#agents">AI Agents</a></li>
-          <li><a href="index.html#pricing">Pricing</a></li>
+          <li><a href="index.html#sectors">Sectors</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="blog.html">Blog</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
-        <a href="contact.html" class="btn">Get Started</a>
+        <a href="consultation.html" class="btn">Book Free Call</a>
       </nav>
     </div>
   </header>
@@ -87,8 +97,8 @@
           <a href="consultation.html" class="btn">Get Started</a>
         </div>
         <div class="pricing-card featured reveal">
-          <div class="name">Growth</div>
-          <div class="price">£249<span>/mo</span></div>
+          <div class="name">Growth Package</div>
+          <div class="price">£199<span>/mo</span></div>
           <ul>
             <li>2 channels</li>
             <li>12 videos/mo</li>
@@ -99,8 +109,8 @@
           <a href="consultation.html" class="btn">Get Started</a>
         </div>
         <div class="pricing-card reveal">
-          <div class="name">Enterprise</div>
-          <div class="price">£499<span>/mo</span></div>
+          <div class="name">Full Stack</div>
+          <div class="price">£399<span>/mo</span></div>
           <ul>
             <li>5 channels</li>
             <li>Unlimited videos</li>
@@ -154,5 +164,9 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
+<script src="nav.js"></script>
+  <script src="effects.js"></script>
+  <script src="analytics.js"></script>
+<script src="cookies.js"></script>
 </body>
 </html>

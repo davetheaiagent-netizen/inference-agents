@@ -1,0 +1,858 @@
+{
+  "meta": {
+    "instanceId": "inference-agents-n8n-instance"
+  },
+  "workflows": [
+    {
+      "id": "workflow-onboarding-001",
+      "name": "Inference Agents — Master Onboarding & Agent Loop",
+      "active": true,
+      "nodes": [
+        {
+          "id": "node-stripe-trigger",
+          "name": "Stripe Trigger",
+          "type": "n8n-nodes-base.stripeTrigger",
+          "typeVersion": 1,
+          "position": [240, 300],
+          "parameters": {
+            "events": ["checkout.session.completed"]
+          },
+          "credentials": {
+            "stripeApi": {
+              "id": "stripe-cred-01",
+              "name": "Stripe API"
+            }
+          }
+        },
+        {
+          "id": "node-extract-customer",
+          "name": "Extract Customer Data",
+          "type": "n8n-nodes-base.code",
+          "typeVersion": 2,
+          "position": [460, 300],
+          "parameters": {
+            "jsCode": "// Extract customer data from Stripe checkout.session.completed event\nconst event = $input.first().json;\nconst session = event.data ? event.data.object : event;\n\n// Map amount_total (pence) to plan tier\nconst amountPaid = session.amount_total || 0;\nlet plan = 'starter';\nif (amountPaid >= 39900) {\n  plan = 'fullstack';\n} else if (amountPaid >= 19900) {\n  plan = 'growth';\n} else if (amountPaid >= 9900) {\n  plan = 'starter';\n}\n\nconst customerEmail = session.customer_details?.email || session.customer_email || '';\nconst customerName = session.customer_details?.name || '';\nconst stripeCustomerId = session.customer || '';\nconst stripeSubscriptionId = session.subscription || '';\n\nreturn [\n  {\n    json: {\n      email: customerEmail,\n      name: customerName,\n      plan,\n      amount_paid: amountPaid,\n      stripe_customer_id: stripeCustomerId,\n      stripe_subscription_id: stripeSubscriptionId\n    }\n  }\n];"
+          }
+        },
+        {
+          "id": "node-create-supabase-customer",
+          "name": "Create Supabase Customer",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [680, 300],
+          "parameters": {
+            "method": "POST",
+            "url": "={{$env.SUPABASE_URL}}/rest/v1/customers",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "apikey",
+                  "value": "={{$env.SUPABASE_SERVICE_KEY}}"
+                },
+                {
+                  "name": "Authorization",
+                  "value": "=Bearer {{$env.SUPABASE_SERVICE_KEY}}"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "name": "Prefer",
+                  "value": "return=representation"
+                }
+              ]
+            },
+            "sendBody": true,
+            "bodyContentType": "json",
+            "jsonBody": "={\n  \"email\": \"{{$json.email}}\",\n  \"name\": \"{{$json.name}}\",\n  \"plan\": \"{{$json.plan}}\",\n  \"status\": \"onboarding\",\n  \"stripe_customer_id\": \"{{$json.stripe_customer_id}}\",\n  \"stripe_subscription_id\": \"{{$json.stripe_subscription_id}}\"\n}"
+          }
+        },
+        {
+          "id": "node-send-welcome-email",
+          "name": "Send Welcome Email (Resend)",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [900, 300],
+          "parameters": {
+            "method": "POST",
+            "url": "https://api.resend.com/emails",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "Authorization",
+                  "value": "=Bearer {{$env.RESEND_API_KEY}}"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "application/json"
+                }
+              ]
+            },
+            "sendBody": true,
+            "bodyContentType": "json",
+            "jsonBody": "={\n  \"from\": \"Inference Agents <hello@inference-agents.com>\",\n  \"to\": [\"{{$('Extract Customer Data').item.json.email}}\"],\n  \"subject\": \"Your AI agent is being set up — here's what happens next\",\n  \"html\": \"<p>Welcome to Inference Agents! Please complete your setup at https://inference-agents.com/onboarding.html?token={{$json[0].portal_token}}</p>\"\n}"
+          }
+        },
+        {
+          "id": "node-wait-form",
+          "name": "Wait for Form Submission",
+          "type": "n8n-nodes-base.webhook",
+          "typeVersion": 2,
+          "position": [1120, 300],
+          "webhookId": "tally-form-submission",
+          "parameters": {
+            "httpMethod": "POST",
+            "path": "onboarding-form",
+            "responseMode": "onReceived",
+            "responseData": "allEntries",
+            "options": {}
+          }
+        },
+        {
+          "id": "node-update-agent-config",
+          "name": "Update Agent Config in Supabase",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [1340, 300],
+          "parameters": {
+            "method": "POST",
+            "url": "={{$env.SUPABASE_URL}}/rest/v1/agent_configs",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "apikey",
+                  "value": "={{$env.SUPABASE_SERVICE_KEY}}"
+                },
+                {
+                  "name": "Authorization",
+                  "value": "=Bearer {{$env.SUPABASE_SERVICE_KEY}}"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "name": "Prefer",
+                  "value": "return=representation"
+                }
+              ]
+            },
+            "sendBody": true,
+            "bodyContentType": "json",
+            "jsonBody": "={\n  \"customer_id\": \"{{$json.body.customer_id}}\",\n  \"agent_type\": \"{{$json.body.agent_type}}\",\n  \"business_name\": \"{{$json.body.business_name}}\",\n  \"sector\": \"{{$json.body.sector}}\",\n  \"tone\": \"{{$json.body.tone}}\",\n  \"faqs\": {{$json.body.faqs}},\n  \"escalation_name\": \"{{$json.body.escalation_name}}\",\n  \"escalation_phone\": \"{{$json.body.escalation_phone}}\",\n  \"whatsapp_number\": \"{{$json.body.whatsapp_number}}\",\n  \"email_address\": \"{{$json.body.email_address}}\",\n  \"website_url\": \"{{$json.body.website_url}}\",\n  \"channels\": {{$json.body.channels}},\n  \"is_active\": false\n}"
+          }
+        },
+        {
+          "id": "node-generate-system-prompt",
+          "name": "Generate System Prompt (Claude)",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [1560, 300],
+          "parameters": {
+            "method": "POST",
+            "url": "https://api.anthropic.com/v1/messages",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "x-api-key",
+                  "value": "={{$env.ANTHROPIC_API_KEY}}"
+                },
+                {
+                  "name": "anthropic-version",
+                  "value": "2023-06-01"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "application/json"
+                }
+              ]
+            },
+            "sendBody": true,
+            "bodyContentType": "json",
+            "jsonBody": "={\n  \"model\": \"claude-opus-4-5\",\n  \"max_tokens\": 1200,\n  \"system\": \"You are an expert AI agent configurator for a UK AI automation agency. Your job is to write precise, effective system prompts for AI agents that handle customer enquiries for small businesses. Always write in UK English. The prompts should be professional, warm, and practical. Keep the system prompt under 800 words.\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Generate a comprehensive system prompt for an AI agent with the following business details:\\n\\nBusiness name: {{$('Update Agent Config in Supabase').item.json.business_name}}\\nSector: {{$('Update Agent Config in Supabase').item.json.sector}}\\nDesired tone: {{$('Update Agent Config in Supabase').item.json.tone}}\\nWebsite: {{$('Update Agent Config in Supabase').item.json.website_url}}\\nEscalation contact: {{$('Update Agent Config in Supabase').item.json.escalation_name}} on {{$('Update Agent Config in Supabase').item.json.escalation_phone}}\\nFAQs: {{JSON.stringify($('Update Agent Config in Supabase').item.json.faqs)}}\\n\\nThe agent will handle inbound customer enquiries via WhatsApp and email. Write the system prompt now.\"\n    }\n  ]\n}"
+          }
+        },
+        {
+          "id": "node-save-system-prompt",
+          "name": "Save System Prompt",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [1780, 300],
+          "parameters": {
+            "method": "PATCH",
+            "url": "={{$env.SUPABASE_URL}}/rest/v1/agent_configs?customer_id=eq.{{$('Update Agent Config in Supabase').item.json.customer_id}}",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "apikey",
+                  "value": "={{$env.SUPABASE_SERVICE_KEY}}"
+                },
+                {
+                  "name": "Authorization",
+                  "value": "=Bearer {{$env.SUPABASE_SERVICE_KEY}}"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "name": "Prefer",
+                  "value": "return=representation"
+                }
+              ]
+            },
+            "sendBody": true,
+            "bodyContentType": "json",
+            "jsonBody": "={\n  \"system_prompt\": \"{{$json.content[0].text}}\",\n  \"is_active\": true\n}"
+          }
+        },
+        {
+          "id": "node-activate-customer",
+          "name": "Activate Customer in Supabase",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [2000, 300],
+          "parameters": {
+            "method": "PATCH",
+            "url": "={{$env.SUPABASE_URL}}/rest/v1/customers?id=eq.{{$('Update Agent Config in Supabase').item.json.customer_id}}",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "apikey",
+                  "value": "={{$env.SUPABASE_SERVICE_KEY}}"
+                },
+                {
+                  "name": "Authorization",
+                  "value": "=Bearer {{$env.SUPABASE_SERVICE_KEY}}"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "name": "Prefer",
+                  "value": "return=representation"
+                }
+              ]
+            },
+            "sendBody": true,
+            "bodyContentType": "json",
+            "jsonBody": "{\n  \"status\": \"active\"\n}"
+          }
+        },
+        {
+          "id": "node-send-preview-email",
+          "name": "Send Agent Live Email",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [2220, 300],
+          "parameters": {
+            "method": "POST",
+            "url": "https://api.resend.com/emails",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "Authorization",
+                  "value": "=Bearer {{$env.RESEND_API_KEY}}"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "application/json"
+                }
+              ]
+            },
+            "sendBody": true,
+            "bodyContentType": "json",
+            "jsonBody": "={\n  \"from\": \"Inference Agents <hello@inference-agents.com>\",\n  \"to\": [\"{{$('Extract Customer Data').item.json.email}}\"],\n  \"subject\": \"Your AI agent is live!\",\n  \"html\": \"<p>Your agent is live and handling enquiries. View your dashboard at https://inference-agents.com/portal.html?token={{$('Create Supabase Customer').item.json[0].portal_token}}</p>\"\n}"
+          }
+        },
+        {
+          "id": "node-weekly-schedule",
+          "name": "Schedule: Weekly Digest",
+          "type": "n8n-nodes-base.scheduleTrigger",
+          "typeVersion": 1,
+          "position": [240, 600],
+          "parameters": {
+            "rule": {
+              "interval": [
+                {
+                  "field": "cronExpression",
+                  "expression": "0 9 * * 1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "node-get-active-customers",
+          "name": "Get All Active Customers",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [460, 600],
+          "parameters": {
+            "method": "GET",
+            "url": "={{$env.SUPABASE_URL}}/rest/v1/customers?status=eq.active&select=id,email,name,business_name,plan,portal_token",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "apikey",
+                  "value": "={{$env.SUPABASE_SERVICE_KEY}}"
+                },
+                {
+                  "name": "Authorization",
+                  "value": "=Bearer {{$env.SUPABASE_SERVICE_KEY}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "node-split-customers",
+          "name": "Split Into Individual Customers",
+          "type": "n8n-nodes-base.splitInBatches",
+          "typeVersion": 3,
+          "position": [680, 600],
+          "parameters": {
+            "batchSize": 1,
+            "options": {}
+          }
+        },
+        {
+          "id": "node-get-week-stats",
+          "name": "Get Week Stats per Customer",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [900, 600],
+          "parameters": {
+            "method": "GET",
+            "url": "={{$env.SUPABASE_URL}}/rest/v1/weekly_stats?customer_id=eq.{{$json.id}}&order=week_start.desc&limit=1",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "apikey",
+                  "value": "={{$env.SUPABASE_SERVICE_KEY}}"
+                },
+                {
+                  "name": "Authorization",
+                  "value": "=Bearer {{$env.SUPABASE_SERVICE_KEY}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "node-generate-digest",
+          "name": "Generate Digest Summary (Claude)",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [1120, 600],
+          "parameters": {
+            "method": "POST",
+            "url": "https://api.anthropic.com/v1/messages",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "x-api-key",
+                  "value": "={{$env.ANTHROPIC_API_KEY}}"
+                },
+                {
+                  "name": "anthropic-version",
+                  "value": "2023-06-01"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "application/json"
+                }
+              ]
+            },
+            "sendBody": true,
+            "bodyContentType": "json",
+            "jsonBody": "={\n  \"model\": \"claude-opus-4-5\",\n  \"max_tokens\": 300,\n  \"system\": \"You are a friendly AI assistant writing a brief weekly summary for a small business owner. Write in UK English. Be warm, encouraging, and concise. Exactly 3 sentences.\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Write a friendly 3-sentence summary of this week's AI agent performance for {{$('Split Into Individual Customers').item.json.business_name}}: They handled {{$json[0].enquiries_handled}} enquiries, sent {{$json[0].messages_sent}} messages, saved approximately {{$json[0].hours_saved}} hours, and had {{$json[0].escalations}} escalations to a human. Keep it positive and encouraging.\"\n    }\n  ]\n}"
+          }
+        },
+        {
+          "id": "node-send-weekly-digest",
+          "name": "Send Weekly Digest Email",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [1340, 600],
+          "parameters": {
+            "method": "POST",
+            "url": "https://api.resend.com/emails",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "Authorization",
+                  "value": "=Bearer {{$env.RESEND_API_KEY}}"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "application/json"
+                }
+              ]
+            },
+            "sendBody": true,
+            "bodyContentType": "json",
+            "jsonBody": "={\n  \"from\": \"Inference Agents <hello@inference-agents.com>\",\n  \"to\": [\"{{$('Split Into Individual Customers').item.json.email}}\"],\n  \"subject\": \"Your AI agent weekly report — week of {{$now.format('d MMMM yyyy')}}\",\n  \"html\": \"<h2>Your week with AI</h2><p>{{$json.content[0].text}}</p><p>Enquiries: {{$('Get Week Stats per Customer').item.json[0].enquiries_handled}} | Hours saved: {{$('Get Week Stats per Customer').item.json[0].hours_saved}} | Messages: {{$('Get Week Stats per Customer').item.json[0].messages_sent}} | Escalations: {{$('Get Week Stats per Customer').item.json[0].escalations}}</p><p><a href='https://inference-agents.com/portal.html?token={{$('Split Into Individual Customers').item.json.portal_token}}'>View Dashboard</a></p>\"\n}"
+          }
+        }
+      ],
+      "connections": {
+        "Stripe Trigger": {
+          "main": [
+            [
+              {
+                "node": "Extract Customer Data",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Extract Customer Data": {
+          "main": [
+            [
+              {
+                "node": "Create Supabase Customer",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Create Supabase Customer": {
+          "main": [
+            [
+              {
+                "node": "Send Welcome Email (Resend)",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Wait for Form Submission": {
+          "main": [
+            [
+              {
+                "node": "Update Agent Config in Supabase",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Update Agent Config in Supabase": {
+          "main": [
+            [
+              {
+                "node": "Generate System Prompt (Claude)",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Generate System Prompt (Claude)": {
+          "main": [
+            [
+              {
+                "node": "Save System Prompt",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Save System Prompt": {
+          "main": [
+            [
+              {
+                "node": "Activate Customer in Supabase",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Activate Customer in Supabase": {
+          "main": [
+            [
+              {
+                "node": "Send Agent Live Email",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Schedule: Weekly Digest": {
+          "main": [
+            [
+              {
+                "node": "Get All Active Customers",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Get All Active Customers": {
+          "main": [
+            [
+              {
+                "node": "Split Into Individual Customers",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Split Into Individual Customers": {
+          "main": [
+            [
+              {
+                "node": "Get Week Stats per Customer",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Get Week Stats per Customer": {
+          "main": [
+            [
+              {
+                "node": "Generate Digest Summary (Claude)",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Generate Digest Summary (Claude)": {
+          "main": [
+            [
+              {
+                "node": "Send Weekly Digest Email",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        }
+      },
+      "settings": {
+        "executionOrder": "v1",
+        "saveManualExecutions": true,
+        "callerPolicy": "workflowsFromSameOwner",
+        "errorWorkflow": ""
+      },
+      "tags": [
+        {
+          "id": "tag-onboarding",
+          "name": "onboarding"
+        },
+        {
+          "id": "tag-production",
+          "name": "production"
+        }
+      ]
+    },
+    {
+      "id": "workflow-whatsapp-002",
+      "name": "WhatsApp Message Handler",
+      "active": true,
+      "nodes": [
+        {
+          "id": "node-360-webhook",
+          "name": "360Dialog Webhook",
+          "type": "n8n-nodes-base.webhook",
+          "typeVersion": 2,
+          "position": [240, 300],
+          "webhookId": "360dialog-inbound",
+          "parameters": {
+            "httpMethod": "POST",
+            "path": "whatsapp-inbound",
+            "responseMode": "onReceived",
+            "responseData": "allEntries",
+            "options": {}
+          }
+        },
+        {
+          "id": "node-extract-wa-message",
+          "name": "Extract WhatsApp Message",
+          "type": "n8n-nodes-base.code",
+          "typeVersion": 2,
+          "position": [460, 300],
+          "parameters": {
+            "jsCode": "// Parse 360Dialog webhook payload\nconst body = $input.first().json.body || $input.first().json;\nconst messages = body.messages || [];\nconst contacts = body.contacts || [];\n\nif (!messages.length) {\n  // No messages to process (could be a status update)\n  return [];\n}\n\nconst msg = messages[0];\nconst contact = contacts[0] || {};\n\nconst fromNumber = msg.from;                          // sender's WhatsApp number\nconst toNumber = body.metadata?.phone_number_id || '';// our business number\nconst messageText = msg.type === 'text' ? msg.text?.body : '[Non-text message]';\nconst contactName = contact.profile?.name || 'Customer';\nconst messageId = msg.id;\n\nreturn [\n  {\n    json: {\n      from_number: fromNumber,\n      to_number: toNumber,\n      message_text: messageText,\n      contact_name: contactName,\n      message_id: messageId,\n      timestamp: msg.timestamp\n    }\n  }\n];"
+          }
+        },
+        {
+          "id": "node-get-customer-config",
+          "name": "Get Customer Config",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [680, 300],
+          "parameters": {
+            "method": "GET",
+            "url": "={{$env.SUPABASE_URL}}/rest/v1/agent_configs?whatsapp_number=eq.{{$json.to_number}}&is_active=eq.true&select=*,customers(id,email,name,business_name,plan,status)",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "apikey",
+                  "value": "={{$env.SUPABASE_SERVICE_KEY}}"
+                },
+                {
+                  "name": "Authorization",
+                  "value": "=Bearer {{$env.SUPABASE_SERVICE_KEY}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "node-get-conversation-history",
+          "name": "Get Recent Conversation History",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [900, 300],
+          "parameters": {
+            "method": "GET",
+            "url": "={{$env.SUPABASE_URL}}/rest/v1/conversations?customer_id=eq.{{$json[0].customer_id}}&contact_identifier=eq.{{$('Extract WhatsApp Message').item.json.from_number}}&channel=eq.whatsapp&order=created_at.desc&limit=10&select=direction,message_content",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "apikey",
+                  "value": "={{$env.SUPABASE_SERVICE_KEY}}"
+                },
+                {
+                  "name": "Authorization",
+                  "value": "=Bearer {{$env.SUPABASE_SERVICE_KEY}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "node-call-claude",
+          "name": "Call Claude API",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [1120, 300],
+          "parameters": {
+            "method": "POST",
+            "url": "https://api.anthropic.com/v1/messages",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "x-api-key",
+                  "value": "={{$env.ANTHROPIC_API_KEY}}"
+                },
+                {
+                  "name": "anthropic-version",
+                  "value": "2023-06-01"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "application/json"
+                }
+              ]
+            },
+            "sendBody": true,
+            "bodyContentType": "json",
+            "jsonBody": "={\n  \"model\": \"claude-opus-4-5\",\n  \"max_tokens\": 500,\n  \"system\": \"{{$('Get Customer Config').item.json[0].system_prompt}}\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"{{$('Extract WhatsApp Message').item.json.message_text}}\"\n    }\n  ]\n}"
+          }
+        },
+        {
+          "id": "node-log-inbound",
+          "name": "Log Inbound Message",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [1340, 160],
+          "parameters": {
+            "method": "POST",
+            "url": "={{$env.SUPABASE_URL}}/rest/v1/conversations",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "apikey",
+                  "value": "={{$env.SUPABASE_SERVICE_KEY}}"
+                },
+                {
+                  "name": "Authorization",
+                  "value": "=Bearer {{$env.SUPABASE_SERVICE_KEY}}"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "application/json"
+                }
+              ]
+            },
+            "sendBody": true,
+            "bodyContentType": "json",
+            "jsonBody": "={\n  \"customer_id\": \"{{$('Get Customer Config').item.json[0].customer_id}}\",\n  \"agent_type\": \"{{$('Get Customer Config').item.json[0].agent_type}}\",\n  \"channel\": \"whatsapp\",\n  \"direction\": \"inbound\",\n  \"message_content\": \"{{$('Extract WhatsApp Message').item.json.message_text}}\",\n  \"contact_name\": \"{{$('Extract WhatsApp Message').item.json.contact_name}}\",\n  \"contact_identifier\": \"{{$('Extract WhatsApp Message').item.json.from_number}}\",\n  \"escalated\": false\n}"
+          }
+        },
+        {
+          "id": "node-log-outbound",
+          "name": "Log Outbound Reply",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [1340, 440],
+          "parameters": {
+            "method": "POST",
+            "url": "={{$env.SUPABASE_URL}}/rest/v1/conversations",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "apikey",
+                  "value": "={{$env.SUPABASE_SERVICE_KEY}}"
+                },
+                {
+                  "name": "Authorization",
+                  "value": "=Bearer {{$env.SUPABASE_SERVICE_KEY}}"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "application/json"
+                }
+              ]
+            },
+            "sendBody": true,
+            "bodyContentType": "json",
+            "jsonBody": "={\n  \"customer_id\": \"{{$('Get Customer Config').item.json[0].customer_id}}\",\n  \"agent_type\": \"{{$('Get Customer Config').item.json[0].agent_type}}\",\n  \"channel\": \"whatsapp\",\n  \"direction\": \"outbound\",\n  \"message_content\": \"{{$('Call Claude API').item.json.content[0].text}}\",\n  \"contact_name\": \"{{$('Extract WhatsApp Message').item.json.contact_name}}\",\n  \"contact_identifier\": \"{{$('Extract WhatsApp Message').item.json.from_number}}\",\n  \"escalated\": false\n}"
+          }
+        },
+        {
+          "id": "node-send-wa-reply",
+          "name": "Send WhatsApp Reply",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4,
+          "position": [1560, 300],
+          "parameters": {
+            "method": "POST",
+            "url": "https://waba.360dialog.io/v1/messages",
+            "sendHeaders": true,
+            "headerParameters": {
+              "parameters": [
+                {
+                  "name": "D360-API-KEY",
+                  "value": "={{$env.DIALOG360_API_KEY}}"
+                },
+                {
+                  "name": "Content-Type",
+                  "value": "application/json"
+                }
+              ]
+            },
+            "sendBody": true,
+            "bodyContentType": "json",
+            "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"recipient_type\": \"individual\",\n  \"to\": \"{{$('Extract WhatsApp Message').item.json.from_number}}\",\n  \"type\": \"text\",\n  \"text\": {\n    \"preview_url\": false,\n    \"body\": \"{{$('Call Claude API').item.json.content[0].text}}\"\n  }\n}"
+          }
+        }
+      ],
+      "connections": {
+        "360Dialog Webhook": {
+          "main": [
+            [
+              {
+                "node": "Extract WhatsApp Message",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Extract WhatsApp Message": {
+          "main": [
+            [
+              {
+                "node": "Get Customer Config",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Get Customer Config": {
+          "main": [
+            [
+              {
+                "node": "Get Recent Conversation History",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Get Recent Conversation History": {
+          "main": [
+            [
+              {
+                "node": "Call Claude API",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Call Claude API": {
+          "main": [
+            [
+              {
+                "node": "Log Inbound Message",
+                "type": "main",
+                "index": 0
+              },
+              {
+                "node": "Log Outbound Reply",
+                "type": "main",
+                "index": 0
+              },
+              {
+                "node": "Send WhatsApp Reply",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        }
+      },
+      "settings": {
+        "executionOrder": "v1",
+        "saveManualExecutions": true,
+        "callerPolicy": "workflowsFromSameOwner",
+        "errorWorkflow": ""
+      },
+      "tags": [
+        {
+          "id": "tag-whatsapp",
+          "name": "whatsapp"
+        },
+        {
+          "id": "tag-production",
+          "name": "production"
+        }
+      ]
+    }
+  ]
+}

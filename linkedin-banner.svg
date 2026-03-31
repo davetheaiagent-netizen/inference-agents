@@ -1,0 +1,88 @@
+<svg width="1584" height="396" viewBox="0 0 1584 396" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#05050f"/>
+      <stop offset="100%" stop-color="#0d0d1f"/>
+    </linearGradient>
+    <linearGradient id="gradH" x1="0" y1="0" x2="1584" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+    <linearGradient id="glow1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="glow2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+    <filter id="blur1"><feGaussianBlur stdDeviation="70"/></filter>
+    <filter id="blur2"><feGaussianBlur stdDeviation="90"/></filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1584" height="396" fill="url(#bg)"/>
+
+  <!-- Ambient glows — repositioned to centre of canvas -->
+  <ellipse cx="550" cy="0" rx="420" ry="320" fill="url(#glow1)" filter="url(#blur1)"/>
+  <ellipse cx="1450" cy="396" rx="380" ry="280" fill="url(#glow2)" filter="url(#blur2)"/>
+
+  <!-- Subtle grid lines -->
+  <g opacity="0.04" stroke="#ffffff" stroke-width="1">
+    <line x1="0" y1="66" x2="1584" y2="66"/>
+    <line x1="0" y1="132" x2="1584" y2="132"/>
+    <line x1="0" y1="198" x2="1584" y2="198"/>
+    <line x1="0" y1="264" x2="1584" y2="264"/>
+    <line x1="0" y1="330" x2="1584" y2="330"/>
+    <line x1="264" y1="0" x2="264" y2="396"/>
+    <line x1="528" y1="0" x2="528" y2="396"/>
+    <line x1="792" y1="0" x2="792" y2="396"/>
+    <line x1="1056" y1="0" x2="1056" y2="396"/>
+    <line x1="1320" y1="0" x2="1320" y2="396"/>
+  </g>
+
+  <!-- Logo mark — shifted right to avoid LinkedIn profile pic overlay -->
+  <g transform="translate(310, 114) scale(3)">
+    <polygon points="28,4 54,50 2,50" fill="none" stroke="url(#logoGrad)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="28" cy="20" r="3" fill="url(#logoGrad)"/>
+    <circle cx="18" cy="40" r="2.2" fill="url(#logoGrad)" opacity="0.75"/>
+    <circle cx="38" cy="40" r="2.2" fill="url(#logoGrad)" opacity="0.75"/>
+    <circle cx="28" cy="40" r="1.8" fill="url(#logoGrad)" opacity="0.5"/>
+    <line x1="28" y1="20" x2="18" y2="40" stroke="url(#logoGrad)" stroke-width="1.2" opacity="0.45"/>
+    <line x1="28" y1="20" x2="38" y2="40" stroke="url(#logoGrad)" stroke-width="1.2" opacity="0.45"/>
+    <line x1="28" y1="20" x2="28" y2="40" stroke="url(#logoGrad)" stroke-width="1.2" opacity="0.3"/>
+    <line x1="18" y1="40" x2="38" y2="40" stroke="url(#logoGrad)" stroke-width="1.2" opacity="0.3"/>
+  </g>
+
+  <!-- Wordmark: Inference -->
+  <text x="492" y="196" font-family="Outfit, -apple-system, sans-serif" font-size="72" font-weight="800" letter-spacing="-1" fill="white">Inference</text>
+  <!-- Wordmark: AGENTS -->
+  <text x="495" y="244" font-family="Outfit, -apple-system, sans-serif" font-size="36" font-weight="600" letter-spacing="14" fill="#94a3b8">AGENTS</text>
+
+  <!-- Divider line -->
+  <line x1="830" y1="130" x2="830" y2="266" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+
+  <!-- Strapline -->
+  <text x="870" y="184" font-family="Outfit, -apple-system, sans-serif" font-size="42" font-weight="700" fill="white">AI Agents That Work 24/7</text>
+  <text x="870" y="234" font-family="Outfit, -apple-system, sans-serif" font-size="24" font-weight="400" fill="#94a3b8">Helping UK businesses automate — from £49/month</text>
+
+  <!-- Pill badges -->
+  <rect x="870" y="264" width="162" height="38" rx="19" fill="rgba(99,102,241,0.15)" stroke="rgba(99,102,241,0.35)" stroke-width="1"/>
+  <text x="951" y="288" font-family="Outfit, -apple-system, sans-serif" font-size="15" font-weight="600" fill="#818cf8" text-anchor="middle">38+ AI Agents</text>
+
+  <rect x="1046" y="264" width="150" height="38" rx="19" fill="rgba(16,185,129,0.12)" stroke="rgba(16,185,129,0.3)" stroke-width="1"/>
+  <text x="1121" y="288" font-family="Outfit, -apple-system, sans-serif" font-size="15" font-weight="600" fill="#34d399" text-anchor="middle">UK Business</text>
+
+  <rect x="1210" y="264" width="188" height="38" rx="19" fill="rgba(99,102,241,0.1)" stroke="rgba(99,102,241,0.25)" stroke-width="1"/>
+  <text x="1304" y="288" font-family="Outfit, -apple-system, sans-serif" font-size="15" font-weight="600" fill="#818cf8" text-anchor="middle">Free Consultation</text>
+
+  <!-- Website URL bottom right -->
+  <text x="1540" y="370" font-family="Outfit, -apple-system, sans-serif" font-size="18" font-weight="500" fill="rgba(255,255,255,0.3)" text-anchor="end">inference-agents.com</text>
+
+  <!-- Bottom gradient line -->
+  <rect x="0" y="390" width="1584" height="6" fill="url(#gradH)" opacity="0.6"/>
+</svg>

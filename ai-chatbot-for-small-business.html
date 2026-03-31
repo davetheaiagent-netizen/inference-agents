@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) — Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQEVHHCQ07"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', wait_for_update: 500 });
+    gtag('js', new Date());
+    gtag('config', 'G-RQEVHHCQ07');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Chatbot for Small Business UK | Smarter Than Scripts, Live in 7 Days | Inference Agents</title>
+  <meta name="description" content="AI chatbot for UK small businesses. Handles customer queries, bookings & admin 24/7 — far beyond old scripted chatbots. From £99/month, live in 7 days.">
+  <link rel="canonical" href="https://inference-agents.com/ai-chatbot-for-small-business.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-dark.css">
+  <style>
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .feature-card { background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border); transition: all 0.3s; }
+    .feature-card:hover { border-color: var(--border-accent); box-shadow: var(--glow-sm); }
+    .feature-icon { font-size: 40px; margin-bottom: 15px; }
+    .feature-card h3 { margin-bottom: 10px; }
+    .feature-card p { color: var(--text-muted); line-height: 1.65; }
+    .stats { padding: 60px 0; background: linear-gradient(90deg, rgba(99,102,241,0.12), rgba(16,185,129,0.08)); text-align: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .stat h3 { font-size: 36px; font-weight: 800; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat p { color: var(--text-muted); margin-top: 6px; font-size: 15px; }
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+    .compare-col { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+    .compare-col.old { border-color: rgba(239,68,68,0.2); }
+    .compare-col.new { border-color: rgba(16,185,129,0.3); background: linear-gradient(135deg, rgba(16,185,129,0.05), rgba(99,102,241,0.04)); }
+    .compare-col h3 { font-size: 16px; font-weight: 700; margin-bottom: 18px; }
+    .compare-col.old h3 { color: #f87171; }
+    .compare-col.new h3 { color: var(--accent); }
+    .compare-col ul { list-style: none; padding: 0; margin: 0; }
+    .compare-col ul li { padding: 9px 0; border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: 14px; line-height: 1.5; }
+    .compare-col ul li:last-child { border-bottom: none; }
+    .compare-col.old ul li::before { content: "✕"; color: #f87171; margin-right: 10px; font-weight: 700; }
+    .compare-col.new ul li::before { content: "✓"; color: var(--accent); margin-right: 10px; font-weight: 700; }
+    .sector-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-top: 40px; }
+    .sector-card { background: var(--bg-card); padding: 28px 24px; border-radius: 16px; border: 1px solid var(--border); transition: all 0.3s; text-decoration: none; display: block; }
+    .sector-card:hover { border-color: rgba(99,102,241,0.4); box-shadow: var(--glow-sm); transform: translateY(-2px); }
+    .sector-card .s-icon { font-size: 36px; margin-bottom: 14px; }
+    .sector-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .sector-card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; margin: 0; }
+    .case-study { background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(16,185,129,0.05)); border: 1px solid rgba(99,102,241,0.25); border-radius: 18px; padding: 36px; margin-top: 40px; }
+    .case-study .cs-label { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; color: var(--accent); text-transform: uppercase; margin-bottom: 12px; }
+    .case-study h3 { font-size: 22px; margin-bottom: 16px; }
+    .case-study p { color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; }
+    .cs-result { display: flex; gap: 30px; flex-wrap: wrap; margin-top: 20px; }
+    .cs-stat { text-align: center; }
+    .cs-stat .num { font-size: 32px; font-weight: 800; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: block; }
+    .cs-stat .label { font-size: 13px; color: var(--text-muted); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 960px; margin: 0 auto; }
+    .price-card { background: var(--bg-card); padding: 40px; border-radius: 16px; text-align: center; border: 1px solid var(--border); transition: all 0.3s; }
+    .price-card:hover { border-color: var(--border-accent); box-shadow: var(--glow-sm); }
+    .price-card.featured { border-color: rgba(99,102,241,0.45); background: linear-gradient(160deg, rgba(99,102,241,0.09), rgba(16,185,129,0.04)); transform: scale(1.05); }
+    .price { font-size: 48px; font-weight: bold; background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .price span { font-size: 16px; color: var(--text-muted); -webkit-text-fill-color: var(--text-muted); }
+    .price-features { list-style: none; margin: 24px 0; text-align: left; padding: 0; }
+    .price-features li { padding: 10px 0; border-bottom: 1px solid var(--border); color: var(--text-muted); font-size: 14px; }
+    .price-features li:last-child { border-bottom: none; }
+    .price-features li::before { content: "✓"; color: var(--accent); margin-right: 10px; font-weight: 700; }
+    @media (max-width: 768px) { .stats-grid { grid-template-columns: 1fr; } .compare-grid { grid-template-columns: 1fr; } .price-card.featured { transform: scale(1); } .cs-result { justify-content: center; } }
+  </style>
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is an AI chatbot for small business?",
+        "acceptedAnswer": {"@type": "Answer", "text": "An AI chatbot for small business is a software agent that handles customer queries, bookings, reminders and admin tasks automatically — without needing a human to respond each time. Unlike old scripted chatbots with fixed menus, modern AI agents understand natural language, carry context across a conversation and take real actions (like booking appointments or chasing invoices). They work across WhatsApp, email, your website and social media."}
+      },
+      {
+        "@type": "Question",
+        "name": "How is an AI agent different from a traditional chatbot?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Traditional chatbots follow a script — they present menus and options, and fall over the moment a customer asks something unexpected. AI agents understand what customers actually mean and respond in natural language. They can handle follow-up questions, access your business information (menus, prices, availability) and take action — not just give answers. The difference in practice is dramatic: customers get helpful responses instead of frustrated dead-ends."}
+      },
+      {
+        "@type": "Question",
+        "name": "What tasks can an AI chatbot handle for a small business?",
+        "acceptedAnswer": {"@type": "Answer", "text": "AI agents for small businesses typically handle: answering common customer questions 24/7, taking and confirming bookings or appointments, sending appointment reminders and follow-ups, chasing overdue invoices, processing routine admin requests, managing online review responses and handling enquiries across WhatsApp, email and social channels. The specific tasks depend on your sector and the plan you choose."}
+      },
+      {
+        "@type": "Question",
+        "name": "How much does an AI chatbot for small business cost?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Plans start at £99/month for a single AI agent. The Growth Package (£199/month) gives you three agents — the most popular choice for small businesses. Full Stack (£399/month) covers all agents in your sector. There are no setup fees and no contracts. Most clients see the agent pay for itself within the first month."}
+      },
+      {
+        "@type": "Question",
+        "name": "How quickly can a small business get set up?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Most small businesses are live within 7 days. Setup and onboarding are included in every plan. You do not need any technical knowledge — we handle configuration and testing. You just tell us how you want the agent to sound and what it needs to know about your business."}
+      }
+    ]
+  }</script>
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://inference-agents.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Pricing", "item": "https://inference-agents.com/pricing.html"},
+      {"@type": "ListItem", "position": 3, "name": "AI Chatbot for Small Business", "item": "https://inference-agents.com/ai-chatbot-for-small-business.html"}
+    ]
+  }</script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
+        <ul class="nav-links">
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#sectors">Sectors</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="consultation.html" class="btn">Book Free Call</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <div style="margin-bottom:18px; font-size:13px; color:var(--text-dim);">
+        <a href="/" style="color:var(--text-dim); text-decoration:none;">Home</a>
+        <span style="margin: 0 8px; opacity:0.4;">›</span>
+        <a href="pricing.html" style="color:var(--text-dim); text-decoration:none;">Pricing</a>
+        <span style="margin: 0 8px; opacity:0.4;">›</span>
+        <span style="color:var(--primary-light);">AI Chatbot for Small Business</span>
+      </div>
+      <div class="page-badge"><div class="badge-dot"></div>AI for UK Small Business</div>
+      <h1>AI Chatbot for <span>Small Business UK</span></h1>
+      <p>Far beyond the scripted chatbots of the past. Modern AI agents understand natural language, handle real tasks and work across WhatsApp, email and your website — 24 hours a day, without a member of staff.</p>
+      <div style="margin-top: 32px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="#pricing" class="btn">View Pricing</a>
+        <a href="consultation.html" class="btn btn-outline">Book Free Call</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat reveal"><h3>£3–4K</h3><p>Average monthly saving for clients — equivalent to a part-time member of staff</p></div>
+        <div class="stat reveal"><h3>7 days</h3><p>From sign-up to live — faster than recruiting and training any member of staff</p></div>
+        <div class="stat reveal"><h3>97%</h3><p>Cost saving versus equivalent staffing for the same customer-facing tasks</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">What's Changed</div>
+        <h2>Old Chatbots vs AI Agents — The Difference Is Night and Day</h2>
+        <p>The chatbots most businesses tried years ago were frustrating for customers and time-consuming to maintain. What's available now is fundamentally different.</p>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-col old reveal">
+          <h3>Old-Style Chatbots</h3>
+          <ul>
+            <li>Follow a rigid script — customers must pick from a menu</li>
+            <li>Break the moment someone asks something unexpected</li>
+            <li>Cannot understand natural language or follow-up questions</li>
+            <li>Need constant manual updates to stay accurate</li>
+            <li>Only cover your website — nothing else</li>
+            <li>Give answers — cannot take any real action</li>
+            <li>Frustrate customers and damage your reputation</li>
+          </ul>
+        </div>
+        <div class="compare-col new reveal">
+          <h3>AI Agents (What We Deploy)</h3>
+          <ul>
+            <li>Understand what customers actually mean in plain English</li>
+            <li>Handle follow-up questions and carry context through a conversation</li>
+            <li>Know your business — prices, availability, policies, FAQs</li>
+            <li>Work across WhatsApp, email, your website and social channels</li>
+            <li>Take real action — book appointments, send reminders, chase invoices</li>
+            <li>Available 24/7 including evenings, weekends and bank holidays</li>
+            <li>Escalate to a human when needed — never leave a customer stranded</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="features">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">What It Handles</div>
+        <h2>The Tasks Your AI Agent Takes Off Your Plate</h2>
+        <p>Each agent is configured for your business and sector — here are the most common tasks UK small businesses use their AI agents for.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon">💬</div>
+          <h3>Customer Query Handling</h3>
+          <p>Answers common questions about your services, prices, opening hours and policies — instantly, any time of day. Customers get an actual answer, not a menu of options leading nowhere.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">📅</div>
+          <h3>Bookings & Appointment Reminders</h3>
+          <p>Takes booking requests, confirms appointments and sends automated reminders to reduce no-shows. Works across WhatsApp, email and your website enquiry form.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">💰</div>
+          <h3>Invoice Chasing & Payment Follow-Up</h3>
+          <p>Sends professional payment reminders at timed intervals. Escalates automatically for overdue accounts. Recovers outstanding fees without you making a single awkward call.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">⭐</div>
+          <h3>Review & Reputation Management</h3>
+          <p>Prompts satisfied customers to leave reviews at the right moment. Responds to new Google and social reviews professionally and promptly — without you spending time on it.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">📋</div>
+          <h3>Admin & Intake Automation</h3>
+          <p>Collects information from new customers — contact details, requirements, preferences — before you speak to them. Sends follow-up emails and keeps enquiries organised without manual effort.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon">📣</div>
+          <h3>Promotions & Outbound Messaging</h3>
+          <p>Sends targeted promotions, seasonal offers and re-engagement messages to your existing customer base via WhatsApp or email. Opt-in compliant, fully automated and timed to drive action.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">By Sector</div>
+        <h2>AI Agents Built for Your Kind of Business</h2>
+        <p>We deploy sector-specific agents — configured for the tasks and language of your industry from day one.</p>
+      </div>
+      <div class="sector-grid">
+        <a href="hospitality-ai.html" class="sector-card reveal">
+          <div class="s-icon">🏨</div>
+          <h3>Hospitality</h3>
+          <p>Hotels, restaurants, cafés and pubs. Handles guest enquiries, table bookings, no-show reminders and review responses around the clock.</p>
+        </a>
+        <a href="retail-ai.html" class="sector-card reveal">
+          <div class="s-icon">🛍️</div>
+          <h3>Retail</h3>
+          <p>Online and bricks-and-mortar retailers. Answers product queries, handles returns, recovers abandoned carts and manages customer communications.</p>
+        </a>
+        <a href="professional-services-ai.html" class="sector-card reveal">
+          <div class="s-icon">💼</div>
+          <h3>Professional Services</h3>
+          <p>Law firms, accountants, consultants. Automates client onboarding, invoice chasing, compliance reminders and routine client queries.</p>
+        </a>
+        <a href="healthcare-ai.html" class="sector-card reveal">
+          <div class="s-icon">🏥</div>
+          <h3>Healthcare</h3>
+          <p>Dental practices, GP surgeries, clinics. Sends appointment reminders, reduces no-shows, handles patient queries and manages waitlists.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Case Study</div>
+        <h2>Real Results for UK Small Businesses</h2>
+      </div>
+      <div class="case-study reveal">
+        <div class="cs-label">Customer Service Automation — Manchester</div>
+        <h3>Manchester Retailer: 70% of Customer Queries Handled Automatically</h3>
+        <p>A Manchester-based retailer was spending hours each day answering the same customer questions — delivery times, returns, product availability. Their team was reactive, slow and stretched.</p>
+        <p>After deploying an AI Query Agent, 70% of all incoming customer queries were handled automatically and instantly. The team now only deals with complex issues that genuinely need human judgement. The agent also recovered £940/month in previously abandoned carts through automated follow-up messages.</p>
+        <div class="cs-result">
+          <div class="cs-stat"><span class="num">70%</span><span class="label">Queries handled automatically</span></div>
+          <div class="cs-stat"><span class="num">£940</span><span class="label">Monthly cart recovery</span></div>
+          <div class="cs-stat"><span class="num">7 days</span><span class="label">Time to go live</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pricing">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-tag">Pricing</div>
+        <h2>Simple, Transparent Pricing</h2>
+        <p>No setup fees. No contracts. Cancel any time. Setup and onboarding included on every plan.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card reveal">
+          <h3>Starter</h3>
+          <div class="price">£99<span>/mo</span></div>
+          <p style="color:var(--text-muted); font-size:14px; margin:12px 0;">One agent — the single biggest time-drain in your business, automated</p>
+          <ul class="price-features">
+            <li>1 AI agent (your choice)</li>
+            <li>Customer queries OR bookings OR invoice chasing</li>
+            <li>Works across WhatsApp and email</li>
+            <li>Setup and onboarding included</li>
+            <li>Cancel any time</li>
+          </ul>
+          <a href="consultation.html" class="btn" style="display:block; text-align:center;">Book Free Call</a>
+        </div>
+        <div class="price-card featured reveal">
+          <div style="background: linear-gradient(135deg, var(--primary), var(--accent)); color:#fff; padding:5px 12px; border-radius:4px; font-size:12px; margin-bottom:10px; display:inline-block; font-weight:700; letter-spacing:1px;">MOST POPULAR</div>
+          <h3>Growth Package</h3>
+          <div class="price">£199<span>/mo</span></div>
+          <p style="color:var(--text-muted); font-size:14px; margin:12px 0;">Three agents covering your most important customer touchpoints</p>
+          <ul class="price-features">
+            <li>3 AI agents</li>
+            <li>Customer Query Agent</li>
+            <li>Booking & Reminder Agent</li>
+            <li>Invoice Chaser or Review Agent</li>
+            <li>Priority support</li>
+            <li>Setup included</li>
+          </ul>
+          <a href="consultation.html" class="btn" style="display:block; text-align:center;">Book Free Call</a>
+        </div>
+        <div class="price-card reveal">
+          <h3>Full Stack</h3>
+          <div class="price">£399<span>/mo</span></div>
+          <p style="color:var(--text-muted); font-size:14px; margin:12px 0;">All agents — full automation across customer-facing and back-office tasks</p>
+          <ul class="price-features">
+            <li>All sector AI agents</li>
+            <li>Every customer touchpoint covered</li>
+            <li>Promotions and outbound messaging</li>
+            <li>Admin and intake automation</li>
+            <li>Dedicated account manager</li>
+            <li>Custom integrations</li>
+          </ul>
+          <a href="consultation.html" class="btn" style="display:block; text-align:center;">Book Free Call</a>
+        </div>
+      </div>
+      <p style="text-align:center; color:var(--text-muted); font-size:14px; margin-top:24px;">All plans include a free 30-minute onboarding call. Swap your agent each billing cycle at no extra cost.</p>
+      <p style="text-align:center; margin-top:10px;"><a href="pricing.html" style="color:var(--primary-light); font-size:14px; text-decoration:none;">Compare all plans in detail →</a></p>
+    </div>
+  </section>
+
+  <section class="section section-alt" style="padding-top:0; padding-bottom:60px;">
+    <div class="container">
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:32px;max-width:760px;margin:0 auto;">
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;">Related reading</h3>
+        <ul style="list-style:none;padding:0;margin:0;">
+          <li style="padding:10px 0;border-bottom:1px solid var(--border);"><a href="blog-ai-for-small-business-uk.html" style="color:var(--primary-light);font-size:15px;font-weight:500;text-decoration:none;">AI for Small Business UK: What It Actually Does, What It Costs, and How to Start →</a></li>
+          <li style="padding:10px 0;border-bottom:1px solid var(--border);"><a href="blog-ai-agents-cost.html" style="color:var(--primary-light);font-size:15px;font-weight:500;text-decoration:none;">How Much Do AI Agents Cost UK? A Plain-English Price Guide →</a></li>
+          <li style="padding:10px 0;border-bottom:1px solid var(--border);"><a href="blog-ai-agents-vs-hiring.html" style="color:var(--primary-light);font-size:15px;font-weight:500;text-decoration:none;">AI Agents vs Hiring Staff: The True Cost Comparison for UK SMEs →</a></li>
+          <li style="padding:10px 0;"><a href="blog-automate-customer-service.html" style="color:var(--primary-light);font-size:15px;font-weight:500;text-decoration:none;">How to Automate Customer Service for Your UK Business →</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to See What an AI Agent Can Do for Your Business?</h2>
+      <p>Book a free 30-minute call. We'll show you exactly which tasks an AI agent would handle for your specific business — and what it would cost.</p>
+      <a href="consultation.html" class="btn" style="padding:16px 40px; font-size:18px;">Book Free Call →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
+          <p>AI automation agency helping UK businesses deploy autonomous AI agents that work 24/7.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Sectors</h4>
+          <a href="hospitality-ai.html">Hospitality AI</a>
+          <a href="retail-ai.html">Retail AI</a>
+          <a href="professional-services-ai.html">Professional Services AI</a>
+          <a href="healthcare-ai.html">Healthcare AI</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="blog.html">Blog</a>
+          <a href="roi-calculator.html">ROI Calculator</a>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="affiliate.html">Partner Program</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy &amp; Cookie Policy</a>
+          <a href="contact.html">Contact</a>
+          <a href="consultation.html">Book Free Call</a>
+          <a href="mailto:hello@inference-agents.com">hello@inference-agents.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 Inference Agents. All rights reserved. UK Business.</div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+  <script src="nav.js"></script>
+  <script src="analytics.js"></script>
+  <script src="cookies.js"></script>
+</body>
+</html>

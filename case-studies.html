@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) — Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQEVHHCQ07"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', wait_for_update: 500 });
+    gtag('js', new Date());
+    gtag('config', 'G-RQEVHHCQ07');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Case Studies | Inference Agents</title>
-  <meta name="description" content="See how UK businesses are saving time and money with Inference Agents AI automation.">
+  <meta name="description" content="See how UK hotels, retailers, law firms and dental practices are saving time and money with Inference Agents AI automation.">
   <meta property="og:title" content="Case Studies | Inference Agents">
   <meta property="og:description" content="Real results from UK businesses using our AI agents.">
   <meta property="og:url" content="https://inference-agents.com/case-studies.html">
@@ -14,12 +23,46 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles-dark.css">
   <style>
+    /* ── Sector filter tabs ──────────────────────────────── */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+    .filter-tab {
+      padding: 9px 22px;
+      border-radius: 100px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-family: 'Outfit', sans-serif;
+      transition: all 0.2s;
+    }
+    .filter-tab:hover { border-color: rgba(99,102,241,0.4); color: var(--primary-light); }
+    .filter-tab.active {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 14px rgba(99,102,241,0.35);
+    }
+
+    /* ── Case study card ─────────────────────────────────── */
     .case-study {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 24px;
       overflow: hidden;
       margin-bottom: 40px;
+      transition: all 0.3s ease;
+    }
+    .case-study:hover {
+      border-color: rgba(99,102,241,0.35);
+      box-shadow: 0 0 40px rgba(99,102,241,0.12);
     }
     .case-study-grid {
       display: grid;
@@ -28,54 +71,121 @@
     }
     .case-study-content { padding: 48px; }
     .case-study-image {
-      background: linear-gradient(135deg, rgba(99,102,241,0.08) 0%, rgba(16,185,129,0.05) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 80px;
       min-height: 300px;
+      position: relative;
+      overflow: hidden;
     }
-    .case-study h3 {
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+
+    /* Sector-specific image backgrounds */
+    .img-hospitality { background: linear-gradient(135deg, rgba(99,102,241,0.12) 0%, rgba(168,85,247,0.08) 100%); }
+    .img-retail      { background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(99,102,241,0.08) 100%); }
+    .img-proserv     { background: linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(99,102,241,0.1) 100%); }
+    .img-healthcare  { background: linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(16,185,129,0.08) 100%); }
+
+    .case-study-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(99,102,241,0.07), transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Sector badge */
+    .sector-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(99,102,241,0.1);
+      border: 1px solid rgba(99,102,241,0.22);
       color: var(--primary-light);
-      margin-bottom: 12px;
-    }
-    .case-study h2 {
-      font-size: 28px;
+      padding: 5px 12px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
       margin-bottom: 16px;
     }
-    .case-study .company {
-      color: var(--text-muted);
-      margin-bottom: 20px;
-      font-size: 15px;
-    }
-    .case-study p {
-      color: var(--text-muted);
+    .case-study h2 { font-size: 26px; margin-bottom: 10px; line-height: 1.25; }
+    .case-study .company { color: var(--text-muted); margin-bottom: 18px; font-size: 14px; }
+    .case-study p { color: var(--text-muted); margin-bottom: 20px; line-height: 1.7; font-size: 15px; }
+
+    /* Agents used tags */
+    .agents-used {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
       margin-bottom: 24px;
-      line-height: 1.7;
     }
+    .agent-tag {
+      font-size: 12px;
+      padding: 4px 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      color: var(--text-muted);
+    }
+
     .results {
       display: flex;
-      gap: 30px;
+      gap: 24px;
       padding-top: 20px;
       border-top: 1px solid var(--border);
+      flex-wrap: wrap;
     }
-    .result { text-align: center; }
-    .result-value {
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--accent);
+    .result { text-align: center; min-width: 64px; }
+    .result-value { font-size: 30px; font-weight: 800; color: var(--accent); line-height: 1.1; }
+    .result-label { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+
+    /* Plan badge */
+    .plan-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: rgba(16,185,129,0.12);
+      border: 1px solid rgba(16,185,129,0.22);
+      color: #34d399;
+      margin-left: 8px;
+      vertical-align: middle;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    .result-label {
-      font-size: 13px;
-      color: var(--text-muted);
+
+    /* Summary stats bar */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 64px;
+    }
+    .stats-bar-item {
+      background: var(--bg-card);
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .stats-bar-value { font-size: 34px; font-weight: 800; color: var(--primary-light); }
+    .stats-bar-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+
+    @media (max-width: 900px) {
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 768px) {
       .case-study-grid { grid-template-columns: 1fr; }
-      .case-study-image { min-height: 200px; }
+      .case-study-image { min-height: 200px; order: -1; }
       .case-study-content { padding: 30px; }
+    }
+    @media (max-width: 480px) {
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -86,136 +196,213 @@
         <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
         <ul class="nav-links">
           <li><a href="index.html#services">Services</a></li>
-          <li><a href="index.html#agents">AI Agents</a></li>
+          <li><a href="index.html#sectors">Sectors</a></li>
           <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="blog.html">Blog</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
-        <a href="contact.html" class="btn">Get Started</a>
+        <a href="consultation.html" class="btn">Book Free Call</a>
       </nav>
     </div>
   </header>
 
   <section class="page-hero">
     <div class="container">
-      <div class="page-badge"><div class="badge-dot"></div>Case Studies</div>
-      <h1>Success <span>Stories</span></h1>
-      <p>See how UK businesses are transforming with AI</p>
+      <div class="page-badge"><div class="badge-dot"></div>Client Results</div>
+      <h1>Real Businesses. <span>Real Results.</span></h1>
+      <p>How UK hotels, retailers, law firms and healthcare practices are saving thousands every month with AI automation.</p>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" style="padding-top: 0;">
     <div class="container">
-      <div class="case-study">
-        <div class="case-study-grid">
-          <div class="case-study-content">
-            <h3>Sales Automation</h3>
-            <h2>40% More Leads Booked</h2>
-            <p class="company">Tech Startup, London</p>
-            <p>A growing tech startup needed to scale their sales outreach without hiring more SDRs. We deployed our AI Sales SDR agent to handle prospecting, qualification, and meeting booking.</p>
-            <div class="results">
-              <div class="result">
-                <div class="result-value">40%</div>
-                <div class="result-label">More Leads</div>
-              </div>
-              <div class="result">
-                <div class="result-value">£24k</div>
-                <div class="result-label">Saved/Year</div>
-              </div>
-              <div class="result">
-                <div class="result-value">24/7</div>
-                <div class="result-label">Coverage</div>
-              </div>
-            </div>
-          </div>
-          <div class="case-study-image">🎯</div>
+
+      <!-- Summary stats -->
+      <div class="stats-bar reveal">
+        <div class="stats-bar-item">
+          <div class="stats-bar-value">£4,200</div>
+          <div class="stats-bar-label">Average monthly saving</div>
+        </div>
+        <div class="stats-bar-item">
+          <div class="stats-bar-value">7 days</div>
+          <div class="stats-bar-label">Average time to go live</div>
+        </div>
+        <div class="stats-bar-item">
+          <div class="stats-bar-value">78%</div>
+          <div class="stats-bar-label">Of enquiries handled by AI</div>
+        </div>
+        <div class="stats-bar-item">
+          <div class="stats-bar-value">24/7</div>
+          <div class="stats-bar-label">Availability, every client</div>
         </div>
       </div>
 
-      <div class="case-study">
+      <!-- Filter tabs -->
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All Sectors</button>
+        <button class="filter-tab" data-filter="hospitality">Hospitality</button>
+        <button class="filter-tab" data-filter="retail">Retail</button>
+        <button class="filter-tab" data-filter="proserv">Professional Services</button>
+        <button class="filter-tab" data-filter="healthcare">Healthcare</button>
+      </div>
+
+      <!-- ── Case Study 1: Hospitality ── -->
+      <div class="case-study reveal" data-sector="hospitality">
         <div class="case-study-grid">
-          <div class="case-study-image">💬</div>
           <div class="case-study-content">
-            <h3>Customer Support</h3>
-            <h2>70% Support Cost Reduction</h2>
-            <p class="company">E-commerce Brand, Manchester</p>
-            <p>A busy e-commerce company was overwhelmed with customer inquiries. Our AI Receptionist now handles 70% of inquiries automatically, only escalating complex issues to human agents.</p>
+            <div class="sector-badge">🏨 Hospitality</div>
+            <h2>From 40 Daily Emails to Zero Staff Hours</h2>
+            <p class="company">Independent hotel, Cotswolds · Growth Package <span class="plan-badge">£199/mo</span></p>
+            <p>A 22-room boutique hotel was losing two hours of front-desk time every day answering the same enquiries — availability, room types, pet policy, check-in times. The owner also missed late-night enquiries entirely, losing bookings to OTA competitors.</p>
+            <p>We deployed an AI Receptionist trained on the hotel's own FAQs and integrated with their booking system. Within a week it was handling all standard enquiries, sending personalised follow-ups to browsers who didn't book, and auto-requesting Google reviews after checkout.</p>
+            <div class="agents-used">
+              <span class="agent-tag">AI Receptionist</span>
+              <span class="agent-tag">Booking Follow-Up</span>
+              <span class="agent-tag">Review Requester</span>
+            </div>
+            <div class="results">
+              <div class="result">
+                <div class="result-value">2 hr</div>
+                <div class="result-label">Saved daily</div>
+              </div>
+              <div class="result">
+                <div class="result-value">31%</div>
+                <div class="result-label">More direct bookings</div>
+              </div>
+              <div class="result">
+                <div class="result-value">4.8★</div>
+                <div class="result-label">Google rating (was 4.2)</div>
+              </div>
+              <div class="result">
+                <div class="result-value">£2.1k</div>
+                <div class="result-label">Saved/month</div>
+              </div>
+            </div>
+          </div>
+          <div class="case-study-image img-hospitality">🏨</div>
+        </div>
+      </div>
+
+      <!-- ── Case Study 2: Retail ── -->
+      <div class="case-study reveal" data-sector="retail">
+        <div class="case-study-grid">
+          <div class="case-study-image img-retail">🛍️</div>
+          <div class="case-study-content">
+            <div class="sector-badge">🛍️ Retail</div>
+            <h2>70% of Support Tickets Resolved Without Staff</h2>
+            <p class="company">Online fashion retailer, Manchester · Full Stack <span class="plan-badge">£399/mo</span></p>
+            <p>A fast-growing Shopify store was receiving 200+ customer emails per day — order tracking, returns requests, size queries and complaints. Two part-time support staff were overwhelmed and customer satisfaction was suffering.</p>
+            <p>We deployed an AI Customer Service agent connected to their Shopify store data. It handles order tracking in real time, processes return requests, responds to product queries and only escalates genuine complaints to humans. An Abandoned Cart Recovery agent was also added, sending personalised follow-up messages to browsers who left without purchasing.</p>
+            <div class="agents-used">
+              <span class="agent-tag">Customer Service AI</span>
+              <span class="agent-tag">Returns Handler</span>
+              <span class="agent-tag">Abandoned Cart Recovery</span>
+              <span class="agent-tag">Review Response</span>
+            </div>
             <div class="results">
               <div class="result">
                 <div class="result-value">70%</div>
-                <div class="result-label">Cost Reduced</div>
+                <div class="result-label">Tickets resolved by AI</div>
               </div>
               <div class="result">
-                <div class="result-value">2 min</div>
-                <div class="result-label">Avg Response</div>
+                <div class="result-value">£3.8k</div>
+                <div class="result-label">Saved/month</div>
               </div>
               <div class="result">
-                <div class="result-value">500+</div>
-                <div class="result-label">Daily Tickets</div>
+                <div class="result-value">£940</div>
+                <div class="result-label">Cart recovery revenue/mo</div>
+              </div>
+              <div class="result">
+                <div class="result-value">4 min</div>
+                <div class="result-label">Avg response time</div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="case-study">
+      <!-- ── Case Study 3: Professional Services ── -->
+      <div class="case-study reveal" data-sector="proserv">
         <div class="case-study-grid">
           <div class="case-study-content">
-            <h3>Social Media</h3>
-            <h2>10x Social Media Output</h2>
-            <p class="company">Marketing Agency, Bristol</p>
-            <p>A marketing agency needed to manage social media for 15+ clients. Our Social Media Bundle now posts, engages, and schedules content across all platforms automatically.</p>
+            <div class="sector-badge">⚖️ Professional Services</div>
+            <h2>£6,400 in Overdue Invoices Recovered in 30 Days</h2>
+            <p class="company">Boutique law firm, Birmingham · Practice Package <span class="plan-badge">£199/mo</span></p>
+            <p>A five-partner law firm had a persistent problem: junior staff were spending 3+ hours per week chasing overdue client invoices — awkward calls, ignored emails, and the occasional write-off. New client intake was also slow, with email enquiries sometimes sitting unread for 24 hours.</p>
+            <p>We deployed an AI Invoice Chaser that sends polite, timed payment reminders automatically, and a Client Enquiry agent that qualifies new client enquiries 24/7, capturing name, matter type and urgency before routing to the correct partner. A Scheduling agent now books client consultations directly into the team's calendar.</p>
+            <div class="agents-used">
+              <span class="agent-tag">Invoice Chaser</span>
+              <span class="agent-tag">Client Enquiry Agent</span>
+              <span class="agent-tag">Scheduling Agent</span>
+            </div>
             <div class="results">
               <div class="result">
-                <div class="result-value">10x</div>
-                <div class="result-label">Output</div>
+                <div class="result-value">£6.4k</div>
+                <div class="result-label">Recovered in 30 days</div>
               </div>
               <div class="result">
-                <div class="result-value">50hr</div>
-                <div class="result-label">Saved/Week</div>
+                <div class="result-value">3 hr</div>
+                <div class="result-label">Staff time saved/week</div>
               </div>
               <div class="result">
-                <div class="result-value">3x</div>
-                <div class="result-label">Engagement</div>
+                <div class="result-value">sub 2min</div>
+                <div class="result-label">Enquiry response time</div>
+              </div>
+              <div class="result">
+                <div class="result-value">22%</div>
+                <div class="result-label">More enquiries converted</div>
               </div>
             </div>
           </div>
-          <div class="case-study-image">📱</div>
+          <div class="case-study-image img-proserv">⚖️</div>
         </div>
       </div>
 
-      <div class="case-study">
+      <!-- ── Case Study 4: Healthcare ── -->
+      <div class="case-study reveal" data-sector="healthcare">
         <div class="case-study-grid">
-          <div class="case-study-image">📊</div>
+          <div class="case-study-image img-healthcare">🦷</div>
           <div class="case-study-content">
-            <h3>Operations</h3>
-            <h2>Full Team Replacement</h2>
-            <p class="company">Small Business, Leeds</p>
-            <p>A small business replaced their entire operations team with AI agents. Data analysis, project management, and reporting are now fully automated.</p>
+            <div class="sector-badge">🦷 Healthcare</div>
+            <h2>DNA Rate Drops from 18% to 4% in Eight Weeks</h2>
+            <p class="company">NHS &amp; private dental practice, South London · Clinic Package <span class="plan-badge">£199/mo</span></p>
+            <p>A busy 4-chair dental practice was losing thousands of pounds every month to did-not-attend appointments — patients forgetting, not confirming, or simply not replying to a single reminder email sent the evening before.</p>
+            <p>We deployed an AI Reminder &amp; Follow-Up agent that sends a sequence of SMS and email reminders at 7 days, 48 hours and 2 hours before each appointment. Patients can confirm or rebook with a single reply. The agent also handles new patient enquiries via the website, collects basic health history data, and sends post-appointment care instructions automatically.</p>
+            <div class="agents-used">
+              <span class="agent-tag">Appointment Reminders</span>
+              <span class="agent-tag">Patient Enquiry AI</span>
+              <span class="agent-tag">Post-Appointment Follow-Up</span>
+            </div>
             <div class="results">
               <div class="result">
-                <div class="result-value">£180k</div>
-                <div class="result-label">Saved/Year</div>
+                <div class="result-value">18%→4%</div>
+                <div class="result-label">DNA rate</div>
               </div>
               <div class="result">
-                <div class="result-value">5</div>
-                <div class="result-label">Agents Deployed</div>
+                <div class="result-value">£4.7k</div>
+                <div class="result-label">Revenue recovered/month</div>
               </div>
               <div class="result">
-                <div class="result-value">100%</div>
-                <div class="result-label">Uptime</div>
+                <div class="result-value">92%</div>
+                <div class="result-label">Patients confirm via SMS</div>
+              </div>
+              <div class="result">
+                <div class="result-value">8 wk</div>
+                <div class="result-label">To full ROI payback</div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </section>
 
   <section class="cta">
     <div class="container">
-      <h2>Ready to Be Our Next Success Story?</h2>
-      <p>Book a consultation and see how AI can transform your business</p>
-      <a href="consultation.html" class="btn" style="padding: 16px 40px; font-size: 18px;">Book Free Consultation</a>
+      <h2>Ready to Be Our Next <span>Success Story?</span></h2>
+      <p>Book a free 30-minute call and find out exactly what AI could save your business.</p>
+      <a href="consultation.html" class="btn" style="padding:16px 40px; font-size:18px;">Book Free Consultation →</a>
     </div>
   </section>
 
@@ -227,31 +414,49 @@
           <p>AI automation agency helping UK businesses deploy autonomous AI agents that work 24/7.</p>
         </div>
         <div class="footer-col">
-          <h4>Services</h4>
-          <a href="sales-ai.html">Sales AI</a>
-          <a href="marketing-ai.html">Marketing AI</a>
-          <a href="hr-ai.html">HR AI</a>
-          <a href="operations-ai.html">Operations</a>
+          <h4>Sectors</h4>
+          <a href="hospitality-ai.html">Hospitality AI</a>
+          <a href="retail-ai.html">Retail AI</a>
+          <a href="professional-services-ai.html">Professional Services AI</a>
+          <a href="healthcare-ai.html">Healthcare AI</a>
         </div>
         <div class="footer-col">
           <h4>Company</h4>
-          <a href="case-studies.html">Case Studies</a>
-          <a href="compare.html">Compare</a>
+          <a href="blog.html">Blog</a>
           <a href="roi-calculator.html">ROI Calculator</a>
+          <a href="case-studies.html" style="color:var(--primary-light);">Case Studies</a>
           <a href="affiliate.html">Partner Program</a>
         </div>
         <div class="footer-col">
-          <h4>Contact</h4>
-          <a href="contact.html">Get in Touch</a>
-          <a href="consultation.html">Book Call</a>
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy &amp; Cookie Policy</a>
+          <a href="contact.html">Contact</a>
+          <a href="consultation.html">Book Free Call</a>
           <a href="mailto:hello@inference-agents.com">hello@inference-agents.com</a>
         </div>
       </div>
-      <div class="footer-bottom">© 2026 Inference Agents. All rights reserved. UK Business.</div>
+      <div class="footer-bottom">
+        © 2026 Inference Agents. All rights reserved. UK Business.
+      </div>
     </div>
   </footer>
 
   <script>
+    // Filter tabs
+    const tabs = document.querySelectorAll('.filter-tab');
+    const studies = document.querySelectorAll('.case-study[data-sector]');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const filter = tab.dataset.filter;
+        studies.forEach(study => {
+          study.style.display = (filter === 'all' || study.dataset.sector === filter) ? 'block' : 'none';
+        });
+      });
+    });
+
+    // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
@@ -259,5 +464,9 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
+  <script src="nav.js"></script>
+  <script src="effects.js"></script>
+  <script src="analytics.js"></script>
+<script src="cookies.js"></script>
 </body>
 </html>

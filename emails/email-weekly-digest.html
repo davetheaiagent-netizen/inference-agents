@@ -1,0 +1,278 @@
+<!-- Subject: Your AI agent weekly report — {{WEEK_DATE}} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Your weekly AI agent report — Inference Agents</title>
+</head>
+<body style="margin:0;padding:0;background-color:#05050f;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
+
+  <!-- Preheader -->
+  <div style="display:none;font-size:1px;color:#05050f;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">
+    Your agent handled {{ENQUIRIES_HANDLED}} enquiries and saved you {{HOURS_SAVED}} hours this week.
+  </div>
+
+  <!-- Wrapper -->
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#05050f;">
+    <tr>
+      <td align="center" style="padding:40px 16px;">
+
+        <!-- Card -->
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:600px;">
+
+          <!-- Header -->
+          <tr>
+            <td style="background-color:#0d0d1f;border-radius:12px 12px 0 0;padding:28px 40px;border-bottom:1px solid #1e1e3a;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                  <td>
+                    <span style="font-size:20px;font-weight:700;color:#ffffff;letter-spacing:-0.3px;">
+                      Inference<span style="color:#6366f1;">Agents</span>
+                    </span>
+                  </td>
+                  <td align="right">
+                    <span style="display:inline-block;background-color:#6366f120;color:#a5b4fc;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;border:1px solid #6366f140;">
+                      Weekly Report
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Hero title -->
+          <tr>
+            <td style="background-color:#0d0d1f;padding:40px 40px 8px 40px;">
+              <p style="margin:0 0 4px 0;font-size:13px;font-weight:600;color:#6366f1;text-transform:uppercase;letter-spacing:1px;">
+                Week of {{WEEK_DATE}}
+              </p>
+              <h1 style="margin:0 0 12px 0;font-size:30px;font-weight:700;color:#ffffff;line-height:1.2;letter-spacing:-0.4px;">
+                Your week with AI
+              </h1>
+              <p style="margin:0;font-size:15px;color:#8080a0;line-height:1.6;">
+                Here's what your agent got up to while you focused on running your business.
+              </p>
+            </td>
+          </tr>
+
+          <!-- 4 Stat boxes -->
+          <tr>
+            <td style="background-color:#0d0d1f;padding:28px 40px;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                  <!-- Enquiries Handled -->
+                  <td width="50%" style="padding:0 6px 12px 0;" valign="top">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td style="background-color:#111128;border-radius:10px;padding:20px;border:1px solid #1e1e3a;">
+                          <p style="margin:0 0 6px 0;font-size:12px;font-weight:600;color:#6060a0;text-transform:uppercase;letter-spacing:0.8px;">Enquiries handled</p>
+                          <p style="margin:0;font-size:36px;font-weight:700;color:#6366f1;line-height:1;">{{ENQUIRIES_HANDLED}}</p>
+                          <p style="margin:6px 0 0 0;font-size:12px;color:#6060a0;">by your AI agent</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <!-- Hours Saved -->
+                  <td width="50%" style="padding:0 0 12px 6px;" valign="top">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td style="background-color:#111128;border-radius:10px;padding:20px;border:1px solid #10b98130;">
+                          <p style="margin:0 0 6px 0;font-size:12px;font-weight:600;color:#6060a0;text-transform:uppercase;letter-spacing:0.8px;">Hours saved</p>
+                          <p style="margin:0;font-size:36px;font-weight:700;color:#10b981;line-height:1;">{{HOURS_SAVED}}</p>
+                          <p style="margin:6px 0 0 0;font-size:12px;color:#6060a0;">back in your day</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <!-- Messages Sent -->
+                  <td width="50%" style="padding:0 6px 0 0;" valign="top">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td style="background-color:#111128;border-radius:10px;padding:20px;border:1px solid #1e1e3a;">
+                          <p style="margin:0 0 6px 0;font-size:12px;font-weight:600;color:#6060a0;text-transform:uppercase;letter-spacing:0.8px;">Messages sent</p>
+                          <p style="margin:0;font-size:36px;font-weight:700;color:#a78bfa;line-height:1;">{{MESSAGES_SENT}}</p>
+                          <p style="margin:6px 0 0 0;font-size:12px;color:#6060a0;">total replies</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <!-- Escalations -->
+                  <td width="50%" style="padding:0 0 0 6px;" valign="top">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td style="background-color:#111128;border-radius:10px;padding:20px;border:1px solid #1e1e3a;">
+                          <p style="margin:0 0 6px 0;font-size:12px;font-weight:600;color:#6060a0;text-transform:uppercase;letter-spacing:0.8px;">Escalations</p>
+                          <p style="margin:0;font-size:36px;font-weight:700;color:#f59e0b;line-height:1;">{{ESCALATIONS}}</p>
+                          <p style="margin:6px 0 0 0;font-size:12px;color:#6060a0;">needed a human</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Divider -->
+          <tr>
+            <td style="background-color:#0d0d1f;padding:0 40px;">
+              <div style="border-top:1px solid #1e1e3a;"></div>
+            </td>
+          </tr>
+
+          <!-- Digest summary -->
+          <tr>
+            <td style="background-color:#0d0d1f;padding:32px 40px;">
+              <h2 style="margin:0 0 16px 0;font-size:18px;font-weight:600;color:#ffffff;">
+                This week in a nutshell
+              </h2>
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                  <td style="background-color:#111128;border-radius:8px;padding:20px 24px;border-left:3px solid #6366f1;border-top:1px solid #1e1e3a;border-right:1px solid #1e1e3a;border-bottom:1px solid #1e1e3a;">
+                    <p style="margin:0;font-size:15px;color:#c0c0e0;line-height:1.7;">
+                      {{DIGEST_SUMMARY}}
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Divider -->
+          <tr>
+            <td style="background-color:#0d0d1f;padding:0 40px;">
+              <div style="border-top:1px solid #1e1e3a;"></div>
+            </td>
+          </tr>
+
+          <!-- Most active day -->
+          <tr>
+            <td style="background-color:#0d0d1f;padding:32px 40px;">
+              <h2 style="margin:0 0 16px 0;font-size:18px;font-weight:600;color:#ffffff;">
+                Most active day this week
+              </h2>
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                  <td style="background-color:#0a0a20;border-radius:8px;padding:20px 24px;border:1px solid #1e1e3a;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td valign="middle">
+                          <p style="margin:0 0 2px 0;font-size:24px;font-weight:700;color:#ffffff;">{{MOST_ACTIVE_DAY}}</p>
+                          <p style="margin:0;font-size:14px;color:#6060a0;">{{MOST_ACTIVE_DAY_ENQUIRIES}} enquiries &mdash; your busiest day</p>
+                        </td>
+                        <td align="right" valign="middle">
+                          <!-- Simple bar visual -->
+                          <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                              <td style="padding:0 2px;">
+                                <div style="width:8px;height:24px;background-color:#6366f130;border-radius:3px;"></div>
+                              </td>
+                              <td style="padding:0 2px;">
+                                <div style="width:8px;height:36px;background-color:#6366f150;border-radius:3px;"></div>
+                              </td>
+                              <td style="padding:0 2px;">
+                                <div style="width:8px;height:48px;background-color:#6366f1;border-radius:3px;"></div>
+                              </td>
+                              <td style="padding:0 2px;">
+                                <div style="width:8px;height:32px;background-color:#6366f150;border-radius:3px;"></div>
+                              </td>
+                              <td style="padding:0 2px;">
+                                <div style="width:8px;height:20px;background-color:#6366f130;border-radius:3px;"></div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Divider -->
+          <tr>
+            <td style="background-color:#0d0d1f;padding:0 40px;">
+              <div style="border-top:1px solid #1e1e3a;"></div>
+            </td>
+          </tr>
+
+          <!-- Dashboard CTA -->
+          <tr>
+            <td style="background-color:#0d0d1f;padding:32px 40px;text-align:center;">
+              <p style="margin:0 0 20px 0;font-size:15px;color:#8080a0;line-height:1.6;">
+                Want to dig into the individual conversations, adjust your agent's responses, or submit a change request?
+              </p>
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto;">
+                <tr>
+                  <td style="border-radius:8px;background:linear-gradient(135deg,#6366f1,#8b5cf6);">
+                    <a href="https://inference-agents.com/portal.html?token={{PORTAL_TOKEN}}"
+                       style="display:inline-block;padding:15px 32px;font-size:15px;font-weight:600;color:#ffffff;text-decoration:none;border-radius:8px;letter-spacing:0.1px;">
+                      View Full Dashboard &rarr;
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Divider -->
+          <tr>
+            <td style="background-color:#0d0d1f;padding:0 40px;">
+              <div style="border-top:1px solid #1e1e3a;"></div>
+            </td>
+          </tr>
+
+          <!-- Upsell / change nudge -->
+          <tr>
+            <td style="background-color:#0d0d1f;padding:28px 40px 36px 40px;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                  <td style="background-color:#0f0f2a;border-radius:8px;padding:20px 24px;border:1px solid #2a2a50;">
+                    <p style="margin:0 0 8px 0;font-size:14px;font-weight:600;color:#a5b4fc;">
+                      &#128161; Want to make a change or add another agent?
+                    </p>
+                    <p style="margin:0;font-size:14px;color:#8080a0;line-height:1.5;">
+                      Want to add another agent to handle a different area of your business, or swap your current one for a different type? Reply to this email or visit your dashboard and submit a change request — we'll get it sorted within 48 hours.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color:#08081a;border-radius:0 0 12px 12px;padding:24px 40px;border-top:1px solid #1e1e3a;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                  <td>
+                    <p style="margin:0 0 4px 0;font-size:13px;color:#505070;">
+                      &copy; 2026 Inference Agents Ltd &mdash; Registered in England &amp; Wales
+                    </p>
+                    <p style="margin:0;font-size:13px;color:#505070;">
+                      <a href="https://inference-agents.com/portal.html?token={{PORTAL_TOKEN}}" style="color:#6366f1;text-decoration:none;">Dashboard</a>
+                      &nbsp;&middot;&nbsp;
+                      <a href="mailto:hello@inference-agents.com" style="color:#6366f1;text-decoration:none;">hello@inference-agents.com</a>
+                      &nbsp;&middot;&nbsp;
+                      <a href="https://inference-agents.com/unsubscribe?token={{PORTAL_TOKEN}}" style="color:#505070;text-decoration:none;">Unsubscribe</a>
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+        </table>
+        <!-- End card -->
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

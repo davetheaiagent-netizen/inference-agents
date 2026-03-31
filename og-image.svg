@@ -1,0 +1,89 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#05050f"/>
+      <stop offset="100%" style="stop-color:#0d0d20"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#10b981"/>
+    </linearGradient>
+    <linearGradient id="glow1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0"/>
+    </linearGradient>
+    <linearGradient id="glow2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Glow blobs -->
+  <ellipse cx="200" cy="150" rx="350" ry="280" fill="url(#glow1)"/>
+  <ellipse cx="1050" cy="500" rx="300" ry="240" fill="url(#glow2)"/>
+
+  <!-- Grid lines -->
+  <g stroke="#6366f1" stroke-opacity="0.06" stroke-width="1">
+    <line x1="0" y1="90" x2="1200" y2="90"/>
+    <line x1="0" y1="180" x2="1200" y2="180"/>
+    <line x1="0" y1="270" x2="1200" y2="270"/>
+    <line x1="0" y1="360" x2="1200" y2="360"/>
+    <line x1="0" y1="450" x2="1200" y2="450"/>
+    <line x1="0" y1="540" x2="1200" y2="540"/>
+    <line x1="150" y1="0" x2="150" y2="630"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="450" y1="0" x2="450" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="750" y1="0" x2="750" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="1050" y1="0" x2="1050" y2="630"/>
+  </g>
+
+  <!-- Logo mark -->
+  <rect x="80" y="72" width="44" height="44" rx="10" fill="#6366f1" opacity="0.9"/>
+  <text x="102" y="101" font-family="Arial" font-size="24" font-weight="900" fill="white" text-anchor="middle">I</text>
+
+  <!-- Logo text -->
+  <text x="136" y="101" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#f1f5f9">Inference Agents</text>
+
+  <!-- Badge -->
+  <rect x="80" y="165" width="220" height="32" rx="16" fill="#6366f1" fill-opacity="0.15" stroke="#6366f1" stroke-opacity="0.35" stroke-width="1"/>
+  <circle cx="101" cy="181" r="5" fill="#10b981"/>
+  <text x="116" y="186" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#818cf8" letter-spacing="2">UK AI AUTOMATION</text>
+
+  <!-- Main headline -->
+  <text x="80" y="280" font-family="Arial, sans-serif" font-size="68" font-weight="900" fill="url(#title)">AI Agents That</text>
+  <text x="80" y="360" font-family="Arial, sans-serif" font-size="68" font-weight="900" fill="url(#title)">Work 24/7</text>
+
+  <!-- Subheading -->
+  <text x="80" y="420" font-family="Arial, sans-serif" font-size="26" fill="#94a3b8">Deploy autonomous AI agents for your UK business.</text>
+  <text x="80" y="455" font-family="Arial, sans-serif" font-size="26" fill="#94a3b8">Sales, HR, ops &amp; more — at 1/20th the cost of hiring.</text>
+
+  <!-- Stats -->
+  <rect x="80" y="510" width="180" height="70" rx="12" fill="white" fill-opacity="0.04" stroke="white" stroke-opacity="0.08" stroke-width="1"/>
+  <text x="170" y="545" font-family="Arial, sans-serif" font-size="28" font-weight="900" fill="#10b981" text-anchor="middle">38+</text>
+  <text x="170" y="567" font-family="Arial, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">AI Agents</text>
+
+  <rect x="278" y="510" width="180" height="70" rx="12" fill="white" fill-opacity="0.04" stroke="white" stroke-opacity="0.08" stroke-width="1"/>
+  <text x="368" y="545" font-family="Arial, sans-serif" font-size="28" font-weight="900" fill="#6366f1" text-anchor="middle">24/7</text>
+  <text x="368" y="567" font-family="Arial, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">Always On</text>
+
+  <rect x="476" y="510" width="180" height="70" rx="12" fill="white" fill-opacity="0.04" stroke="white" stroke-opacity="0.08" stroke-width="1"/>
+  <text x="566" y="545" font-family="Arial, sans-serif" font-size="28" font-weight="900" fill="#10b981" text-anchor="middle">£49/mo</text>
+  <text x="566" y="567" font-family="Arial, sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">Starting From</text>
+
+  <!-- Right side CTA box -->
+  <rect x="820" y="200" width="300" height="230" rx="20" fill="white" fill-opacity="0.04" stroke="#6366f1" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="970" y="248" font-family="Arial, sans-serif" font-size="15" font-weight="600" fill="#818cf8" text-anchor="middle" letter-spacing="1">FREE CONSULTATION</text>
+  <text x="970" y="298" font-family="Arial, sans-serif" font-size="32" font-weight="900" fill="#f1f5f9" text-anchor="middle">Book Your</text>
+  <text x="970" y="334" font-family="Arial, sans-serif" font-size="32" font-weight="900" fill="#f1f5f9" text-anchor="middle">Free Call</text>
+  <rect x="880" y="358" width="180" height="46" rx="10" fill="#6366f1"/>
+  <text x="970" y="387" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="white" text-anchor="middle">Get Started →</text>
+  <text x="970" y="418" font-family="Arial, sans-serif" font-size="13" fill="#64748b" text-anchor="middle">inference-agents.com</text>
+
+  <!-- Bottom domain -->
+  <text x="1120" y="601" font-family="Arial, sans-serif" font-size="14" fill="#475569" text-anchor="end">inference-agents.com</text>
+</svg>

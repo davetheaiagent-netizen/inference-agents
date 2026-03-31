@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) — Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQEVHHCQ07"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', wait_for_update: 500 });
+    gtag('js', new Date());
+    gtag('config', 'G-RQEVHHCQ07');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout | Inference Agents</title>
@@ -18,147 +27,128 @@
     .checkout-container {
       background: var(--bg-card);
       border-radius: 16px;
-      padding: 40px;
-      max-width: 500px;
+      padding: 48px 40px;
+      max-width: 440px;
       width: 100%;
-      border: 1px solid var(--border);
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.08);
     }
-    h1 { color: var(--primary); margin-bottom: 10px; }
-    .product-name { font-size: 24px; font-weight: bold; margin-bottom: 5px; }
-    .product-price {
-      font-size: 36px;
-      font-weight: bold;
-      margin: 20px 0;
-      background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .plan-badge {
+      display: inline-block;
+      background: rgba(99,102,241,0.15);
+      color: #6366f1;
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
-    .product-price span { font-size: 16px; color: var(--text-muted); -webkit-text-fill-color: var(--text-muted); }
-    .features {
-      background: rgba(255,255,255,0.03);
-      padding: 20px;
-      border-radius: 8px;
-      margin: 20px 0;
-      border: 1px solid var(--border);
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 8px;
     }
-    .features li { margin: 10px 0; list-style: none; }
-    .features li::before { content: "✓"; color: var(--accent); margin-right: 10px; }
-    input {
-      width: 100%;
-      padding: 13px 16px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.05);
-      color: var(--text);
-      font-size: 16px;
-      margin-bottom: 15px;
+    .price {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #6366f1;
+      margin: 16px 0 8px;
     }
-    input:focus { outline: none; border-color: var(--border-accent); }
-    .btn {
+    .price span {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+    .description {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .btn-checkout {
+      display: block;
       width: 100%;
       padding: 16px;
-      font-size: 18px;
-      font-weight: bold;
+      background: #6366f1;
+      color: white;
       border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
       cursor: pointer;
+      transition: background 0.2s;
+      font-family: inherit;
     }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-checkout:hover { background: #4f46e5; }
+    .btn-checkout:disabled { opacity: 0.6; cursor: not-allowed; }
     .security {
-      text-align: center;
+      margin-top: 16px;
       color: var(--text-muted);
-      font-size: 12px;
-      margin-top: 20px;
+      font-size: 0.85rem;
     }
-    .error { color: #ff4444; margin-bottom: 15px; }
-    .success { color: var(--accent); margin-bottom: 15px; }
+    .error {
+      color: #f87171;
+      margin-top: 12px;
+      font-size: 0.9rem;
+    }
   </style>
-  <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
   <div class="checkout-container">
-    <h1>🛒 Checkout</h1>
-    <div id="error" class="error"></div>
-    <div id="success" class="success"></div>
-
-    <div id="product-details">
-      <div class="product-name" id="productName">Loading...</div>
-      <div class="product-price" id="productPrice">$--</div>
-    </div>
-
-    <form id="checkout-form">
-      <input type="text" id="name" placeholder="Your Name" required>
-      <input type="email" id="email" placeholder="Email Address" required>
-      <input type="text" placeholder="Card Number" id="card-number" required>
-      <div style="display: flex; gap: 10px;">
-        <input type="text" placeholder="MM/YY" id="card-expiry" style="flex: 1;" required>
-        <input type="text" placeholder="CVC" id="card-cvc" style="flex: 1;" required>
-      </div>
-      <button type="submit" class="btn" id="submit-btn">Pay Now</button>
-    </form>
-
+    <div class="plan-badge" id="planBadge">Loading...</div>
+    <h1 id="planName">Getting ready...</h1>
+    <div class="price" id="planPrice"></div>
+    <p class="description" id="planDesc"></p>
+    <button class="btn-checkout" id="checkoutBtn" disabled>Redirecting to payment...</button>
     <p class="security">🔒 Secure payment powered by Stripe</p>
+    <div class="error" id="errorMsg"></div>
   </div>
 
   <script>
-    const products = {
-      'starter-pack': { name: 'AI Agent Army Starter Pack', price: 4900 },
-      'crypto-agent': { name: 'Crypto Trading Agent', price: 7900 },
-      'social-bundle': { name: 'Social Media Bundle', price: 3900 }
+    const plans = {
+      starter:   { label: 'Starter Plan',   name: '1 AI Agent',         price: '£99',  period: '/month', desc: 'One AI agent handling enquiries, bookings, or admin for your business 24/7.' },
+      growth:    { label: 'Growth Package', name: '3 AI Agents',        price: '£199', period: '/month', desc: 'Three AI agents covering multiple channels and functions simultaneously.' },
+      fullstack: { label: 'Full Stack',     name: 'All AI Agents',      price: '£399', period: '/month', desc: 'The complete AI workforce — every agent we offer, fully configured for your business.' },
     };
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('product') || 'starter-pack';
-    const product = products[productId];
+    const params = new URLSearchParams(window.location.search);
+    const plan = params.get('plan') || 'starter';
+    const p = plans[plan] || plans.starter;
 
-    if (product) {
-      document.getElementById('productName').textContent = product.name;
-      document.getElementById('productPrice').innerHTML = '$' + (product.price / 100) + ' <span>USD</span>';
-    }
+    document.getElementById('planBadge').textContent = p.label;
+    document.getElementById('planName').textContent = p.name;
+    document.getElementById('planPrice').innerHTML = p.price + ' <span>' + p.period + '</span>';
+    document.getElementById('planDesc').textContent = p.desc;
 
-    // Initialize Stripe (replace with your publishable key)
-    const stripe = Stripe('pk_test_YOUR_PUBLISHABLE_KEY');
+    const btn = document.getElementById('checkoutBtn');
+    btn.textContent = 'Proceed to Secure Checkout';
+    btn.disabled = false;
 
-    document.getElementById('checkout-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('submit-btn');
-      const errorDiv = document.getElementById('error');
-      const successDiv = document.getElementById('success');
-
+    btn.addEventListener('click', async () => {
       btn.disabled = true;
-      btn.textContent = 'Processing...';
-      errorDiv.textContent = '';
-      successDiv.textContent = '';
+      btn.textContent = 'Redirecting...';
+      document.getElementById('errorMsg').textContent = '';
 
-      // In production, you would create a payment intent on your server
-      // For demo, we'll show success after validation
-      await new Promise(r => setTimeout(r, 1500));
-
-      successDiv.textContent = '✅ Payment successful! Check your email for download instructions.';
-      btn.textContent = 'Paid!';
-
-      // Save to localStorage for demo
-      const order = {
-        product: product.name,
-        email: document.getElementById('email').value,
-        name: document.getElementById('name').value,
-        amount: product.price,
-        date: new Date().toISOString()
-      };
-
-      const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-      orders.push(order);
-      localStorage.setItem('orders', JSON.stringify(orders));
+      try {
+        const res = await fetch('/api/create-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ plan }),
+        });
+        const data = await res.json();
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          throw new Error(data.error || 'Something went wrong');
+        }
+      } catch (err) {
+        document.getElementById('errorMsg').textContent = err.message;
+        btn.disabled = false;
+        btn.textContent = 'Proceed to Secure Checkout';
+      }
     });
-  </script>
-
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>

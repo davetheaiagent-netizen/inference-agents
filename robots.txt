@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /mission-control.html
+Disallow: /checkout.html
+Disallow: /functions/
+
+Sitemap: https://inference-agents.com/sitemap.xml

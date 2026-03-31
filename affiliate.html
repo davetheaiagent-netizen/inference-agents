@@ -1,24 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) — Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQEVHHCQ07"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', wait_for_update: 500 });
+    gtag('js', new Date());
+    gtag('config', 'G-RQEVHHCQ07');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Partner Program | Inference Agents</title>
-  <meta name="description" content="Join our affiliate partner program and earn commission promoting AI agents.">
+  <title>Partner Program — Earn 30% Commission | Inference Agents</title>
+  <meta name="description" content="Refer UK businesses to Inference Agents and earn 30% recurring commission every month they stay. Free to join, no cap on earnings.">
   <link rel="canonical" href="https://inference-agents.com/affiliate.html">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles-dark.css">
   <style>
-    .hero-icon { font-size: 72px; margin-bottom: 20px; }
-    .benefit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin: 40px 0; }
-    .benefit { background: var(--bg-card); border: 1px solid var(--border); padding: 30px; border-radius: 16px; text-align: center; }
-    .benefit-icon { font-size: 48px; margin-bottom: 16px; }
-    .benefit h3 { margin-bottom: 10px; }
-    .benefit p { color: var(--text-muted); font-size: 14px; }
-    .commission { background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(16,185,129,0.08)); border: 1px solid rgba(99,102,241,0.25); border-radius: 20px; padding: 40px; text-align: center; margin: 40px 0; }
-    .commission h2 { font-size: 48px; margin-bottom: 10px; }
-    .commission p { font-size: 18px; color: var(--text-muted); }
+    /* ── Commission hero block ───────────────────────────── */
+    .commission-hero {
+      background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(16,185,129,0.06) 100%);
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: 24px;
+      padding: 52px 40px;
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .commission-hero .pct {
+      font-size: 80px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -4px;
+      background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .commission-hero h2 { font-size: 22px; margin: 12px 0 10px; }
+    .commission-hero p { color: var(--text-muted); font-size: 16px; max-width: 480px; margin: 0 auto; }
+
+    /* ── Earnings table ──────────────────────────────────── */
+    .earnings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 64px;
+    }
+    .earnings-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .earnings-card:hover {
+      border-color: rgba(99,102,241,0.4);
+      box-shadow: 0 0 30px rgba(99,102,241,0.1);
+      transform: translateY(-3px);
+    }
+    .earnings-card .plan-name {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .earnings-card .plan-price {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .earnings-card .per-referral {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .earnings-card .your-cut {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .earnings-card .your-cut-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .earnings-card .annual-note {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-top: 10px;
+    }
+
+    /* ── Who it's for ────────────────────────────────────── */
+    .who-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 64px;
+    }
+    .who-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .who-icon { font-size: 28px; margin-bottom: 12px; }
+    .who-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .who-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── How it works ────────────────────────────────────── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 64px;
+      position: relative;
+    }
+    .step {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+    .step-num {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 800; color: #fff;
+      margin: 0 auto 14px;
+    }
+    .step h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .step p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── Application form ────────────────────────────────── */
+    .apply-layout {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 32px;
+      align-items: start;
+    }
+    .apply-form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px;
+    }
+    .apply-form-card h2 { font-size: 22px; margin-bottom: 6px; }
+    .apply-form-card > p { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 500; color: var(--text-muted); }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    .form-group select option { background: #0d0d24; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(99,102,241,0.07);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+    }
+
+    /* ── Side info panel ─────────────────────────────────── */
+    .apply-side { display: flex; flex-direction: column; gap: 20px; }
+    .apply-info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .apply-info-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 14px; }
+    .apply-info-card ul { list-style: none; }
+    .apply-info-card li {
+      display: flex;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      line-height: 1.5;
+    }
+    .apply-info-card li:last-child { border-bottom: none; }
+    .apply-info-card li::before { content: '✓'; color: var(--accent); flex-shrink: 0; font-weight: 700; }
+
+    .example-earning {
+      background: rgba(16,185,129,0.07);
+      border: 1px solid rgba(16,185,129,0.18);
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .example-earning h3 { font-size: 14px; color: #34d399; margin-bottom: 12px; }
+    .example-earning p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+    .example-earning strong { color: var(--text); }
+
+    @media (max-width: 900px) {
+      .earnings-grid { grid-template-columns: 1fr; }
+      .who-grid { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .apply-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .who-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .commission-hero { padding: 36px 24px; }
+      .commission-hero .pct { font-size: 60px; }
+    }
   </style>
 </head>
 <body>
@@ -28,71 +231,221 @@
         <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
         <ul class="nav-links">
           <li><a href="index.html#services">Services</a></li>
-          <li><a href="index.html#agents">AI Agents</a></li>
+          <li><a href="index.html#sectors">Sectors</a></li>
           <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="blog.html">Blog</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
-        <a href="contact.html" class="btn">Get Started</a>
+        <a href="consultation.html" class="btn">Book Free Call</a>
       </nav>
     </div>
   </header>
 
   <section class="page-hero">
     <div class="container">
-      <div class="page-badge"><div class="badge-dot"></div>Affiliate Program</div>
-      <h1>Partner <span>Program</span></h1>
-      <p>Earn commission by referring clients to Inference Agents</p>
+      <div class="page-badge"><div class="badge-dot"></div>Partner Program</div>
+      <h1>Refer a Business. <span>Earn Every Month.</span></h1>
+      <p>Know a UK business that could benefit from AI automation? Refer them and earn 30% of their subscription — every month they stay, for as long as they stay.</p>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" style="padding-top: 0;">
     <div class="container">
-      <div class="commission">
-        <h2>30% Commission</h2>
-        <p>For every client you refer, earn 30% of their first year's subscription</p>
+
+      <!-- Commission headline -->
+      <div class="commission-hero reveal">
+        <div class="pct">30%</div>
+        <h2>Recurring monthly commission</h2>
+        <p>No cap. No expiry. No minimum referrals. Just a straightforward 30% of whatever your referred client pays us, paid to you every month.</p>
       </div>
 
-      <div class="benefit-grid">
-        <div class="benefit">
-          <div class="benefit-icon">💰</div>
-          <h3>High Commissions</h3>
-          <p>Earn up to £1,500 per referral with our 30% commission structure.</p>
+      <!-- Earnings breakdown -->
+      <div class="section-header reveal">
+        <div class="section-tag">What you earn</div>
+        <h2>Real numbers, real payouts</h2>
+        <p>Our plans start at £99/month. Every referral adds to your recurring income.</p>
+      </div>
+
+      <div class="earnings-grid reveal">
+        <div class="earnings-card">
+          <div class="plan-name">Starter Plan</div>
+          <div class="plan-price">£99/mo</div>
+          <div class="per-referral">client pays per month</div>
+          <div class="your-cut">£29.70</div>
+          <div class="your-cut-label">you earn per month</div>
+          <div class="annual-note">= £356/year per referral</div>
         </div>
-        <div class="benefit">
-          <div class="benefit-icon">🎯</div>
-          <h3>High Converting</h3>
-          <p>AI automation is in high demand. Easy to sell to businesses.</p>
+        <div class="earnings-card" style="border-color: rgba(99,102,241,0.35); background: rgba(99,102,241,0.05);">
+          <div class="plan-name">Growth Package</div>
+          <div class="plan-price">£199/mo</div>
+          <div class="per-referral">client pays per month</div>
+          <div class="your-cut">£59.70</div>
+          <div class="your-cut-label">you earn per month</div>
+          <div class="annual-note">= £716/year per referral</div>
         </div>
-        <div class="benefit">
-          <div class="benefit-icon">📈</div>
-          <h3>Recurring Income</h3>
-          <p>Get paid monthly as long as your referred clients stay.</p>
-        </div>
-        <div class="benefit">
-          <div class="benefit-icon">🎁</div>
-          <h3>Bonuses</h3>
-          <p>Hit targets and earn bonuses + exclusive perks.</p>
+        <div class="earnings-card">
+          <div class="plan-name">Full Stack</div>
+          <div class="plan-price">£399/mo</div>
+          <div class="per-referral">client pays per month</div>
+          <div class="your-cut">£119.70</div>
+          <div class="your-cut-label">you earn per month</div>
+          <div class="annual-note">= £1,436/year per referral</div>
         </div>
       </div>
 
-      <div class="card" style="max-width: 600px; margin: 40px auto; text-align: center;">
-        <h2 style="margin-bottom: 20px;">How It Works</h2>
-        <div style="text-align: left;">
-          <p style="margin-bottom: 16px;"><strong>1.</strong> Sign up as a partner (free)</p>
-          <p style="margin-bottom: 16px;"><strong>2.</strong> Get your unique referral link</p>
-          <p style="margin-bottom: 16px;"><strong>3.</strong> Share with your network</p>
-          <p style="margin-bottom: 16px;"><strong>4.</strong> Earn 30% commission for life</p>
+      <!-- Who it's for -->
+      <div class="section-header reveal">
+        <div class="section-tag">Who partners with us</div>
+        <h2>Perfect if you already work with UK businesses</h2>
+      </div>
+
+      <div class="who-grid reveal">
+        <div class="who-card">
+          <div class="who-icon">📊</div>
+          <h4>Accountants &amp; Bookkeepers</h4>
+          <p>Your clients are already asking about AI. Refer them to us and earn while we do the technical work.</p>
         </div>
-        <a href="contact.html" class="btn" style="margin-top: 20px;">Apply Now</a>
+        <div class="who-card">
+          <div class="who-icon">💻</div>
+          <h4>Web Designers &amp; Developers</h4>
+          <p>You build the site, we automate the business behind it. A natural add-on for every client you hand off.</p>
+        </div>
+        <div class="who-card">
+          <div class="who-icon">📣</div>
+          <h4>Marketing Agencies</h4>
+          <p>Help your clients work smarter, not harder. Refer them and earn without adding to your own workload.</p>
+        </div>
+        <div class="who-card">
+          <div class="who-icon">🎓</div>
+          <h4>Business Coaches &amp; Consultants</h4>
+          <p>Recommend AI automation as part of your strategy work. We deliver, you earn.</p>
+        </div>
+        <div class="who-card">
+          <div class="who-icon">🏢</div>
+          <h4>Commercial Estate Agents</h4>
+          <p>Your tenant and landlord clients run businesses. Many would benefit from AI — and now you can benefit too.</p>
+        </div>
+        <div class="who-card">
+          <div class="who-icon">🤝</div>
+          <h4>Business Network Members</h4>
+          <p>BNI, Chamber of Commerce, local networks. If you meet business owners, you can refer them.</p>
+        </div>
+      </div>
+
+      <!-- How it works -->
+      <div class="section-header reveal">
+        <div class="section-tag">Simple process</div>
+        <h2>How it works</h2>
+      </div>
+
+      <div class="steps reveal">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h4>Apply below</h4>
+          <p>Fill in the short form. We approve all partners within 24 hours.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h4>Get your referral link</h4>
+          <p>We send you a unique tracking link and a short partner brief.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h4>Refer a business</h4>
+          <p>Share your link, make an intro, or just give us their details — we handle the rest.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h4>Get paid monthly</h4>
+          <p>30% lands in your account every month your referral is a client. No minimum. No cap.</p>
+        </div>
+      </div>
+
+      <!-- Application form -->
+      <div id="apply" class="apply-layout reveal">
+
+        <div class="apply-form-card">
+          <h2>Apply to become a partner</h2>
+          <p>Takes 2 minutes. We'll be in touch within one working day.</p>
+          <form id="affiliate-form" action="https://formspree.io/f/xpwzgvzl" method="POST">
+            <input type="hidden" name="_subject" value="Partner Program Application">
+            <div class="form-group">
+              <label>Your name *</label>
+              <input type="text" name="name" placeholder="Full name" required>
+            </div>
+            <div class="form-group">
+              <label>Email address *</label>
+              <input type="email" name="email" placeholder="you@yourcompany.com" required>
+            </div>
+            <div class="form-group">
+              <label>Your business / role *</label>
+              <input type="text" name="business" placeholder="e.g. Web designer, accountant, business coach" required>
+            </div>
+            <div class="form-group">
+              <label>How do you know your potential referrals?</label>
+              <select name="network">
+                <option value="">Select</option>
+                <option>Existing clients</option>
+                <option>Business network / BNI</option>
+                <option>Social media audience</option>
+                <option>Friends &amp; colleagues</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Anything else you'd like us to know?</label>
+              <textarea name="message" placeholder="Optional — tell us a bit about your network or why you'd like to partner with us" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn" style="width:100%; padding:14px; font-size:15px;">Apply Now →</button>
+            <p style="font-size:12px; color:var(--text-muted); text-align:center; margin-top:10px;">Free to join. No obligations.</p>
+          </form>
+          <div id="affiliate-success" style="display:none; text-align:center; padding:32px 0;">
+            <div style="font-size:48px; margin-bottom:14px;">🎉</div>
+            <h3 style="margin-bottom:8px;">Application received!</h3>
+            <p style="color:var(--text-muted); font-size:14px;">We'll be in touch within one working day with your referral link and partner brief.</p>
+          </div>
+        </div>
+
+        <div class="apply-side">
+          <div class="apply-info-card">
+            <h3>What's included</h3>
+            <ul>
+              <li>30% recurring commission, paid monthly</li>
+              <li>Unique referral tracking link</li>
+              <li>Partner brief &amp; introductory email template</li>
+              <li>Dashboard to track referrals &amp; earnings</li>
+              <li>Priority support for your referred clients</li>
+              <li>No minimum referrals, no sign-up fee</li>
+              <li>Cancel or pause at any time</li>
+            </ul>
+          </div>
+
+          <div class="example-earning">
+            <h3>📊 Example earnings</h3>
+            <p>You refer <strong>3 businesses</strong> on the Growth Package (£199/mo each).<br><br>
+            Your monthly income: <strong>3 × £59.70 = £179.10/mo</strong><br>
+            Your annual income: <strong>£2,149.20/year</strong><br><br>
+            And that's just 3 referrals — with no extra work once they're signed up.</p>
+          </div>
+
+          <div class="apply-info-card">
+            <h3>Questions?</h3>
+            <ul>
+              <li>Email us at hello@inference-agents.com</li>
+              <li>We respond within 2 hours on weekdays</li>
+            </ul>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
   <section class="cta">
     <div class="container">
-      <h2>Start Earning</h2>
-      <p>Join our partner program today</p>
-      <a href="contact.html" class="btn" style="padding: 16px 40px; font-size: 18px;">Apply Now</a>
+      <h2>Ready to <span>Start Earning?</span></h2>
+      <p>Apply above — it takes 2 minutes and we'll have you set up within 24 hours.</p>
+      <a href="#apply" class="btn" style="padding:16px 40px; font-size:18px;">Apply Now →</a>
     </div>
   </section>
 
@@ -104,31 +457,48 @@
           <p>AI automation agency helping UK businesses deploy autonomous AI agents that work 24/7.</p>
         </div>
         <div class="footer-col">
-          <h4>Services</h4>
-          <a href="sales-ai.html">Sales AI</a>
-          <a href="marketing-ai.html">Marketing AI</a>
-          <a href="hr-ai.html">HR AI</a>
-          <a href="operations-ai.html">Operations</a>
+          <h4>Sectors</h4>
+          <a href="hospitality-ai.html">Hospitality AI</a>
+          <a href="retail-ai.html">Retail AI</a>
+          <a href="professional-services-ai.html">Professional Services AI</a>
+          <a href="healthcare-ai.html">Healthcare AI</a>
         </div>
         <div class="footer-col">
           <h4>Company</h4>
-          <a href="case-studies.html">Case Studies</a>
-          <a href="compare.html">Compare</a>
+          <a href="blog.html">Blog</a>
           <a href="roi-calculator.html">ROI Calculator</a>
-          <a href="affiliate.html">Partner Program</a>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="affiliate.html" style="color:var(--primary-light);">Partner Program</a>
         </div>
         <div class="footer-col">
-          <h4>Contact</h4>
-          <a href="contact.html">Get in Touch</a>
-          <a href="consultation.html">Book Call</a>
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy &amp; Cookie Policy</a>
+          <a href="contact.html">Contact</a>
+          <a href="consultation.html">Book Free Call</a>
           <a href="mailto:hello@inference-agents.com">hello@inference-agents.com</a>
         </div>
       </div>
-      <div class="footer-bottom">© 2026 Inference Agents. All rights reserved. UK Business.</div>
+      <div class="footer-bottom">
+        © 2026 Inference Agents. All rights reserved. UK Business.
+      </div>
     </div>
   </footer>
 
   <script>
+    document.getElementById('affiliate-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('button[type="submit"]');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+      try {
+        const res = await fetch(this.action, { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' } });
+        if (res.ok) {
+          this.style.display = 'none';
+          document.getElementById('affiliate-success').style.display = 'block';
+        } else { btn.textContent = 'Try again'; btn.disabled = false; }
+      } catch { btn.textContent = 'Try again'; btn.disabled = false; }
+    });
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
@@ -136,5 +506,9 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
+  <script src="nav.js"></script>
+  <script src="effects.js"></script>
+  <script src="analytics.js"></script>
+  <script src="cookies.js"></script>
 </body>
 </html>

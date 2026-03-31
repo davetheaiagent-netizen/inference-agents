@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) — Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQEVHHCQ07"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', wait_for_update: 500 });
+    gtag('js', new Date());
+    gtag('config', 'G-RQEVHHCQ07');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tradesman AI | Inference Agents</title>
@@ -38,11 +47,12 @@
         </a>
         <ul class="nav-links">
           <li><a href="index.html#services">Services</a></li>
-          <li><a href="index.html#agents">AI Agents</a></li>
-          <li><a href="index.html#pricing">Pricing</a></li>
+          <li><a href="index.html#sectors">Sectors</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="blog.html">Blog</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
-        <a href="contact.html" class="btn">Get Started</a>
+        <a href="consultation.html" class="btn">Book Free Call</a>
       </nav>
     </div>
   </header>
@@ -87,20 +97,20 @@
       <div class="section-header"><h2>Simple Pricing</h2></div>
       <div class="pricing-grid">
         <div class="price-card reveal">
-          <h3>Solo</h3>
-          <div class="price">£29<span>/mo</span></div>
+          <h3>Starter</h3>
+          <div class="price">£99<span>/mo</span></div>
           <ul class="price-features">
             <li>50 quotes/mo</li>
             <li>WhatsApp booking</li>
             <li>Basic reminders</li>
             <li>Email support</li>
           </ul>
-          <a href="mailto:davetheaiagent@gmail.com?subject=Tradesman AI Solo" class="btn">Get Started</a>
+          <a href="consultation.html" class="btn">Book Free Call</a>
         </div>
         <div class="price-card featured reveal">
           <div style="background: linear-gradient(135deg, var(--primary), var(--accent)); color:#fff; padding:5px; border-radius:4px; font-size:12px; margin-bottom:10px;">MOST POPULAR</div>
-          <h3>Business</h3>
-          <div class="price">£49<span>/mo</span></div>
+          <h3>Growth Package</h3>
+          <div class="price">£199<span>/mo</span></div>
           <ul class="price-features">
             <li>Unlimited quotes</li>
             <li>Smart quoting</li>
@@ -108,11 +118,11 @@
             <li>Payment links</li>
             <li>Priority support</li>
           </ul>
-          <a href="mailto:davetheaiagent@gmail.com?subject=Tradesman AI Business" class="btn">Get Started</a>
+          <a href="consultation.html" class="btn">Book Free Call</a>
         </div>
         <div class="price-card reveal">
-          <h3>Team</h3>
-          <div class="price">£99<span>/mo</span></div>
+          <h3>Full Stack</h3>
+          <div class="price">£399<span>/mo</span></div>
           <ul class="price-features">
             <li>Multiple traders</li>
             <li>Job assignments</li>
@@ -120,7 +130,7 @@
             <li>Customer CRM</li>
             <li>Dedicated support</li>
           </ul>
-          <a href="mailto:davetheaiagent@gmail.com?subject=Tradesman AI Team" class="btn">Get Started</a>
+          <a href="consultation.html" class="btn">Book Free Call</a>
         </div>
       </div>
     </div>
@@ -130,7 +140,7 @@
     <div class="container">
       <h2>Stop Missing Jobs. Start Booking More.</h2>
       <p>Join 52 UK tradesmen with AI assistants</p>
-      <a href="mailto:davetheaiagent@gmail.com?subject=Tradesman AI Demo" class="btn">Book a Demo</a>
+      <a href="consultation.html" class="btn" style="padding:16px 40px; font-size:18px;">Book Free Call →</a>
     </div>
   </section>
 
@@ -174,5 +184,9 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
+<script src="nav.js"></script>
+  <script src="effects.js"></script>
+  <script src="analytics.js"></script>
+<script src="cookies.js"></script>
 </body>
 </html>

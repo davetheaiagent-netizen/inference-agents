@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) — Consent Mode v2 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQEVHHCQ07"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', wait_for_update: 500 });
+    gtag('js', new Date());
+    gtag('config', 'G-RQEVHHCQ07');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Receptionist for Hotels UK: Replacing Late-Night Calls | Inference Agents</title>
+  <meta name="description" content="UK hotels are using AI receptionists to handle guest enquiries 24/7 — cutting response times from hours to seconds. See the Cotswolds case study.">
+  <link rel="canonical" href="https://inference-agents.com/blog-ai-receptionist-hospitality.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles-dark.css">
+
+  <!-- Article JSON-LD -->
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The AI Receptionist Replacing Late-Night Calls in UK Hotels",
+    "description": "UK hotels are using AI receptionists to handle guest enquiries 24/7 — cutting response times from hours to seconds. See the Cotswolds case study.",
+    "author": {"@type": "Organization", "name": "Inference Agents"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "Inference Agents",
+      "logo": {"@type": "ImageObject", "url": "https://inference-agents.com/logo.svg"}
+    },
+    "datePublished": "2026-03-27",
+    "dateModified": "2026-03-27",
+    "url": "https://inference-agents.com/blog-ai-receptionist-hospitality.html"
+  }</script>
+
+  <!-- FAQPage JSON-LD -->
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is an AI receptionist for hotels?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "An AI receptionist is a software agent that handles guest enquiries automatically — across email, WhatsApp, and online travel agencies — 24 hours a day. It answers questions about availability, rates, check-in times, facilities, and local recommendations. It can also take direct booking requests and escalate complex issues to your human team."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does an AI receptionist cost for a UK hotel?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Inference Agents offers AI receptionist packages from £99/month (Starter — 1 AI agent) to £199/month (Growth Package — 3 AI agents) and £399/month (Full Stack — all sector agents). There are no setup fees and no contracts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will an AI receptionist work with Booking.com and Airbnb?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. AI receptionists can be set up to monitor and respond to messages from online travel agencies including Booking.com and Airbnb, as well as email and WhatsApp. Replies are drafted and sent within seconds of a guest message arriving."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can an AI receptionist increase direct bookings?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — a Cotswolds hotel using Inference Agents saw a 31% increase in direct bookings after deploying an AI receptionist. Faster response times mean fewer guests drop off to OTAs, and the AI can actively guide guests toward direct booking options."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does it take to set up an AI receptionist for a hotel?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most hotels are live within 7 days. Setup involves connecting your communication channels (email, WhatsApp, OTA inboxes) and providing information about your property. Our team handles the technical side."
+        }
+      }
+    ]
+  }</script>
+
+  <style>
+    .blog-hero { padding: 80px 0 40px; }
+    .blog-hero .blog-tag { display: inline-block; font-size: 11px; padding: 4px 14px; border-radius: 100px; background: rgba(99,102,241,0.12); color: var(--primary-light); border: 1px solid rgba(99,102,241,0.2); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+    .blog-hero h1 { font-size: clamp(28px, 5vw, 48px); font-weight: 800; line-height: 1.2; margin-bottom: 20px; background: linear-gradient(135deg, var(--text), var(--primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blog-hero .blog-meta { display: flex; gap: 16px; color: var(--text-muted); font-size: 14px; margin-bottom: 0; flex-wrap: wrap; }
+    .blog-body { max-width: 760px; margin: 0 auto; padding: 40px 0 60px; }
+    .blog-body h2 { font-size: 24px; font-weight: 700; margin: 40px 0 16px; color: var(--text); }
+    .blog-body h3 { font-size: 19px; font-weight: 600; margin: 28px 0 12px; color: var(--text); }
+    .blog-body p { font-size: 16px; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px; }
+    .blog-body ul, .blog-body ol { padding-left: 24px; margin-bottom: 20px; }
+    .blog-body li { font-size: 16px; color: var(--text-muted); line-height: 1.8; margin-bottom: 8px; }
+    .blog-body strong { color: var(--text); font-weight: 600; }
+    .blog-body a { color: var(--primary-light); text-decoration: none; border-bottom: 1px solid rgba(129,140,248,0.3); transition: border-color 0.2s; }
+    .blog-body a:hover { border-color: var(--primary-light); }
+    .callout { background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.2); border-radius: 12px; padding: 24px 28px; margin: 32px 0; }
+    .callout p { margin: 0; color: var(--text); }
+    .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; margin: 32px 0; }
+    .stat-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+    .stat-box .stat-num { font-size: 28px; font-weight: 800; color: var(--primary-light); display: block; }
+    .stat-box .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 4px; display: block; }
+    .pricing-table { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 32px 0; }
+    .price-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; text-align: center; }
+    .price-card.popular { border-color: var(--primary); }
+    .price-card .plan-name { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 8px; }
+    .price-card .plan-price { font-size: 32px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+    .price-card .plan-price span { font-size: 14px; color: var(--text-muted); font-weight: 400; }
+    .price-card .plan-desc { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
+    .popular-badge { font-size: 11px; background: var(--primary); color: white; padding: 3px 10px; border-radius: 100px; font-weight: 700; margin-bottom: 8px; display: inline-block; }
+    .faq { margin: 40px 0; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-item h3 { font-size: 17px; font-weight: 600; color: var(--text); margin: 0 0 10px; }
+    .faq-item p { margin: 0; font-size: 15px; }
+    .related-reading { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin: 48px 0 0; }
+    .related-reading h2 { font-size: 20px; font-weight: 700; color: var(--text); margin: 0 0 20px; }
+    .related-links { display: flex; flex-direction: column; gap: 12px; }
+    .related-link { display: flex; align-items: flex-start; gap: 12px; text-decoration: none !important; border-bottom: none !important; padding: 14px 16px; background: rgba(255,255,255,0.03); border-radius: 10px; transition: background 0.2s; }
+    .related-link:hover { background: rgba(99,102,241,0.08) !important; }
+    .related-link .rl-icon { font-size: 24px; flex-shrink: 0; }
+    .related-link .rl-text strong { display: block; font-size: 15px; color: var(--text); font-weight: 600; margin-bottom: 3px; }
+    .related-link .rl-text span { font-size: 13px; color: var(--text-muted); }
+  </style>
+  <!-- BreadcrumbList Schema -->
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://inference-agents.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://inference-agents.com/blog.html"},
+      {"@type": "ListItem", "position": 3, "name": "The AI Receptionist Replacing Late-Night Calls in UK Hotels", "item": "https://inference-agents.com/blog-ai-receptionist-hospitality.html"}
+    ]
+  }</script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
+        <ul class="nav-links">
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#sectors">Sectors</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <a href="consultation.html" class="btn">Book Free Call</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="blog-hero">
+    <div class="container">
+      <span class="blog-tag">Hospitality</span>
+      <h1>The AI Receptionist Replacing Late-Night Calls in UK Hotels</h1>
+      <div class="blog-meta">
+        <span>27 March 2026</span>
+        <span>· 7 min read</span>
+        <span>· AI receptionist for hotels UK</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="blog-body">
+
+        <p>It's 11:30 pm. A couple planning their anniversary trip sends an enquiry to your hotel asking about room upgrades, parking, and whether you do early check-in. They've also messaged three other hotels through Booking.com.</p>
+
+        <p>Your night porter isn't paid to manage emails. By morning, two of your competitors have already replied. You haven't. The booking goes elsewhere.</p>
+
+        <p>This happens every night across the UK — and it's costing hotels far more than they realise. An <a href="hospitality-ai.html">AI receptionist built for the hospitality sector</a> changes this completely.</p>
+
+        <h2>The Real Cost of the Staffing Problem</h2>
+
+        <p>Hospitality has always had a staffing problem. But in 2026, it's reached a tipping point. Staff turnover in UK hospitality is running at <strong>30–40%</strong>, which means constant recruitment, constant training, and constant gaps in cover.</p>
+
+        <p>Meanwhile, the National Living Wage has risen to <strong>£12.71 per hour</strong>. A full-time receptionist covering a standard 40-hour week costs well over £26,000 per year once you factor in employer National Insurance and holiday pay — and that still doesn't get you 24/7 cover.</p>
+
+        <p>For independent hotels, B&Bs, and guest houses, hiring two receptionists to cover all hours simply isn't viable. The alternative — leaving guest messages unanswered overnight — isn't either.</p>
+
+        <div class="callout">
+          <p><strong>The gap no one talks about:</strong> Most hotel bookings start with an enquiry. If that enquiry goes unanswered for more than a few hours, most guests move on. Speed of response is now a direct driver of conversion — not just a courtesy.</p>
+        </div>
+
+        <h2>What an AI Receptionist Actually Does</h2>
+
+        <p>An AI receptionist isn't a chatbot that fires back a canned message. It reads the actual question, understands context, and replies like a knowledgeable member of your team would.</p>
+
+        <p>Set it up once, and it handles:</p>
+
+        <ul>
+          <li>Availability and rate enquiries — at any time of day or night</li>
+          <li>Check-in and check-out questions</li>
+          <li>Requests about facilities, parking, accessibility, and pet policies</li>
+          <li>Local recommendations (restaurants, taxis, attractions)</li>
+          <li>Upsell prompts — breakfast packages, room upgrades, late check-outs</li>
+          <li>Review requests sent automatically after each stay</li>
+          <li>Escalation to you or your team when a message needs a human decision</li>
+        </ul>
+
+        <p>The response time drops from hours — sometimes a day — to <strong>seconds</strong>. Every enquiry gets acknowledged immediately, and most get fully answered without any human involvement.</p>
+
+        <h2>It Works Wherever Your Guests Message You</h2>
+
+        <p>UK guests don't use a single channel. They message via email, WhatsApp, Booking.com's internal system, Airbnb, and sometimes Google Messages. The AI receptionist works across all of them.</p>
+
+        <p>One inbox, one AI, handling everything in parallel — without any of the context-switching that overwhelms a human team during busy periods.</p>
+
+        <p>That means no more missed Booking.com messages because someone didn't check the portal. No more WhatsApp enquiries sitting unread until the morning manager arrives. Every message gets a reply.</p>
+
+        <div class="stat-row">
+          <div class="stat-box">
+            <span class="stat-num">24/7</span>
+            <span class="stat-label">Guest enquiry cover</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">&lt;30s</span>
+            <span class="stat-label">Average response time</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">97%</span>
+            <span class="stat-label">Cost saving vs staffing</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">7 days</span>
+            <span class="stat-label">To go live</span>
+          </div>
+        </div>
+
+        <h2>Case Study: Cotswolds Hotel</h2>
+
+        <p>A 14-room hotel in the Cotswolds was struggling with the classic independent property problem: exceptional guest experience during the day, but a black hole of unanswered messages overnight and at weekends.</p>
+
+        <p>They deployed an AI receptionist through Inference Agents, connected across email, WhatsApp, and their Booking.com inbox. Within the first month:</p>
+
+        <ul>
+          <li><strong>31% increase in direct bookings</strong> — guests who got instant replies booked direct rather than going back to OTAs</li>
+          <li><strong>4.8-star review average</strong> — faster responses and post-stay follow-ups lifted their rating consistently</li>
+          <li><strong>£2,100/month saved</strong> — replacing the equivalent in part-time reception cover and OTA commission on diverted bookings</li>
+        </ul>
+
+        <p>The owner told us: "We used to lose bookings every weekend. Now our AI handles the 10 pm and 11 pm messages the same way we'd handle them at 10 am. Guests can't tell the difference."</p>
+
+        <div class="callout">
+          <p>The Cotswolds hotel was live within 7 days of signing up. No technical knowledge required. Our team handled the setup and integration with their existing channels.</p>
+        </div>
+
+        <h2>What About the Human Touch?</h2>
+
+        <p>This is the question every hotel owner asks — and it's a fair one. Hospitality is a people business. Guests choose independent hotels precisely because they want warmth and personality, not a faceless corporate response.</p>
+
+        <p>The AI is trained on your property's tone of voice, your specific FAQs, and your preferences. It replies the way you'd want your best team member to reply. And when a message genuinely needs a human — a complaint, an unusual request, a sensitive situation — it flags it immediately and hands over to your team.</p>
+
+        <p>In practice, most guests are delighted to get a fast, accurate reply at midnight. They don't need to know it came from an AI — they just know your hotel responded when others didn't.</p>
+
+        <h2>Pricing: What Does It Cost?</h2>
+
+        <p>One of the most common misconceptions about AI receptionists is that they're expensive. They're not — particularly compared to the staffing they replace.</p>
+
+        <div class="pricing-table">
+          <div class="price-card">
+            <div class="plan-name">Starter</div>
+            <div class="plan-price">£99<span>/month</span></div>
+            <div class="plan-desc">1 AI agent. Ideal for small B&Bs and guest houses wanting 24/7 enquiry cover.</div>
+          </div>
+          <div class="price-card popular">
+            <div class="popular-badge">Most Popular</div>
+            <div class="plan-name">Growth Package</div>
+            <div class="plan-price">£199<span>/month</span></div>
+            <div class="plan-desc">3 AI agents. Add review management and social media alongside your receptionist.</div>
+          </div>
+          <div class="price-card">
+            <div class="plan-name">Full Stack</div>
+            <div class="plan-price">£399<span>/month</span></div>
+            <div class="plan-desc">All sector agents. Full back-office automation for busier properties.</div>
+          </div>
+        </div>
+
+        <p>No setup fees. No long-term contracts. Cancel any time. You can also swap which agents you're using each billing cycle — so if you want to switch from receptionist to rota management for the winter off-season, you can.</p>
+
+        <p>Ready to see what this would look like for your property? <a href="consultation.html">Book a free 30-minute call</a> and we'll walk through your specific situation.</p>
+
+        <h2>The Bottom Line for UK Hotels</h2>
+
+        <p>The hospitality sector is facing a structural cost problem that isn't going away. NLW will continue rising. Recruitment costs will stay high. OTA commissions will keep eating into margins.</p>
+
+        <p>The businesses pulling ahead aren't the ones spending more on staff — they're the ones deploying AI to cover the gaps that have always been impossible to fill affordably.</p>
+
+        <p>A guest who gets a reply at 11 pm books with you. A guest who doesn't books somewhere else.</p>
+
+        <p>That's the conversation the AI receptionist is winning every single night — so your team can focus on the face-to-face experience that actually makes guests come back.</p>
+
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq">
+          <div class="faq-item">
+            <h3>What is an AI receptionist for hotels?</h3>
+            <p>An AI receptionist is a software agent that handles guest enquiries automatically — across email, WhatsApp, and online travel agencies — 24 hours a day. It answers questions about availability, rates, check-in times, facilities, and local recommendations, and can escalate complex queries to your human team.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How much does an AI receptionist cost for a UK hotel?</h3>
+            <p>Packages start at £99/month for a single AI receptionist agent. The Growth Package at £199/month adds two further agents, and Full Stack at £399/month covers everything. No setup fees, no contracts.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Will it work with Booking.com and Airbnb?</h3>
+            <p>Yes. The AI can monitor and respond to messages from Booking.com, Airbnb, and other OTAs, alongside your email and WhatsApp. Every channel, one AI, instant replies.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Can an AI receptionist increase direct bookings?</h3>
+            <p>Yes — a Cotswolds hotel using Inference Agents saw a 31% increase in direct bookings after deploying an AI receptionist. Faster replies reduce the drop-off to OTAs, and the AI can actively guide guests toward booking direct.</p>
+          </div>
+          <div class="faq-item">
+            <h3>How long does setup take?</h3>
+            <p>Most hotels are live within 7 days. Our team handles the technical setup. You provide information about your property and your preferred tone of voice, and we handle the rest.</p>
+          </div>
+        </div>
+
+        <!-- Related reading -->
+        <div class="related-reading">
+          <h2>Related reading</h2>
+          <div class="related-links">
+            <a href="hospitality-ai.html" class="related-link">
+              <span class="rl-icon">🏨</span>
+              <div class="rl-text">
+                <strong>Hospitality AI — Full Sector Overview</strong>
+                <span>See all the AI agents built for UK hotels, B&Bs and hospitality businesses.</span>
+              </div>
+            </a>
+            <a href="blog-ai-receptionist-cost.html" class="related-link">
+              <span class="rl-icon">📞</span>
+              <div class="rl-text">
+                <strong>AI Receptionist vs Hiring: The True Cost Comparison</strong>
+                <span>A full breakdown of what a human receptionist costs vs AI — with real numbers.</span>
+              </div>
+            </a>
+            <a href="hospitality-ai.html" class="related-link">
+              <span class="rl-icon">🛎️</span>
+              <div class="rl-text">
+                <strong>AI Guest Management for UK Hotels: Cut Costs, Fill Rooms</strong>
+                <span>How unanswered messages are costing UK hotels bookings — and how AI fixes both.</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to handle every guest enquiry — even at midnight?</h2>
+      <p>Book a free 30-minute call and we'll show you exactly how an AI receptionist would work for your property.</p>
+      <a href="consultation.html" class="btn" style="padding:16px 40px; font-size:18px;">Book Free Call →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="/" class="logo"><img src="logo.svg" alt="Inference Agents"></a>
+          <p>AI automation agency helping UK businesses deploy autonomous AI agents that work 24/7.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Sectors</h4>
+          <a href="hospitality-ai.html">Hospitality AI</a>
+          <a href="retail-ai.html">Retail AI</a>
+          <a href="professional-services-ai.html">Professional Services AI</a>
+          <a href="healthcare-ai.html">Healthcare AI</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="blog.html">Blog</a>
+          <a href="roi-calculator.html">ROI Calculator</a>
+          <a href="case-studies.html">Case Studies</a>
+          <a href="affiliate.html">Partner Program</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy &amp; Cookie Policy</a>
+          <a href="contact.html">Contact</a>
+          <a href="consultation.html">Book Free Call</a>
+          <a href="mailto:hello@inference-agents.com">hello@inference-agents.com</a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 Inference Agents. All rights reserved. UK Business.</div>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+  <script src="effects.js"></script>
+  <script src="analytics.js"></script>
+  <script src="cookies.js"></script>
+</body>
+</html>
